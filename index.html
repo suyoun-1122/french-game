@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momo's French Adventure</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(#ffdff1,#fff9e8);
+text-align:center;
+padding:20px;
+}
+
+.card{
+max-width:500px;
+margin:auto;
+background:white;
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.cat{
+font-size:90px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+h1{
+color:#ff4da6;
+margin:15px 0;
+}
+
+.word{
+font-size:42px;
+font-weight:bold;
+color:#6a3fd8;
+margin:20px;
+}
+
+.meaning{
+font-size:28px;
+margin:20px;
+color:#333;
+}
+
+button{
+
+padding:15px 25px;
+
+border:none;
+
+border-radius:15px;
+
+background:#ff69b4;
+
+color:white;
+
+font-size:18px;
+
+margin:8px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#ff4da6;
+
+}
+
+#example{
+
+margin-top:20px;
+
+font-size:22px;
+
+color:#666;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="cat">🐱</div>
+
+<h1>Momo's French Adventure</h1>
+
+<div class="word" id="word"></div>
+
+<div class="meaning" id="meaning"></div>
+
+<button onclick="speak()">🔊 발음</button>
+
+<button onclick="nextWord()">다음 단어 ➜</button>
+
+<div id="example"></div>
+
+</div>
+
+<script>
+
+const words=[
+
+{
+
+article:"un",
+
+word:"livre",
+
+meaning:"책",
+
+example:"Je lis un livre."
+
+},
+
+{
+
+article:"une",
+
+word:"fleur",
+
+meaning:"꽃",
+
+example:"C'est une fleur."
+
+},
+
+{
+
+article:"un",
+
+word:"chat",
+
+meaning:"고양이",
+
+example:"Le chat dort."
+
+},
+
+{
+
+article:"une",
+
+word:"maison",
+
+meaning:"집",
+
+example:"La maison est grande."
+
+}
+
+];
+
+let current=0;
+
+function show(){
+
+document.getElementById("word").innerHTML=
+
+words[current].article+" "+words[current].word;
+
+document.getElementById("meaning").innerHTML=
+
+words[current].meaning;
+
+document.getElementById("example").innerHTML=
+
+words[current].example;
+
+}
+
+function nextWord(){
+
+current++;
+
+if(current>=words.length)
+
+current=0;
+
+show();
+
+}
+
+function speak(){
+
+let u=new SpeechSynthesisUtterance(
+
+words[current].article+" "+words[current].word
+
+);
+
+u.lang="fr-FR";
+
+speechSynthesis.speak(u);
+
+}
+
+show();
+
+</script>
+
+</body>
+
+</html>
