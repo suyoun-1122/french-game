@@ -1,0 +1,62 @@
+[
+  {
+    "article":"un",
+    "word":"livre",
+    "meaning":"책",
+    "example":"Je lis un livre."
+  },
+  {
+    "article":"une",
+    "word":"maison",
+    "meaning":"집",
+    "example":"La maison est grande."
+  },
+  {
+    "article":"un",
+    "word":"chat",
+    "meaning":"고양이",
+    "example":"Le chat dort."
+  },
+  {
+    "article":"une",
+    "word":"fleur",
+    "meaning":"꽃",
+    "example":"C'est une fleur."
+  },
+  {
+    "article":"un",
+    "word":"chien",
+    "meaning":"강아지",
+    "example":"Le chien court."
+  },
+  {
+    "article":"une",
+    "word":"pomme",
+    "meaning":"사과",
+    "example":"Je mange une pomme."
+  },
+  {
+    "article":"un",
+    "word":"crayon",
+    "meaning":"연필",
+    "example":"J'ai un crayon."
+  },
+  {
+    "article":"une",
+    "word":"école",
+    "meaning":"학교",
+    "example":"L'école est grande."
+  },
+  {
+    "article":"un",
+    "word":"soleil",
+    "meaning":"태양",
+    "example":"Le soleil brille."
+  },
+  {
+    "article":"une",
+    "word":"étoile",
+    "meaning":"별",
+    "example":"Je vois une étoile."
+  }
+]
