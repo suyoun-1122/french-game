@@ -1,0 +1,15 @@
+name: yeonjae_french_patisserie
+description: Build 1
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/audio/
+  fonts: []
