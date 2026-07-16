@@ -30,7 +30,7 @@ const shuffled=a=>{const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.flo
 const lessonWords=(id=currentLesson)=>{const l=LESSONS.find(x=>x.id===id);return l?l.wordIds.map(id=>WORDS.find(w=>w.id===id)).filter(Boolean):[]};
 const wordLabel=w=>`${w.article?w.article+" ":""}${w.word}`;
 const pluralLabel=w=>!w.plural?"—":w.type==="noun"?`des ${w.plural}`:w.plural;
-const genderLabel=w=>w.type==="noun"?(w.gender==="masculine"?"남성명사":"여성명사"):w.type==="verb"?"동사":"형용사";
+const genderLabel=w=>w.type==="noun"?(w.gender==="masculine"?"남성명사 (nom masculin)":"여성명사 (nom féminin)"):w.type==="verb"?"동사":"형용사 (adjectif)";
 
 function renderHome(){
   const level=Math.floor((Number(progress.stars)||0)/100)+1,xp=(Number(progress.stars)||0)%100;
@@ -69,7 +69,7 @@ window.startQuiz=skill=>{quiz={items:shuffled(lessonWords()).slice(0,8),index:0,
 function buildOptions(q,skill){
   const other=shuffled(WORDS.filter(w=>w.id!==q.id));
   if(skill==="meaning"||skill==="listening")return shuffled([q,...other.slice(0,3)]).map(w=>({label:`${w.emoji||"🐾"} ${w.meaning}`,ok:w.id===q.id}));
-  if(skill==="article"){if(q.type!=="noun")return shuffled([{label:genderLabel(q),ok:true},{label:"남성명사",ok:false},{label:"여성명사",ok:false}]);return ["un","une","des"].map(x=>({label:x,ok:x===q.article}))}
+  if(skill==="article"){if(q.type!=="noun")return shuffled([{label:genderLabel(q),ok:true},{label:"남성명사 (nom masculin)",ok:false},{label:"여성명사 (nom féminin)",ok:false}]);return ["un","une","des"].map(x=>({label:x,ok:x===q.article}))}
   if(skill==="form"){const correct=q.type==="noun"?pluralLabel(q):q.type==="verb"?q.conjugation.je:(q.feminine||q.word);const pool=other.slice(0,3).map(w=>w.type==="noun"?pluralLabel(w):w.type==="verb"?(w.conjugation?.je||w.word):(w.feminine||w.word));return shuffled([correct,...pool]).map((x,i,a)=>({label:x,ok:x===correct&&a.findIndex(y=>y===x)===i})).filter((x,i,a)=>a.findIndex(y=>y.label===x.label)===i)}
   return shuffled([q,...other.slice(0,3)]).map(w=>({label:w.exampleKr,ok:w.id===q.id}))
 }
