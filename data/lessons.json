@@ -1,11 +1,12 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "targetWords": 500,
   "lessons": [
     {
       "id": 1,
       "ce": "CE1",
       "title": "À l'école",
+      "subtitle": "학교에서 쓰는 말",
       "wordIds": [
         1,
         2,
@@ -14,37 +15,88 @@
         5,
         6,
         7,
-        8,
-        9,
-        10
-      ],
-      "dessert": "cupcake"
+        8
+      ]
     },
     {
       "id": 2,
       "ce": "CE1",
       "title": "Ma famille",
+      "subtitle": "가족과 사람 묘사",
       "wordIds": [
+        9,
+        10,
         11,
         12,
         13,
         14,
-        15
-      ],
-      "dessert": "cookie"
+        15,
+        16
+      ]
     },
     {
       "id": 3,
       "ce": "CE1",
-      "title": "Actions et couleurs",
+      "title": "À la maison",
+      "subtitle": "집과 일상생활",
       "wordIds": [
-        16,
         17,
         18,
         19,
-        20
-      ],
-      "dessert": "macaron"
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": 4,
+      "ce": "CE2",
+      "title": "Animaux et nature",
+      "subtitle": "동물과 자연 관찰",
+      "wordIds": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    },
+    {
+      "id": 5,
+      "ce": "CE2",
+      "title": "Le temps et la journée",
+      "subtitle": "시간과 하루 표현",
+      "wordIds": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "id": 6,
+      "ce": "CE2",
+      "title": "Lire et comprendre",
+      "subtitle": "읽고 이해하기",
+      "wordIds": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ]
     }
   ]
 }

@@ -1,10 +1,18 @@
-# Yeonjae French Pâtisserie V2.1.0 - Build 1
+# Yeonjae French V3
 
-Included:
-- Flutter project skeleton
-- Asset folders
-- Theme folder
-- Screens folder
-- Widgets folder
-- Basic pubspec
-- Basic main.dart
+CE1~CE2 수준의 어린이 프랑스어 학습 웹앱입니다.
+
+## 포함 기능
+- CE1~CE2 6개 단원, 48개 핵심 어휘
+- 명사 성·관사·복수형
+- 동사 현재형 활용
+- 형용사 성·수 일치
+- 단어 뜻, 관사, 변형, 듣기, 문장 이해 퀴즈
+- 틀린 단어 자동 복습
+- XP, 레벨, 연속 정답, 일일 10문제
+- 브라우저 로컬 저장
+- 모바일 반응형 및 PWA 오프라인 캐시
+
+## GitHub 업로드
+ZIP 내부 파일 전체를 저장소 최상위에 업로드하고 같은 이름의 파일은 덮어쓰세요.
+GitHub Pages 반영 후 Ctrl+F5로 새로고침하세요.

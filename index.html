@@ -1,17 +1,113 @@
-# Game Design V2
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#8b6caf">
+<meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>Yeonjae French</title>
+<link rel="stylesheet" href="./style.css?v=3">
+</head>
+<body>
+<div class="app">
+<section class="screen active" id="homeScreen">
+  <header class="topbar">
+    <div><small class="eyebrow">CE1 · CE2 FRANÇAIS</small><div class="brand">Yeonjae French</div></div>
+    <div class="pill">⭐ <span id="starsTop">0</span></div>
+  </header>
+  <div class="card hero">
+    <img class="hero-cat" id="homeCat" src="./assets/cat/cat-default.svg" alt="고양이">
+    <div class="speech" id="homeSpeech">Bonjour, Yeonjae!<br>오늘의 프랑스어를 시작해 보자.</div>
+    <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
+    <div class="progress slim"><div id="xpBar"></div></div>
+  </div>
 
-## 핵심
-프랑스어 학습이 중심이며 음식 완성은 보상이다.
+  <div class="section-title"><div><small>10 MINUTES</small><h2>오늘의 학습</h2></div><span id="todayLabel"></span></div>
+  <div class="card daily">
+    <div class="row"><b>혼합 학습 10문제</b><span class="badge"><span id="todayDone">0</span>/10</span></div>
+    <div class="progress"><div id="todayBar"></div></div>
+    <div class="food-stage"><img id="foodImage" src="./assets/foods/stage-0.svg" alt="오늘의 보상"></div>
+    <div class="small center">단어 · 관사 · 변형 · 듣기 · 문장 이해</div>
+    <button class="primary" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
+  </div>
 
-## 하루 학습
-- 새 단어와 복습 단어 총 10문제
-- 뜻, 관사, 변형, 듣기, 예문을 균형 있게 출제
-- 2문제마다 재료 1개 획득
-- 10문제 완료 시 디저트 완성
+  <div class="section-title"><div><small>LEARN</small><h2>학습 선택</h2></div></div>
+  <div class="menu-grid">
+    <button class="menu-btn" onclick="showScreen('studyScreen')"><span>📖</span><b>단어 학습</b><small>단어·문장·활용</small></button>
+    <button class="menu-btn" onclick="startQuiz('meaning')"><span>🌼</span><b>뜻 퀴즈</b><small>어휘 이해</small></button>
+    <button class="menu-btn" onclick="startQuiz('article')"><span>🎩</span><b>관사 퀴즈</b><small>성·관사 구별</small></button>
+    <button class="menu-btn" onclick="startQuiz('form')"><span>🔄</span><b>변형 퀴즈</b><small>복수·활용·일치</small></button>
+    <button class="menu-btn" onclick="startQuiz('listening')"><span>🔊</span><b>듣기 퀴즈</b><small>소리와 뜻 연결</small></button>
+    <button class="menu-btn" onclick="startQuiz('example')"><span>💬</span><b>문장 이해</b><small>CE1~CE2 예문</small></button>
+  </div>
+</section>
 
-## 화면
-- 홈
-- 단어 학습
-- 퀴즈
-- 전체 단어장
-- 부모용 학습 기록
+<section class="screen" id="studyScreen">
+  <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="brand smallbrand">학습</div><div class="pill" id="studyCount">1/8</div></header>
+  <div class="lesson-tabs" id="lessonTabs"></div>
+  <div class="card study-card">
+    <div class="study-emoji" id="studyEmoji"></div>
+    <div class="study-word" id="studyWord"></div>
+    <div class="study-meaning" id="studyMeaning"></div>
+    <div class="meta-grid">
+      <div class="meta"><small>품사·성</small><b id="studyType"></b></div>
+      <div class="meta"><small id="studyFormLabel">복수형</small><b id="studyForm"></b></div>
+    </div>
+    <div class="conjugation hidden" id="conjugationBox"></div>
+    <div class="audio-row">
+      <button class="audio-btn" onclick="playStudyAudio('word')">🔊 단어</button>
+      <button class="audio-btn" onclick="playStudyAudio('example')">💬 문장</button>
+      <button class="audio-btn" onclick="playStudyAudio('word',true)">🐢 천천히</button>
+    </div>
+    <div class="example"><b id="studyExampleFr"></b><br><span id="studyExampleKr"></span></div>
+    <div class="row study-nav"><button class="secondary" onclick="studyPrev()">← 이전</button><button class="secondary" onclick="studyNext()">다음 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="quizScreen">
+  <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">× 종료</button><div class="pill" id="quizCount">1/10</div><div class="pill">⭐ <span id="quizStars">0</span></div></header>
+  <div class="card study-card">
+    <img id="quizCat" src="./assets/cat/cat-think.svg" alt="고양이" class="quiz-cat">
+    <div class="small" id="quizLabel"></div>
+    <div class="study-emoji" id="quizEmoji"></div>
+    <div class="study-word quiz-word" id="quizWord"></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="feedback" id="quizFeedback"></div>
+    <div class="example hidden" id="quizExample"><b id="quizExampleFr"></b><br><span id="quizExampleKr"></span></div>
+    <button class="primary hidden" id="quizNext" onclick="nextQuiz()">다음 문제 →</button>
+  </div>
+</section>
+
+<section class="screen" id="wordsScreen">
+  <header class="topbar"><div><small class="eyebrow">VOCABULAIRE</small><div class="brand smallbrand">단어장</div></div><div class="pill"><span id="wordCountTop">0</span>개</div></header>
+  <div class="filter-row"><button class="filter active" onclick="filterWords('all',this)">전체</button><button class="filter" onclick="filterWords('CE1',this)">CE1</button><button class="filter" onclick="filterWords('CE2',this)">CE2</button><button class="filter" onclick="filterWords('due',this)">복습</button></div>
+  <div class="word-list" id="wordList"></div>
+</section>
+
+<section class="screen" id="progressScreen">
+  <header class="topbar"><div><small class="eyebrow">PROGRÈS</small><div class="brand smallbrand">학습 기록</div></div><div class="pill">CE1 → CE2</div></header>
+  <div class="card">
+    <div class="row"><b>학습한 단어</b><b><span id="learnedWords">0</span>/<span id="totalWords">0</span></b></div>
+    <div class="progress"><div id="learnedBar"></div></div>
+    <div class="stats-grid">
+      <div class="stat"><span>푼 문제</span><b id="totalAttempts">0</b></div>
+      <div class="stat"><span>정답률</span><b id="totalAccuracy">0%</b></div>
+      <div class="stat"><span>연속 정답 최고</span><b id="bestCombo">0</b></div>
+      <div class="stat"><span>완료한 하루</span><b id="dessertCount">0</b></div>
+    </div>
+  </div>
+  <div class="card"><b>영역별 성취도</b><div class="stats-grid" id="skillStats"></div></div>
+  <button class="text-button" onclick="resetProgress()">학습 기록 초기화</button>
+</section>
+
+<nav class="nav">
+  <button class="active" onclick="showScreen('homeScreen',this)"><span>🏠</span>홈</button>
+  <button onclick="showScreen('studyScreen',this)"><span>📖</span>학습</button>
+  <button onclick="showScreen('wordsScreen',this)"><span>📚</span>단어장</button>
+  <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
+</nav>
+</div>
+<script type="module" src="./app.js?v=3"></script>
+</body>
+</html>
