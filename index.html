@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#cdbcf1">
+<title>Yeonjae's French Pâtisserie V2</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="app">
+<section class="screen active" id="homeScreen">
+  <div class="topbar"><div class="brand">Yeonjae's French Pâtisserie</div><div class="pill">⭐ <span id="starsTop">0</span></div></div>
+  <div class="card hero"><div class="hero-row"><img class="hero-cat" src="./assets/cat/cat-default.svg" alt="고양이 캐릭터"><div class="speech" id="homeSpeech">Bonjour, Yeonjae!<br>오늘도 프랑스어를 배워보자!</div></div></div>
+  <div class="card">
+    <div class="row"><b>오늘의 학습</b><span class="badge"><span id="todayDone">0</span>/10</span></div>
+    <div class="progress"><div id="todayBar"></div></div>
+    <div class="food-stage"><img id="foodImage" src="./assets/foods/stage-0.svg" alt="오늘의 디저트"></div>
+    <div class="ingredients"><span class="ingredient" id="ing1">🥣</span><span class="ingredient" id="ing2">🥚</span><span class="ingredient" id="ing3">🧁</span><span class="ingredient" id="ing4">🍓</span><span class="ingredient" id="ing5">✨</span></div>
+    <button class="primary" style="margin-top:13px" onclick="startDaily()">오늘의 학습 시작</button>
+  </div>
+  <div class="menu-grid">
+    <button class="menu-btn" onclick="showScreen('studyScreen')"><span class="icon">📖</span>단어 학습</button>
+    <button class="menu-btn" onclick="startQuiz('meaning')"><span class="icon">🌼</span>뜻 퀴즈</button>
+    <button class="menu-btn" onclick="startQuiz('article')"><span class="icon">🎩</span>관사 퀴즈</button>
+    <button class="menu-btn" onclick="startQuiz('form')"><span class="icon">🔄</span>변형 퀴즈</button>
+    <button class="menu-btn" onclick="startQuiz('listening')"><span class="icon">🔊</span>듣기 퀴즈</button>
+    <button class="menu-btn" onclick="startQuiz('example')"><span class="icon">💬</span>예문 퀴즈</button>
+  </div>
+</section>
+
+<section class="screen" id="studyScreen">
+  <div class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="brand">단어 학습</div><div class="pill" id="studyCount">1/10</div></div>
+  <div class="lesson-tabs" id="lessonTabs"></div>
+  <div class="card study-card">
+    <img id="studyCat" src="./assets/cat/cat-think.svg" alt="생각하는 고양이" style="width:105px">
+    <div class="study-emoji" id="studyEmoji"></div>
+    <div class="study-word" id="studyWord"></div>
+    <div class="study-meaning" id="studyMeaning"></div>
+    <div class="meta-grid">
+      <div class="meta"><small>품사·성</small><b id="studyType"></b></div>
+      <div class="meta"><small id="studyFormLabel">복수형</small><b id="studyForm"></b></div>
+    </div>
+    <div class="conjugation hidden" id="conjugationBox"></div>
+    <div class="audio-row">
+      <button class="audio-btn" onclick="playStudyAudio('word')">🔊 단어</button>
+      <button class="audio-btn" onclick="playStudyAudio('form')">🔄 변형</button>
+      <button class="audio-btn" onclick="playStudyAudio('example')">💬 예문</button>
+      <button class="audio-btn" onclick="playStudyAudio('word',true)">🐢 천천히</button>
+    </div>
+    <div class="example"><b id="studyExampleFr"></b><br><span id="studyExampleKr"></span></div>
+    <div class="row" style="margin-top:13px"><button class="secondary" onclick="studyPrev()">← 이전</button><button class="secondary" onclick="studyNext()">다음 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="quizScreen">
+  <div class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="pill" id="quizCount">1/10</div><div class="pill">⭐ <span id="quizStars">0</span></div></div>
+  <div class="card study-card">
+    <img id="quizCat" src="./assets/cat/cat-think.svg" alt="퀴즈 고양이" style="width:105px">
+    <div class="small" id="quizLabel"></div>
+    <div class="study-emoji" id="quizEmoji"></div>
+    <div class="study-word" id="quizWord"></div>
+    <div class="study-meaning" id="quizMeaning"></div>
+    <div class="audio-row"><button class="audio-btn" onclick="playQuizAudio(false)">🔊 듣기</button><button class="audio-btn" onclick="playQuizAudio(true)">🐢 천천히</button></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="feedback" id="quizFeedback"></div>
+    <div class="example hidden" id="quizExample"><b id="quizExampleFr"></b><br><span id="quizExampleKr"></span></div>
+    <button class="primary hidden" id="quizNext" onclick="nextQuiz()">다음 문제</button>
+  </div>
+</section>
+
+<section class="screen" id="wordsScreen">
+  <div class="topbar"><div class="brand">전체 단어장</div><div class="pill">목표 500</div></div>
+  <div class="word-list" id="wordList"></div>
+</section>
+
+<section class="screen" id="progressScreen">
+  <div class="topbar"><div class="brand">학습 기록</div><div class="pill">CE1 → CE2</div></div>
+  <div class="card">
+    <div class="row"><b>배운 단어</b><b><span id="learnedWords">0</span>/500</b></div>
+    <div class="progress"><div id="learnedBar"></div></div>
+    <div class="stats-grid">
+      <div class="stat"><span>푼 문제</span><b id="totalAttempts">0</b></div>
+      <div class="stat"><span>정답률</span><b id="totalAccuracy">0%</b></div>
+      <div class="stat"><span>완성 디저트</span><b id="dessertCount">0</b></div>
+      <div class="stat"><span>현재 과정</span><b>CE1</b></div>
+    </div>
+  </div>
+  <div class="card"><b>영역별 성취도</b><div class="stats-grid" id="skillStats" style="margin-top:10px"></div></div>
+</section>
+
+<nav class="nav">
+  <button class="active" onclick="showScreen('homeScreen',this)"><span class="icon">🏠</span>홈</button>
+  <button onclick="showScreen('studyScreen',this)"><span class="icon">📖</span>학습</button>
+  <button onclick="showScreen('wordsScreen',this)"><span class="icon">📚</span>단어장</button>
+  <button onclick="showScreen('progressScreen',this)"><span class="icon">📈</span>기록</button>
+</nav>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
