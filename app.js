@@ -10,7 +10,7 @@ let currentWordIndex = 0;
 let quiz = {items:[],index:0,skill:"meaning",answered:false,daily:false};
 
 let progress = {
-  version:"2.0", stars:0, today:todayKey(), todayDone:0,
+  version:"2.1", stars:0, today:todayKey(), todayDone:0,
   completedDesserts:[], words:{}, totals:{attempts:0,correct:0},
   skillTotals:{meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}}
 };
@@ -18,7 +18,20 @@ let progress = {
 function loadProgress(){
   try{
     const raw=localStorage.getItem("yeonjaeFrenchV2");
-    if(raw) progress={...progress,...JSON.parse(raw)};
+    if(raw){
+      const saved=JSON.parse(raw);
+      progress={
+        ...progress,
+        ...saved,
+        totals:{...progress.totals,...(saved.totals||{})},
+        skillTotals:{
+          ...progress.skillTotals,
+          ...(saved.skillTotals||{})
+        },
+        words:saved.words||{},
+        completedDesserts:Array.isArray(saved.completedDesserts)?saved.completedDesserts:[]
+      };
+    }
   }catch(e){}
   if(progress.today!==todayKey()){
     progress.today=todayKey();
@@ -31,8 +44,8 @@ function saveProgress(){
 }
 async function loadData(){
   const [w,l]=await Promise.all([
-    fetch("./data/words.json?v=2").then(r=>r.json()),
-    fetch("./data/lessons.json?v=2").then(r=>r.json())
+    fetch("./data/words.json?v=2.1").then(r=>r.json()),
+    fetch("./data/lessons.json?v=2.1").then(r=>r.json())
   ]);
   WORDS=w; LESSONS=l.lessons;
   renderAll();
@@ -62,16 +75,37 @@ function genderLabel(w){
   return w.gender==="masculine" ? "남성명사" : "여성명사";
 }
 function renderHome(){
-  $("starsTop").textContent=progress.stars;
+  const stars=Number(progress.stars)||0;
+  const level=Math.floor(stars/100)+1;
+  const xpCurrent=stars%100;
+
+  $("starsTop").textContent=stars;
   $("todayDone").textContent=progress.todayDone;
   $("todayBar").style.width=`${progress.todayDone*10}%`;
+
+  if($("levelNumber")) $("levelNumber").textContent=level;
+  if($("xpCurrent")) $("xpCurrent").textContent=xpCurrent;
+  if($("xpNext")) $("xpNext").textContent=100;
+  if($("xpBar")) $("xpBar").style.width=`${xpCurrent}%`;
+  if($("todayLabel")){
+    $("todayLabel").textContent=new Intl.DateTimeFormat("ko-KR",{
+      month:"long",day:"numeric",weekday:"short"
+    }).format(new Date());
+  }
+
   const stage=Math.min(5,Math.floor(progress.todayDone/2));
   $("foodImage").src=`./assets/foods/stage-${stage}.svg`;
   for(let i=1;i<=5;i++) $("ing"+i).classList.toggle("on",progress.todayDone>=i*2);
+
   if(progress.todayDone>=10){
-    $("homeSpeech").innerHTML="오늘 학습 완료!<br>컵케이크가 완성됐어! 🧁✨";
+    $("homeSpeech").innerHTML="Magnifique!<br>오늘의 파티스리가 완성됐어! 🧁✨";
+    if($("dailyTitle")) $("dailyTitle").textContent="오늘의 컵케이크 완성!";
+  }else if(progress.todayDone>0){
+    $("homeSpeech").innerHTML=`Très bien!<br>완성까지 ${10-progress.todayDone}문제 남았어!`;
+    if($("dailyTitle")) $("dailyTitle").textContent="컵케이크가 자라고 있어요!";
   }else{
-    $("homeSpeech").innerHTML="Bonjour, Yeonjae!<br>오늘도 프랑스어를 배워보자!";
+    $("homeSpeech").innerHTML="Bonjour, Yeonjae!<br>오늘도 맛있게 프랑스어를 배워보자!";
+    if($("dailyTitle")) $("dailyTitle").textContent="컵케이크를 완성해 보자!";
   }
 }
 function renderLessonTabs(){
