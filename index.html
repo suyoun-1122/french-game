@@ -7,7 +7,7 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=3.2">
+<link rel="stylesheet" href="./style.css?v=3.3">
 </head>
 <body>
 <div class="app">
@@ -46,6 +46,10 @@
 <section class="screen" id="studyScreen">
   <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="brand smallbrand">학습</div><div class="pill" id="studyCount">1/8</div></header>
   <div class="lesson-tabs" id="lessonTabs"></div>
+  <div class="lesson-progress-card">
+    <div class="row"><span id="lessonProgressTitle">단원 진행도</span><b id="lessonProgressText">0%</b></div>
+    <div class="progress lesson-progress"><div id="lessonProgressBar"></div></div>
+  </div>
   <div class="card study-card">
     <div class="study-emoji" id="studyEmoji"></div>
     <div class="study-word" id="studyWord"></div>
@@ -81,8 +85,14 @@
 
 <section class="screen" id="wordsScreen">
   <header class="topbar"><div><small class="eyebrow">VOCABULAIRE</small><div class="brand smallbrand">단어장</div></div><div class="pill"><span id="wordCountTop">0</span>개</div></header>
+  <label class="search-box" for="wordSearch">
+    <span aria-hidden="true">🔎</span>
+    <input id="wordSearch" type="search" placeholder="프랑스어 또는 한국어로 검색" autocomplete="off" oninput="searchWords(this.value)">
+    <button type="button" aria-label="검색어 지우기" onclick="clearWordSearch()">×</button>
+  </label>
   <div class="filter-row"><button class="filter active" onclick="filterWords('all',this)">전체</button><button class="filter" onclick="filterWords('CE1',this)">CE1</button><button class="filter" onclick="filterWords('CE2',this)">CE2</button><button class="filter" onclick="filterWords('due',this)">복습</button></div>
   <div class="word-list" id="wordList"></div>
+  <div class="empty-state hidden" id="wordEmpty">검색 결과가 없어요.</div>
 </section>
 
 <section class="screen" id="progressScreen">
@@ -108,6 +118,6 @@
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=3.2"></script>
+<script type="module" src="./app.js?v=3.3"></script>
 </body>
 </html>
