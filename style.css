@@ -394,3 +394,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 /* V4.4.2 — expressive SVG character states */
 .quiz-cat[data-state="happy"]{filter:drop-shadow(0 12px 15px rgba(87,153,104,.22));}
 .quiz-cat[data-state="think"]{filter:drop-shadow(0 12px 15px rgba(118,86,154,.22));}
+
+
+/* V4.4.3 upgraded vector artwork */
+.quiz-cat,.study-guide-panel img,.guide-card img,.character-party,.hero-cat{image-rendering:auto;}
