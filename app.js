@@ -150,7 +150,20 @@ function rewardText(rewards){
   return rewards.map(r=>{const it=INGREDIENTS[r.id];return `${it.emoji} ${it.name} +${r.amount}`}).join("  ");
 }
 
-function showRewardToast(text){const old=document.querySelector(".reward-toast");if(old)old.remove();const el=document.createElement("div");el.className="reward-toast";el.textContent=text;document.body.appendChild(el);setTimeout(()=>el.remove(),2800)}
+function showRewardToast(text){
+  const old=document.querySelector(".reward-toast");if(old)old.remove();
+  const el=document.createElement("div");el.className="reward-toast";el.setAttribute("role","status");el.textContent=text;
+  document.body.appendChild(el);requestAnimationFrame(()=>el.classList.add("show"));
+  setTimeout(()=>{el.classList.remove("show");setTimeout(()=>el.remove(),220)},2600)
+}
+function celebrate(symbols=["⭐","✨","🥐","🌼"]){
+  const layer=$("celebrationLayer");if(!layer||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  layer.innerHTML="";
+  for(let i=0;i<18;i++){const bit=document.createElement("i");bit.textContent=symbols[i%symbols.length];bit.style.setProperty("--x",`${8+Math.random()*84}vw`);bit.style.setProperty("--delay",`${Math.random()*.35}s`);bit.style.setProperty("--drift",`${-45+Math.random()*90}px`);layer.appendChild(bit)}
+  setTimeout(()=>layer.innerHTML="",1800)
+}
+function updateOnlineState(){const banner=$("offlineBanner");if(!banner)return;banner.classList.toggle("hidden",navigator.onLine)}
+window.addEventListener("online",updateOnlineState);window.addEventListener("offline",updateOnlineState);updateOnlineState();
 function grantDailyIngredients(){
   const key=todayKey();if(progress.rewardedDays.includes(key))return false;
   const pool=["flour","butter","egg","milk","sugar","cheese","vegetable","meat","fish","fruit"];
@@ -292,7 +305,7 @@ function renderKitchen(){
     d.querySelector("button").onclick=()=>cookFood(r.id);box.appendChild(d)});
 }
 window.filterRecipes=(f,btn)=>{recipeFilter=f;document.querySelectorAll(".recipe-filters .filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderKitchen()};
-window.cookFood=id=>{const r=RECIPES.find(x=>x.id===id);if(!r||!canCook(r))return;Object.entries(r.cost).forEach(([k,n])=>progress.ingredients[k]-=n);progress.madeFoods[r.id]=(progress.madeFoods[r.id]||0)+1;saveProgress();renderKitchen();renderProgress();openCookModal(r)};
+window.cookFood=id=>{const r=RECIPES.find(x=>x.id===id);if(!r||!canCook(r))return;Object.entries(r.cost).forEach(([k,n])=>progress.ingredients[k]-=n);progress.madeFoods[r.id]=(progress.madeFoods[r.id]||0)+1;saveProgress();renderKitchen();renderCollection();renderProgress();openCookModal(r);celebrate([r.emoji,"✨","⭐","🎉"])};
 function openCookModal(r){if(!r)return;$("cookResultEmoji").textContent=r.emoji;$("cookModalTitle").textContent=`${r.name} 완성!`;$("cookResultFr").textContent=r.fr;$("cookResultInfo").textContent=`${r.gender} · ${r.difficulty} 레시피 · 총 ${progress.madeFoods[r.id]}회 완성`;$("cookModal").classList.remove("hidden");document.body.classList.add("modal-open")}
 window.closeCookModal=()=>{if($("cookModal"))$("cookModal").classList.add("hidden");document.body.classList.remove("modal-open")};
 window.addEventListener("keydown",e=>{if(e.key==="Escape")closeCookModal()});
@@ -332,7 +345,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b7");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b8");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
