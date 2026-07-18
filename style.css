@@ -255,3 +255,51 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 .feedback{min-height:28px;margin:8px 0 2px;padding:0 4px;font-size:16px}.feedback.success{color:#3e7d57}.feedback.error{color:#ba5f6f}.quiz-card .example{margin-top:10px}
 @media(max-width:680px){.home-hero{grid-template-columns:1fr;padding:18px}.character-trio{justify-self:center;width:min(86%,250px);order:-1}.hero-start{width:100%}.guide-strip{grid-template-columns:1fr;gap:10px}.guide-card{min-height:126px;flex-direction:row;justify-content:flex-start;padding:12px 14px;text-align:left}.guide-card img{width:70px;height:70px}.guide-card span{align-items:flex-start;text-align:left}.guide-card i{margin-left:auto}.quiz-guide-panel{grid-template-columns:84px 1fr;padding:10px 12px}.quiz-cat{width:80px;height:80px}.cat-name{font-size:16px}.quiz-speech{padding:11px 14px;font-size:14px}.quiz-options{grid-template-columns:1fr}.quiz-option{min-height:60px}.option-text{font-size:17px}}
 @media(max-width:420px){.hero-guide-badges span{font-size:10px;padding:6px 9px}.quiz-card{padding:14px}.quiz-label{font-size:11px;padding:7px 12px}.quiz-card .study-emoji{font-size:28px}.option-letter{width:30px;height:30px;font-size:14px}.option-text{font-size:16px}}
+
+
+/* V4.1.1 — home/quiz/cooking UI refinement */
+.home-hero{grid-template-columns:minmax(0,1.05fr) minmax(230px,.95fr);padding:20px 20px 16px;min-height:430px}
+.character-trio{width:min(100%,300px);max-height:280px;object-fit:contain;object-position:center;align-self:end;justify-self:center;border-radius:0;background:transparent;box-shadow:none}
+.hero-copy .speech{padding:11px 14px;line-height:1.42;max-width:360px}
+.hero-guide-badges{gap:7px;margin-bottom:10px}.hero-guide-badges span{padding:6px 10px}
+.hero-start{margin-top:4px;min-height:50px}
+.hero-progress{margin-top:2px}
+
+.quiz-guide-panel{grid-template-columns:82px 1fr;min-height:auto;padding:9px 12px;border-radius:22px}
+.quiz-cat{width:76px;height:76px;padding:6px;border-radius:20px}
+.cat-name{font-size:16px;margin-bottom:4px}.quiz-speech{min-height:48px;padding:9px 13px;font-size:14px;border-radius:17px}
+.quiz-speech::before{top:16px}
+.quiz-card{margin-top:0;padding:16px 17px 18px}.quiz-label{margin-bottom:8px}.quiz-card .study-emoji{margin-bottom:7px}
+
+#quizScreen[data-skill="meaning"] .quiz-label,
+#quizScreen[data-skill="article"] .quiz-label,
+#quizScreen[data-skill="form"] .quiz-label{background:#f0e7f9;color:#684d82}
+#quizScreen[data-skill="listening"] .quiz-label{background:#fff0d8;color:#9b681d}
+#quizScreen[data-skill="example"] .quiz-label{background:#eeeafa;color:#65518c}
+#quizScreen[data-skill="listening"] .quiz-card{box-shadow:0 18px 38px rgba(181,124,40,.10)}
+#quizScreen[data-skill="example"] .quiz-card{box-shadow:0 18px 38px rgba(99,76,145,.11)}
+
+.recipe-card{padding:13px 14px;border-radius:18px}
+.recipe-head{margin-bottom:2px}.recipe-emoji{font-size:2.05rem}.recipe-title b{font-size:.96rem}.recipe-title small{font-size:.76rem}
+.cost-list{gap:5px;margin:9px 0}.cost{padding:5px 8px;font-size:.72rem}
+.cook-btn{min-height:44px;padding:10px 12px;border-radius:14px;font-size:.86rem}
+.recipe-card:has(.cook-btn:not(:disabled)){border-color:#c8aee1;box-shadow:0 10px 24px rgba(112,76,145,.12)}
+.recipe-card:has(.cook-btn:not(:disabled)) .cook-btn{background:linear-gradient(135deg,#8663aa,#ae769e);color:#fff}
+.recipe-card:has(.cook-btn:disabled){background:#fcfbfd}
+.recipe-card:has(.cook-btn:disabled) .cook-btn{opacity:.78}
+
+@media(max-width:680px){
+  .home-hero{grid-template-columns:1fr;min-height:auto;padding:16px 16px 14px}
+  .character-trio{order:-1;width:min(88%,280px);max-height:230px;margin:-2px auto 0}
+  .hero-copy h1{font-size:clamp(26px,8vw,36px);margin-top:4px}
+  .hero-copy .speech{max-width:none;padding:10px 13px}
+  .hero-guide-badges{margin-bottom:8px}
+  .quiz-guide-panel{grid-template-columns:70px 1fr;padding:8px 10px}
+  .quiz-cat{width:64px;height:64px}.cat-name{font-size:14px}.quiz-speech{min-height:42px;font-size:13px;padding:8px 11px}
+  .quiz-card{padding:13px 14px 15px}.quiz-options{gap:9px}.quiz-option{min-height:58px}
+  .recipe-card{padding:12px 13px}.cook-btn{min-height:42px}
+}
+@media(max-height:760px) and (max-width:680px){
+  .quiz-guide-panel{grid-template-columns:60px 1fr;padding:6px 9px}.quiz-cat{width:54px;height:54px}.quiz-speech{min-height:38px;padding:7px 10px}
+  .quiz-card{padding:10px 12px 12px}.quiz-label{padding:6px 10px}.quiz-card .study-emoji{font-size:24px}.quiz-word{font-size:24px}
+}

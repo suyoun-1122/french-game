@@ -228,17 +228,17 @@ function renderHome(){
   }
   if(progress.todayDone>=10){
     $("homeGreeting").innerHTML="Bravo!<br>오늘의 학습 완료!";
-    $("homeSpeech").innerHTML="모은 재료로 프랑스 음식을<br>만들어 볼까?";
+    $("homeSpeech").innerHTML="오늘 모은 재료로<br>프랑스 음식을 만들어 볼까?";
     $("dailyStatus").innerHTML="오늘의 미션을 완료했어요.<br>요리 화면에서 재료를 확인해요.";
     $("homeCat").src="./assets/characters/trio-approved.png";
   } else if(progress.todayDone>0){
     $("homeGreeting").innerHTML="Très bien!<br>조금만 더 힘내자!";
-    $("homeSpeech").innerHTML=`오늘은 ${progress.todayDone}문제를 풀었어.<br>${10-progress.todayDone}문제만 더 풀어 보자.`;
+    $("homeSpeech").innerHTML=`오늘 ${progress.todayDone}문제 완료!<br>${10-progress.todayDone}문제만 더 풀어 보자.`;
     $("dailyStatus").innerHTML=`${10-progress.todayDone}문제를 더 풀면<br>오늘의 재료 상자가 열려요.`;
     $("homeCat").src="./assets/characters/trio-approved.png";
   } else {
     $("homeGreeting").innerHTML="오늘도 프랑스어를<br>재미있게 배워 보자!";
-    $("homeSpeech").innerHTML="오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.";
+    $("homeSpeech").innerHTML="10문제를 완료하면<br>프랑스 요리 재료를 받을 수 있어.";
     $("dailyStatus").innerHTML="10문제를 완료하고<br>요리 재료를 모아 보세요.";
     $("homeCat").src="./assets/characters/trio-approved.png";
   }
@@ -390,7 +390,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.0");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.1");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
