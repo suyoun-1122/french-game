@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b4",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b3").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b3").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b3").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b4").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b4").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b4").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -194,16 +194,24 @@ function renderQuiz(){
   quiz.answered=false;const q=quiz.items[quiz.index];if(!q)return;
   if(quiz.daily)quiz.skill=["meaning","article","form","listening","example"][quiz.index%5];
   const question=makeQuestion(q,quiz.skill);quiz.currentQuestion=question;quiz.activeSkill=question.skill;
-  $("quizCount").textContent=`${quiz.index+1}/${quiz.items.length}`;$("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
-  const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;
-  $("quizEmoji").textContent=q.emoji||"🐾";$("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${guide.line}`;
-  const box=$("quizOptions");box.innerHTML="";question.options.forEach(o=>{const b=document.createElement("button");b.className="quiz-option";b.textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
-  if(quiz.skill==="listening")setTimeout(()=>speakFrench(wordLabel(q)),350)
+  const current=quiz.index+1,total=quiz.items.length;
+  $("quizCount").textContent=`${current}/${total}`;$("quizProgressBar").style.width=`${(current/total)*100}%`;
+  $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";
+  $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
+  const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;
+  $("quizEmoji").textContent=q.emoji||"🐾";$("quizWord").textContent=question.display;$("quizLabel").textContent=question.label;
+  const audio=$("quizAudio");audio.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
+  const box=$("quizOptions");box.innerHTML="";
+  question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
+  if(question.skill==="listening")setTimeout(()=>speakFrench(wordLabel(q)),350)
 }
 function answerQuiz(ok,button,q){
   if(quiz.answered)return;quiz.answered=true;progress.totals.attempts++;progress.skillTotals[quiz.activeSkill].a++;
-  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);$("quizFeedback").textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐";$("quizCat").src=guideFor(quiz.activeSkill).src}
-  else{button.classList.add("wrong");quiz.combo=0;$("quizFeedback").textContent=`정답: ${quiz.currentQuestion?.answer||q.meaning}`}
+  const optionButtons=[...document.querySelectorAll("#quizOptions .quiz-option")];
+  optionButtons.forEach(b=>{b.disabled=true;if(b.dataset.correct==="true")b.classList.add("correct-answer")});
+  const feedback=$("quizFeedback");
+  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);feedback.classList.add("success");feedback.textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐"}
+  else{button.classList.add("wrong");quiz.combo=0;feedback.classList.add("error");feedback.textContent=`정답은 “${quiz.currentQuestion?.answer||q.meaning}”`}
   progress=recordResult(progress,q.id,ok,quiz.activeSkill);if(quiz.daily)progress.todayDone=Math.min(10,progress.todayDone+1);
   $("quizExampleFr").textContent=q.example;$("quizExampleKr").textContent=q.exampleKr;$("quizExample").classList.remove("hidden");$("quizNext").classList.remove("hidden");saveProgress();renderHome();renderProgress()
 }
@@ -249,7 +257,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b3");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b4");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
