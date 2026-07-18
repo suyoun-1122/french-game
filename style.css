@@ -384,3 +384,8 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 @keyframes characterHop{0%,100%{transform:translateY(0) scale(1)}42%{transform:translateY(-13px) scale(1.03)}68%{transform:translateY(1px) scale(.99)}}
 @keyframes characterParty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(2deg)}}
 @media(prefers-reduced-motion:reduce){.character-motion,.cook-character-party .character-party{animation:none!important;transform:none!important}}
+
+
+/* V4.4.0 SVG character integration */
+.hero-cat,.quiz-cat,.guide-card img,.study-guide-panel img,.cook-party img{object-fit:contain!important;background:transparent!important;}
+.hero-cat{filter:none!important}.quiz-cat{padding:0!important;border:none!important;box-shadow:none!important}.guide-card img{filter:none!important}.character-trio{max-height:300px}.quiz-guide-panel{overflow:visible}.quiz-cat{overflow:visible}
