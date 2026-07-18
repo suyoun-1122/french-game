@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.3.0",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -16,9 +16,30 @@ function loadProgress(){
   if(progress.today!==todayKey()){progress.today=todayKey();progress.todayDone=0;saveProgress()}
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
+function validateData(words,lessonsPayload,recipesPayload){
+  if(!Array.isArray(words)||words.length<1)throw new Error("단어 데이터가 비어 있습니다.");
+  const ids=new Set();
+  words.forEach((w,index)=>{
+    if(!w||w.id==null||!w.word||!w.meaning||!w.example||!w.exampleKr)throw new Error(`단어 ${index+1} 필수값 누락`);
+    if(ids.has(w.id))throw new Error(`중복 단어 ID: ${w.id}`);
+    ids.add(w.id);
+    if(w.type==="noun"&&!['un','une'].includes(w.article))throw new Error(`명사 관사 오류: ${w.word}`);
+  });
+  const lessons=lessonsPayload?.lessons;
+  if(!Array.isArray(lessons)||!lessons.length)throw new Error("단원 데이터가 비어 있습니다.");
+  lessons.forEach(l=>{if(!Array.isArray(l.wordIds)||l.wordIds.some(id=>!ids.has(id)))throw new Error(`단원 단어 연결 오류: ${l.title||l.id}`)});
+  if(!recipesPayload?.ingredients||!Array.isArray(recipesPayload?.recipes)||!recipesPayload.recipes.length)throw new Error("레시피 데이터 오류");
+  const recipeIds=new Set();
+  recipesPayload.recipes.forEach(r=>{
+    if(!r.id||!r.fr||!r.name||!r.gender||!r.cost)throw new Error(`레시피 필수값 누락: ${r.id||'unknown'}`);
+    if(recipeIds.has(r.id))throw new Error(`중복 레시피 ID: ${r.id}`);
+    recipeIds.add(r.id);
+    Object.keys(r.cost).forEach(id=>{if(!recipesPayload.ingredients[id])throw new Error(`알 수 없는 재료: ${id}`)});
+  });
+}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.2.0").then(r=>r.json()),fetch("./data/lessons.json?v=4.2.0").then(r=>r.json()),fetch("./data/recipes.json?v=4.2.0").then(r=>r.json())]);
-  WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.3.0").then(r=>r.json()),fetch("./data/lessons.json?v=4.3.0").then(r=>r.json()),fetch("./data/recipes.json?v=4.3.0").then(r=>r.json())]);
+  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.3.0";saveProgress();renderAll();
 }
 function showScreen(id,navButton){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");
@@ -454,7 +475,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.2.2");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.3.0");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
