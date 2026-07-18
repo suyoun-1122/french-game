@@ -1,0 +1,7 @@
+Yeonjae French V4.1.6
+
+- index.html의 CSS/JS 버전을 4.1.6으로 통일
+- 퀴즈의 단어와 무관한 이미지 DOM을 완전히 삭제
+- JavaScript의 quizEmoji 조작 코드 삭제
+- CSS에서 남은 이미지 영역 강제 숨김
+- 서비스워커 캐시를 4.1.6으로 갱신

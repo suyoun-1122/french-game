@@ -155,8 +155,6 @@ function makeQuestion(q,requestedSkill){
   return {skill,label:"문장의 뜻을 정확하게 고르세요",display:q.example,options:uniqueOptions(distractors,q.exampleKr),answer:q.exampleKr,difficulty:level};
 }
 
-const SKILL_ICONS={meaning:"📘",article:"🏷️",form:"✏️",listening:"🔊",example:"💬"};
-
 const CAT_GUIDES={
   meaning:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"단어의 뜻을 차근차근 찾아보자냥!",theme:"petit"},
   article:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"관사와 명사의 성을 함께 확인하자냥!",theme:"petit"},
@@ -305,7 +303,7 @@ function renderQuiz(){
   $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";const reaction=$("quizReaction");if(reaction){reaction.className="quiz-reaction hidden";reaction.textContent="✨"}$("quizCat").classList.remove("react-correct","react-wrong");
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
-  $("quizEmoji").textContent=SKILL_ICONS[question.skill]||"📘";$("quizEmoji").classList.remove("hidden");$("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
+  $("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
   const audio=$("quizAudio");audio.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
   const box=$("quizOptions");box.innerHTML="";
   question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
@@ -418,7 +416,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.4");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.6");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
