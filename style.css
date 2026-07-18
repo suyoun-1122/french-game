@@ -363,3 +363,24 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 #homeScreen{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
 @media(max-width:680px){.home-hero-simple{grid-template-columns:1fr 145px;padding:17px}.home-hero-simple .character-trio{order:0;width:145px;max-height:165px;align-self:end}.home-hero-simple .hero-copy h1{font-size:29px}.home-hero-simple .speech{font-size:12px}.home-hero-simple .hero-start{width:100%;min-width:0}.home-hero-simple .hero-progress{grid-column:1/-1}.daily-compact-row{grid-template-columns:82px 1fr}.compact-stage img{width:82px;height:66px}}
 @media(max-width:430px){.home-hero-simple{grid-template-columns:1fr 118px;gap:8px}.home-hero-simple .character-trio{width:118px;max-height:145px}.home-hero-simple .hero-copy h1{font-size:25px}.home-hero-simple .speech{padding:9px 10px}.home-quick-actions{gap:7px}.home-quick-actions button{flex-direction:column;gap:3px;min-height:66px}.home-quick-actions button span{font-size:20px}.home-quick-actions button b{font-size:11px}}
+
+
+/* V4.3.3 — animated characters */
+.character-motion{transform-origin:50% 88%;will-change:transform;animation:characterIdle 3.4s ease-in-out infinite;}
+.character-home{animation-duration:4.2s;transform-origin:50% 92%;}
+.character-study{animation-duration:3.8s;}
+.character-quiz{animation-duration:3.2s;}
+.cook-character-party .character-party:nth-child(1){animation:characterParty 1.15s ease-in-out infinite;}
+.cook-character-party .character-party:nth-child(2){animation:characterParty 1.15s ease-in-out .15s infinite;}
+.cook-character-party .character-party:nth-child(3){animation:characterParty 1.15s ease-in-out .3s infinite;}
+.character-motion.motion-wave{animation:characterWave .85s cubic-bezier(.2,.8,.25,1) both;}
+.character-motion.motion-look{animation:characterLook .9s ease-in-out both;}
+.character-motion.motion-hop{animation:characterHop .8s cubic-bezier(.2,.9,.3,1.15) both;}
+.quiz-cat.react-correct{animation:catCelebrate .72s cubic-bezier(.2,.9,.3,1.2)!important;}
+.quiz-cat.react-wrong{animation:catThink .62s ease!important;}
+@keyframes characterIdle{0%,100%{transform:translateY(0) rotate(0deg) scale(1)}50%{transform:translateY(-5px) rotate(.7deg) scale(1.01)}}
+@keyframes characterWave{0%,100%{transform:translateY(0) rotate(0)}28%{transform:translateY(-3px) rotate(-4deg)}55%{transform:translateY(-5px) rotate(4deg)}78%{transform:translateY(-2px) rotate(-2deg)}}
+@keyframes characterLook{0%,100%{transform:translateX(0) rotate(0)}35%{transform:translateX(-5px) rotate(-1.5deg)}70%{transform:translateX(5px) rotate(1.5deg)}}
+@keyframes characterHop{0%,100%{transform:translateY(0) scale(1)}42%{transform:translateY(-13px) scale(1.03)}68%{transform:translateY(1px) scale(.99)}}
+@keyframes characterParty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.character-motion,.cook-character-party .character-party{animation:none!important;transform:none!important}}
