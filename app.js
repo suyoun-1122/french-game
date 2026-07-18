@@ -107,11 +107,20 @@ function makeQuestion(q,requestedSkill){
     return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"🔊 소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(nearby.slice(0,12).map(w=>w.meaning),correct),answer:correct,difficulty:level};
   }
   if(skill==="article"){
-    const correct=wordLabel(q);
     const wrongArticle=q.article==="un"?"une":"un";
+    const correctIndefinite=wordLabel(q);
+    const correctDefinite=`${q.gender==="masculine"?"le":"la"} ${q.word}`;
     const plural=`des ${q.plural||q.word}`;
-    const definite=`${q.gender==="masculine"?"le":"la"} ${q.word}`;
-    return {skill,label:`알맞은 관사와 명사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([`${wrongArticle} ${q.word}`,plural,definite],correct),answer:correct,difficulty:level};
+    const variant=(q.id+quiz.index+level)%3;
+    if(level===1||variant===0){
+      return {skill,label:`알맞은 부정관사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([wrongArticle,"des",q.gender==="masculine"?"le":"la"],q.article),answer:q.article,difficulty:level};
+    }
+    if(level===2||variant===1){
+      return {skill,label:`알맞은 관사와 명사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([`${wrongArticle} ${q.word}`,plural,correctDefinite],correctIndefinite),answer:correctIndefinite,difficulty:level};
+    }
+    const wrongDefinite=`${q.gender==="masculine"?"la":"le"} ${q.word}`;
+    return {skill,label:"문맥에 맞는 관사 형태를 고르세요",display:`Je vois _____.
+(${q.meaning})`,options:uniqueOptions([wrongDefinite,plural,correctIndefinite],correctDefinite),answer:correctDefinite,difficulty:level};
   }
   if(skill==="form"){
     if(q.type==="noun"){
@@ -344,7 +353,7 @@ function renderKitchen(){
   $("madeCountTop").textContent=Object.keys(progress.madeFoods||{}).length;
   const readyCount=RECIPES.filter(canCook).length;if($("readyRecipeCount"))$("readyRecipeCount").textContent=readyCount;
   const latestMade=RECIPES.find(r=>(progress.madeFoods?.[r.id]||0)>0);if($("kitchenHeroPlate"))$("kitchenHeroPlate").textContent=latestMade?latestMade.emoji:"🍽️";
-  list.forEach(r=>{const made=progress.madeFoods[r.id]||0,ready=canCook(r),d=document.createElement("article");d.className="recipe-card"+(made?" made":"");
+  list.forEach(r=>{const made=progress.madeFoods[r.id]||0,ready=canCook(r),d=document.createElement("article");d.className="recipe-card"+(made?" made":"")+(ready?" ready":"")+(!ready?" unavailable":"");
     const costs=Object.entries(r.cost).map(([id,n])=>{const it=INGREDIENTS[id],lack=(progress.ingredients[id]||0)<n;return `<span class="cost${lack?" lack":""}">${it.emoji} ${it.name} ${progress.ingredients[id]||0}/${n}</span>`}).join("");
     d.innerHTML=`<div class="recipe-head"><div class="recipe-emoji">${r.emoji}</div><span class="difficulty">${r.difficulty}</span></div><div class="recipe-title"><b>${r.fr}</b><small>${r.name} · ${r.gender}</small></div><div class="cost-list">${costs}</div><button class="cook-btn" ${ready?"":"disabled"}>${made?`다시 만들기 · 완성 ${made}회`:ready?"음식 만들기":"재료가 부족해요"}</button>`;
     d.querySelector("button").onclick=()=>cookFood(r.id);box.appendChild(d)});
@@ -390,7 +399,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.1");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.2");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
