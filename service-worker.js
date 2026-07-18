@@ -1,12 +1,12 @@
-const CACHE="yeonjae-french-v4-4-0";
+const CACHE="yeonjae-french-v4-4-1";
 const CORE=[
   "./","./index.html",
-  "./style.css?v=4.4.0",
-  "./assets/styles/design-system.css?v=4.4.0",
-  "./assets/styles/components.css?v=4.4.0",
-  "./app.js?v=4.4.0","./audio.js","./review.js",
+  "./style.css?v=4.4.1",
+  "./assets/styles/design-system.css?v=4.4.1",
+  "./assets/styles/components.css?v=4.4.1",
+  "./app.js?v=4.4.1","./audio.js","./review.js",
   "./data/words.json?v=4.3.0","./data/lessons.json?v=4.3.0","./data/recipes.json?v=4.3.0",
-  "./assets/characters/petit-animated.svg","./assets/characters/fromage-animated.svg","./assets/characters/lavande-animated.svg","./assets/characters/trio-animated.svg","./assets/foods/recipes/croissant.svg","./assets/foods/recipes/baguette.svg","./assets/foods/recipes/crepe.svg","./assets/foods/recipes/madeleine.svg","./assets/foods/recipes/macaron.svg","./assets/foods/recipes/quiche.svg","./assets/foods/recipes/croquemonsieur.svg","./assets/foods/recipes/ratatouille.svg","./assets/foods/recipes/gratin.svg","./assets/foods/recipes/soupe.svg","./assets/foods/recipes/boeuf.svg","./assets/foods/recipes/coq.svg","./assets/foods/recipes/cassoulet.svg","./assets/foods/recipes/bouillabaisse.svg","./assets/foods/recipes/tarte.svg"
+  "./assets/characters/petit-vector.svg","./assets/characters/fromage-vector.svg","./assets/characters/lavande-vector.svg","./assets/characters/trio-vector.svg","./assets/foods/recipes/croissant.svg","./assets/foods/recipes/baguette.svg","./assets/foods/recipes/crepe.svg","./assets/foods/recipes/madeleine.svg","./assets/foods/recipes/macaron.svg","./assets/foods/recipes/quiche.svg","./assets/foods/recipes/croquemonsieur.svg","./assets/foods/recipes/ratatouille.svg","./assets/foods/recipes/gratin.svg","./assets/foods/recipes/soupe.svg","./assets/foods/recipes/boeuf.svg","./assets/foods/recipes/coq.svg","./assets/foods/recipes/cassoulet.svg","./assets/foods/recipes/bouillabaisse.svg","./assets/foods/recipes/tarte.svg"
 ];
 self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)))});
 self.addEventListener("activate",event=>event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))),self.clients.claim()])));
