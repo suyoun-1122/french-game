@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b1").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b1").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b1").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b2").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b2").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b2").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -125,12 +125,32 @@ function grantDailyIngredients(){
 function renderHome(){
   const level=Math.floor((Number(progress.stars)||0)/100)+1,xp=(Number(progress.stars)||0)%100;
   $("starsTop").textContent=progress.stars;$("levelNumber").textContent=level;$("xpCurrent").textContent=xp;$("xpBar").style.width=xp+"%";
+  if($("streakTop")) $("streakTop").textContent=Math.max(1,Math.min(7,(progress.rewardedDays||[]).length+1));
   $("todayDone").textContent=progress.todayDone;$("todayBar").style.width=(progress.todayDone*10)+"%";
   $("todayLabel").textContent=new Intl.DateTimeFormat("ko-KR",{month:"long",day:"numeric",weekday:"short"}).format(new Date());
   const stage=Math.min(5,Math.floor(progress.todayDone/2));$("foodImage").src=`./assets/foods/stage-${stage}.svg`;
-  if(progress.todayDone>=10){$("homeSpeech").innerHTML="Bravo!<br>오늘의 학습을 모두 마쳤어.";$("homeCat").src="./assets/characters/fromage.svg"}
-  else if(progress.todayDone>0){$("homeSpeech").innerHTML=`Très bien!<br>${10-progress.todayDone}문제만 더 풀어 보자.`;$("homeCat").src="./assets/characters/petit.svg"}
-  else{$("homeSpeech").innerHTML="Bonjour, Yeonjae!<br>오늘의 프랑스어를 시작해 보자.";$("homeCat").src="./assets/characters/petit.svg"}
+  const preview=$("homeIngredientPreview");
+  if(preview){
+    preview.innerHTML="";
+    const featured=["flour","butter","egg","milk"];
+    featured.forEach(id=>{const it=INGREDIENTS[id]||{emoji:"🎁",name:id};const el=document.createElement("div");el.className="mini-ingredient";el.innerHTML=`<span>${it.emoji}</span><b>${progress.ingredients[id]||0}</b><small>${it.name}</small>`;preview.appendChild(el)});
+  }
+  if(progress.todayDone>=10){
+    $("homeGreeting").innerHTML="Bravo!<br>오늘의 학습 완료!";
+    $("homeSpeech").innerHTML="모은 재료로 프랑스 음식을<br>만들어 볼까?";
+    $("dailyStatus").innerHTML="오늘의 미션을 완료했어요.<br>요리 화면에서 재료를 확인해요.";
+    $("homeCat").src="./assets/characters/fromage.svg";
+  } else if(progress.todayDone>0){
+    $("homeGreeting").innerHTML="Très bien!<br>조금만 더 힘내자!";
+    $("homeSpeech").innerHTML=`오늘은 ${progress.todayDone}문제를 풀었어.<br>${10-progress.todayDone}문제만 더 풀어 보자.`;
+    $("dailyStatus").innerHTML=`${10-progress.todayDone}문제를 더 풀면<br>오늘의 재료 상자가 열려요.`;
+    $("homeCat").src="./assets/characters/petit.svg";
+  } else {
+    $("homeGreeting").innerHTML="오늘도 프랑스어를<br>재미있게 배워 보자!";
+    $("homeSpeech").innerHTML="오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.";
+    $("dailyStatus").innerHTML="10문제를 완료하고<br>요리 재료를 모아 보세요.";
+    $("homeCat").src="./assets/characters/petit.svg";
+  }
 }
 function lessonProgress(lesson){
   const learned=lesson.wordIds.filter(id=>progress.words[String(id)]).length;
@@ -229,7 +249,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b1");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b2");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

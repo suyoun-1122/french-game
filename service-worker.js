@@ -1,11 +1,11 @@
-const CACHE="yeonjae-french-v4-build1";
+const CACHE="yeonjae-french-v4-build2";
 const CORE=[
   "./","./index.html",
-  "./style.css?v=4.0.0-b1",
-  "./assets/styles/design-system.css?v=4.0.0-b1",
-  "./assets/styles/components.css?v=4.0.0-b1",
-  "./app.js?v=4.0.0-b1","./audio.js","./review.js",
-  "./data/words.json?v=4.0.0-b1","./data/lessons.json?v=4.0.0-b1","./data/recipes.json?v=4.0.0-b1",
+  "./style.css?v=4.0.0-b2",
+  "./assets/styles/design-system.css?v=4.0.0-b2",
+  "./assets/styles/components.css?v=4.0.0-b2",
+  "./app.js?v=4.0.0-b2","./audio.js","./review.js",
+  "./data/words.json?v=4.0.0-b2","./data/lessons.json?v=4.0.0-b2","./data/recipes.json?v=4.0.0-b2",
   "./assets/characters/petit.svg","./assets/characters/fromage.svg","./assets/characters/lavande.svg"
 ];
 self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)))});

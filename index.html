@@ -7,35 +7,60 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=4.0.0-b1">
-<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b1">
-<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b1">
+<link rel="stylesheet" href="./style.css?v=4.0.0-b2">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b2">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b2">
 </head>
 <body>
 <div class="app">
 <section class="screen active" id="homeScreen">
-  <header class="topbar">
+  <header class="topbar home-topbar">
     <div><small class="eyebrow">CE1 · CE2 FRANÇAIS</small><div class="brand">Yeonjae French</div></div>
-    <div class="pill">⭐ <span id="starsTop">0</span></div>
+    <div class="top-actions"><div class="pill streak-pill">🔥 <span id="streakTop">1</span></div><div class="pill">⭐ <span id="starsTop">0</span></div></div>
   </header>
-  <div class="card hero">
+
+  <div class="home-hero card">
+    <div class="hero-sparkles" aria-hidden="true">✦ · ✧</div>
+    <div class="hero-copy">
+      <small class="hero-kicker">BONJOUR, YEONJAE!</small>
+      <h1 id="homeGreeting">오늘도 프랑스어를<br>재미있게 배워 보자!</h1>
+      <div class="speech" id="homeSpeech">오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.</div>
+      <button class="hero-start" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
+    </div>
     <img class="hero-cat" id="homeCat" src="./assets/characters/petit.svg" alt="학습 도우미 쁘띠냥">
-    <div class="speech" id="homeSpeech">Bonjour, Yeonjae!<br>오늘의 프랑스어를 시작해 보자.</div>
-    <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
-    <div class="progress slim"><div id="xpBar"></div></div>
+    <div class="hero-progress">
+      <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
+      <div class="progress slim"><div id="xpBar"></div></div>
+    </div>
   </div>
 
-  <div class="section-title"><div><small>10 MINUTES</small><h2>오늘의 학습</h2></div><span id="todayLabel"></span></div>
-  <div class="card daily">
-    <div class="row"><b>혼합 학습 10문제</b><span class="badge"><span id="todayDone">0</span>/10</span></div>
-    <div class="progress"><div id="todayBar"></div></div>
-    <div class="food-stage"><img id="foodImage" src="./assets/foods/stage-0.svg" alt="오늘의 보상"></div>
-    <div class="small center">단어 · 관사 · 변형 · 듣기 · 문장 이해</div>
-    <button class="primary" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
+  <div class="section-title home-section-title"><div><small>TODAY</small><h2>오늘의 학습</h2></div><span class="date-chip" id="todayLabel"></span></div>
+  <div class="daily-dashboard">
+    <div class="daily-main card">
+      <div class="daily-heading"><div><small>DAILY MISSION</small><b>혼합 학습 10문제</b></div><span class="daily-score"><span id="todayDone">0</span>/10</span></div>
+      <div class="progress"><div id="todayBar"></div></div>
+      <div class="daily-body">
+        <div class="food-stage"><img id="foodImage" src="./assets/foods/stage-0.svg" alt="오늘의 보상"></div>
+        <div class="daily-copy"><b id="dailyStatus">10문제를 완료하고<br>요리 재료를 모아 보세요.</b><small>단어 · 관사 · 변형 · 듣기 · 문장</small></div>
+      </div>
+      <button class="primary" onclick="startDaily()">학습 시작 <span>→</span></button>
+    </div>
+    <div class="reward-preview card">
+      <div class="reward-title"><small>오늘의 보상</small><b>재료 상자</b></div>
+      <div class="reward-ingredients" id="homeIngredientPreview"></div>
+      <button class="reward-link" onclick="showScreen('kitchenScreen',document.querySelectorAll('.nav button')[3])">내 재료 보기 →</button>
+    </div>
+  </div>
+
+  <div class="section-title"><div><small>YOUR GUIDES</small><h2>선생님과 학습하기</h2></div></div>
+  <div class="guide-strip">
+    <button class="guide-card petit-guide" onclick="startQuiz('meaning')"><img src="./assets/characters/petit.svg" alt="쁘띠냥"><span><b>쁘띠냥</b><small>단어 · 문법</small></span><i>→</i></button>
+    <button class="guide-card fromage-guide" onclick="startQuiz('listening')"><img src="./assets/characters/fromage.svg" alt="치즈냥"><span><b>치즈냥</b><small>듣기 · 발음</small></span><i>→</i></button>
+    <button class="guide-card lavande-guide" onclick="startQuiz('example')"><img src="./assets/characters/lavande.svg" alt="라벤더냥"><span><b>라벤더냥</b><small>문장 · 독해</small></span><i>→</i></button>
   </div>
 
   <div class="section-title"><div><small>LEARN</small><h2>학습 선택</h2></div></div>
-  <div class="menu-grid">
+  <div class="menu-grid compact-menu">
     <button class="menu-btn" onclick="showScreen('studyScreen')"><span>📖</span><b>단어 학습</b><small>단어·문장·활용</small></button>
     <button class="menu-btn" onclick="startQuiz('meaning')"><span>🌼</span><b>뜻 퀴즈</b><small>어휘 이해</small></button>
     <button class="menu-btn" onclick="startQuiz('article')"><span>🎩</span><b>관사 퀴즈</b><small>성·관사 구별</small></button>
@@ -129,6 +154,6 @@
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.0.0-b1"></script>
+<script type="module" src="./app.js?v=4.0.0-b2"></script>
 </body>
 </html>
