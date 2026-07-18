@@ -7,9 +7,9 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=4.0.0-b8">
-<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b8">
-<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b8">
+<link rel="stylesheet" href="./style.css?v=4.0.2">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.2">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.2">
 </head>
 <body>
 <div id="offlineBanner" class="offline-banner hidden" role="status">📡 오프라인 모드 · 저장된 학습은 계속할 수 있어요.</div>
@@ -27,9 +27,14 @@
       <small class="hero-kicker">BONJOUR, YEONJAE!</small>
       <h1 id="homeGreeting">오늘도 프랑스어를<br>재미있게 배워 보자!</h1>
       <div class="speech" id="homeSpeech">오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.</div>
+      <div class="hero-guide-badges" aria-label="학습 도우미 캐릭터">
+        <span>🐾 쁘띠냥 · 단어/문법</span>
+        <span>🧀 치즈냥 · 듣기/발음</span>
+        <span>💜 라벤더냥 · 문장/독해</span>
+      </div>
       <button class="hero-start" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
     </div>
-    <img class="hero-cat hero-trio" id="homeCat" src="./assets/characters/trio-approved.png" alt="쁘띠냥, 치즈냥, 라벤더냥">
+    <img class="hero-cat hero-trio character-trio" id="homeCat" src="./assets/characters/trio-approved.png" alt="쁘띠냥, 치즈냥, 라벤더냥">
     <div class="hero-progress">
       <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
       <div class="progress slim"><div id="xpBar"></div></div>
@@ -98,7 +103,7 @@
   </div>
 </section>
 
-<section class="screen" id="quizScreen">
+<section class="screen" id="quizScreen" data-skill="meaning">
   <header class="topbar quiz-topbar">
     <button class="pill quiz-exit" onclick="showScreen('homeScreen')" aria-label="퀴즈 종료">×</button>
     <div class="quiz-progress-wrap" aria-label="퀴즈 진행도"><div class="quiz-progress"><div id="quizProgressBar"></div></div><b id="quizCount">1/10</b></div>
@@ -222,6 +227,6 @@
   <button aria-label="기록" onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.0.0-b8"></script>
+<script type="module" src="./app.js?v=4.0.2"></script>
 </body>
 </html>
