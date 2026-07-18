@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"3.4.1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=3.4.1").then(r=>r.json()),fetch("./data/lessons.json?v=3.4.1").then(r=>r.json()),fetch("./data/recipes.json?v=3.4.1").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b1").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b1").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b1").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -229,7 +229,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=3.4.1");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b1");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

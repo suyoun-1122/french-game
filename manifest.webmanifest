@@ -3,7 +3,7 @@
   "short_name": "Yeonjae French",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#fff8ef",
-  "theme_color": "#8363a8",
+  "background_color": "#fff9ee",
+  "theme_color": "#745492",
   "icons": []
 }
