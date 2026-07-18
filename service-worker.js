@@ -1,10 +1,10 @@
-const CACHE="yeonjae-french-v4-3-1";
+const CACHE="yeonjae-french-v4-3-2";
 const CORE=[
   "./","./index.html",
-  "./style.css?v=4.3.1",
-  "./assets/styles/design-system.css?v=4.3.1",
-  "./assets/styles/components.css?v=4.3.1",
-  "./app.js?v=4.3.1","./audio.js","./review.js",
+  "./style.css?v=4.3.2",
+  "./assets/styles/design-system.css?v=4.3.2",
+  "./assets/styles/components.css?v=4.3.2",
+  "./app.js?v=4.3.2","./audio.js","./review.js",
   "./data/words.json?v=4.3.0","./data/lessons.json?v=4.3.0","./data/recipes.json?v=4.3.0",
   "./assets/characters/petit-clean-v431.png","./assets/characters/fromage-clean-v431.png","./assets/characters/lavande-clean-v431.png","./assets/characters/trio-clean-v431.png","./assets/foods/recipes/croissant.svg","./assets/foods/recipes/baguette.svg","./assets/foods/recipes/crepe.svg","./assets/foods/recipes/madeleine.svg","./assets/foods/recipes/macaron.svg","./assets/foods/recipes/quiche.svg","./assets/foods/recipes/croquemonsieur.svg","./assets/foods/recipes/ratatouille.svg","./assets/foods/recipes/gratin.svg","./assets/foods/recipes/soupe.svg","./assets/foods/recipes/boeuf.svg","./assets/foods/recipes/coq.svg","./assets/foods/recipes/cassoulet.svg","./assets/foods/recipes/bouillabaisse.svg","./assets/foods/recipes/tarte.svg"
 ];
