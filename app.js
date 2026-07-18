@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.3.2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.3.3",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -350,7 +350,7 @@ function renderQuiz(){
   const question=makeQuestion(q,quiz.skill);quiz.currentQuestion=question;quiz.activeSkill=question.skill;
   const current=quiz.index+1,total=quiz.items.length;
   $("quizCount").textContent=`${current}/${total}`;$("quizProgressBar").style.width=`${(current/total)*100}%`;
-  $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";const reaction=$("quizReaction");if(reaction){reaction.className="quiz-reaction hidden";reaction.textContent="✨"}$("quizCat").classList.remove("react-correct","react-wrong");
+  $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";const reaction=$("quizReaction");if(reaction){reaction.className="quiz-reaction hidden";reaction.textContent="✨"}$("quizCat").classList.remove("react-correct","react-wrong","motion-wave","motion-look","motion-hop");
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
   $("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
@@ -472,10 +472,39 @@ function renderProgress(){
 }
 window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요?")){localStorage.removeItem("yeonjaeFrenchV3");localStorage.removeItem("yeonjaeFrenchV2");location.reload()}};
 function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
+
+
+/* V4.3.3 character motion controller */
+function restartCharacterMotion(el,kind="wave"){
+  if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  el.classList.remove("motion-wave","motion-look","motion-hop");
+  void el.offsetWidth;
+  el.classList.add(`motion-${kind}`);
+  setTimeout(()=>el.classList.remove(`motion-${kind}`),900);
+}
+function startCharacterMotionLoop(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const targets=[
+    [$("homeCat"),4200],
+    [$("studyGuideCat"),5200],
+    [$("quizCat"),4700]
+  ];
+  targets.forEach(([el,delay],index)=>{
+    if(!el)return;
+    setTimeout(()=>restartCharacterMotion(el,index===0?"hop":"wave"),700+index*260);
+    setInterval(()=>{
+      if(document.hidden||!el.isConnected)return;
+      const kinds=index===0?["hop","look"]:["wave","look"];
+      restartCharacterMotion(el,kinds[Math.floor(Math.random()*kinds.length)]);
+    },delay);
+  });
+}
+window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
+
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.3.2");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.3.3");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
