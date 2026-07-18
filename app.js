@@ -6,18 +6,18 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b4",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b5",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
     const saved=JSON.parse(localStorage.getItem("yeonjaeFrenchV3")||localStorage.getItem("yeonjaeFrenchV2")||"null");
-    if(saved) progress={...progress,...saved,totals:{...progress.totals,...(saved.totals||{})},skillTotals:{...emptySkills(),...(saved.skillTotals||{})},ingredients:{...progress.ingredients,...(saved.ingredients||{})},madeFoods:saved.madeFoods||{},rewardedDays:Array.isArray(saved.rewardedDays)?saved.rewardedDays:[],words:saved.words||{},completedDesserts:Array.isArray(saved.completedDesserts)?saved.completedDesserts:[]};
+    if(saved) progress={...progress,...saved,totals:{...progress.totals,...(saved.totals||{})},skillTotals:{...emptySkills(),...(saved.skillTotals||{})},ingredients:{...progress.ingredients,...(saved.ingredients||{})},madeFoods:saved.madeFoods||{},rewardedDays:Array.isArray(saved.rewardedDays)?saved.rewardedDays:[],rewardCounter:Number(saved.rewardCounter)||0,rewardHistory:Array.isArray(saved.rewardHistory)?saved.rewardHistory:[],words:saved.words||{},completedDesserts:Array.isArray(saved.completedDesserts)?saved.completedDesserts:[]};
   }catch(e){}
   if(progress.today!==todayKey()){progress.today=todayKey();progress.todayDone=0;saveProgress()}
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b4").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b4").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b4").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b5").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b5").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b5").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -114,11 +114,47 @@ const CAT_GUIDES={
   example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-approved.png",line:"문장 속 단서를 찾아 읽어보자냥!"}
 };
 function guideFor(skill){return CAT_GUIDES[skill]||CAT_GUIDES.meaning}
+
+const SKILL_REWARD_POOLS={
+  meaning:["flour","sugar","fruit"],
+  article:["egg","milk","butter"],
+  form:["flour","cheese","vegetable"],
+  listening:["milk","butter","fish"],
+  example:["vegetable","meat","fruit"]
+};
+function addIngredient(id,amount=1,reason="학습 보상"){
+  if(!INGREDIENTS[id]) return null;
+  progress.ingredients[id]=(progress.ingredients[id]||0)+amount;
+  const item={id,amount,reason,at:new Date().toISOString()};
+  progress.rewardHistory=[item,...(progress.rewardHistory||[])].slice(0,12);
+  return item;
+}
+function grantQuizIngredient(skill,combo){
+  progress.rewardCounter=(progress.rewardCounter||0)+1;
+  const shouldReward=progress.rewardCounter%2===0;
+  const comboBonus=combo>0&&combo%5===0;
+  if(!shouldReward&&!comboBonus) return [];
+  const pool=SKILL_REWARD_POOLS[skill]||Object.keys(INGREDIENTS);
+  const id=pool[Math.floor(Math.random()*pool.length)];
+  const rewards=[];
+  const first=addIngredient(id,comboBonus?2:1,comboBonus?`${combo}연속 정답 보너스`:"정답 2회 보상");
+  if(first) rewards.push(first);
+  if(comboBonus&&shouldReward){
+    const secondId=pool.find(x=>x!==id)||id;
+    const second=addIngredient(secondId,1,"정답 2회 보상");
+    if(second) rewards.push(second);
+  }
+  return rewards;
+}
+function rewardText(rewards){
+  return rewards.map(r=>{const it=INGREDIENTS[r.id];return `${it.emoji} ${it.name} +${r.amount}`}).join("  ");
+}
+
 function showRewardToast(text){const old=document.querySelector(".reward-toast");if(old)old.remove();const el=document.createElement("div");el.className="reward-toast";el.textContent=text;document.body.appendChild(el);setTimeout(()=>el.remove(),2800)}
 function grantDailyIngredients(){
   const key=todayKey();if(progress.rewardedDays.includes(key))return false;
   const pool=["flour","butter","egg","milk","sugar","cheese","vegetable","meat","fish","fruit"];
-  const rewards=shuffled(pool).slice(0,4);rewards.forEach((id,i)=>progress.ingredients[id]=(progress.ingredients[id]||0)+(i===0?2:1));
+  const rewards=shuffled(pool).slice(0,4);rewards.forEach((id,i)=>addIngredient(id,i===0?2:1,"오늘의 학습 완료"));
   progress.rewardedDays.push(key);saveProgress();showRewardToast("오늘의 보상! 프랑스 요리 재료를 받았어요 🎁");return true
 }
 
@@ -210,7 +246,7 @@ function answerQuiz(ok,button,q){
   const optionButtons=[...document.querySelectorAll("#quizOptions .quiz-option")];
   optionButtons.forEach(b=>{b.disabled=true;if(b.dataset.correct==="true")b.classList.add("correct-answer")});
   const feedback=$("quizFeedback");
-  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);feedback.classList.add("success");feedback.textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐"}
+  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);feedback.classList.add("success");feedback.textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐";const earned=grantQuizIngredient(quiz.activeSkill,quiz.combo);if(earned.length){const text=rewardText(earned);feedback.textContent+=` · ${text}`;showRewardToast(`재료 획득! ${text}`)}}
   else{button.classList.add("wrong");quiz.combo=0;feedback.classList.add("error");feedback.textContent=`정답은 “${quiz.currentQuestion?.answer||q.meaning}”`}
   progress=recordResult(progress,q.id,ok,quiz.activeSkill);if(quiz.daily)progress.todayDone=Math.min(10,progress.todayDone+1);
   $("quizExampleFr").textContent=q.example;$("quizExampleKr").textContent=q.exampleKr;$("quizExample").classList.remove("hidden");$("quizNext").classList.remove("hidden");saveProgress();renderHome();renderProgress()
@@ -235,6 +271,15 @@ window.clearWordSearch=()=>{wordSearch="";if($("wordSearch")) $("wordSearch").va
 function canCook(recipe){return Object.entries(recipe.cost).every(([id,n])=>(progress.ingredients[id]||0)>=n)}
 function renderKitchen(){
   if(!RECIPES.length)return;
+  const totalIngredients=Object.values(progress.ingredients||{}).reduce((a,b)=>a+(Number(b)||0),0);
+  if($("ingredientTotal")) $("ingredientTotal").textContent=totalIngredients;
+  if($("rewardStep")) $("rewardStep").textContent=(progress.rewardCounter||0)%2;
+  if($("rewardHistory")){
+    $("rewardHistory").innerHTML="";
+    const history=(progress.rewardHistory||[]).slice(0,5);
+    if(!history.length){$("rewardHistory").innerHTML='<div class="reward-empty">퀴즈 정답을 맞히면 여기에 재료 기록이 보여요.</div>'}
+    history.forEach(r=>{const it=INGREDIENTS[r.id]||{emoji:"🎁",name:r.id};const row=document.createElement("div");row.className="reward-history-row";row.innerHTML=`<span>${it.emoji}</span><b>${it.name} +${r.amount}</b><small>${r.reason}</small>`;$("rewardHistory").appendChild(row)})
+  }
   const ingredientBox=$("ingredientGrid");ingredientBox.innerHTML="";
   Object.entries(INGREDIENTS).forEach(([id,it])=>{const d=document.createElement("div");d.className="ingredient-chip";d.innerHTML=`<span>${it.emoji}</span><b>${it.name} × ${progress.ingredients[id]||0}</b><small>${it.fr}</small>`;ingredientBox.appendChild(d)});
   const list=RECIPES.filter(r=>recipeFilter==="all"||r.difficulty===recipeFilter),box=$("recipeGrid");box.innerHTML="";
@@ -257,7 +302,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b4");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b5");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

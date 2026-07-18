@@ -172,3 +172,8 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
   #quizScreen .feedback{min-height:23px;font-size:13px;margin-top:4px}
   #quizScreen .example{font-size:11px;padding:6px 8px}
 }
+
+
+/* V4 Build 5 — ingredient reward system */
+.ingredient-overview{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.ingredient-summary{display:flex;align-items:center;gap:10px;background:linear-gradient(145deg,#fff7e7,#fff);border:1px solid #efdfc3;border-radius:18px;padding:13px 14px;box-shadow:0 6px 16px rgba(98,73,39,.07)}.ingredient-summary>span{font-size:28px}.ingredient-summary small{display:block;color:#8d7967;font-size:11px;font-weight:800}.ingredient-summary b{display:block;margin-top:2px;color:#5d4634;font-size:16px}.reward-history-card{margin:12px 0 16px}.reward-history{display:grid;gap:7px;margin-top:10px}.reward-history-row{display:grid;grid-template-columns:32px 1fr auto;gap:8px;align-items:center;background:#faf7ff;border:1px solid #ebe2f4;border-radius:13px;padding:8px 10px}.reward-history-row span{font-size:22px}.reward-history-row b{font-size:12px}.reward-history-row small{font-size:10px;color:#8e8197}.reward-empty{padding:12px;text-align:center;color:#988ca1;font-size:12px;background:#faf8fc;border-radius:12px}.feedback.success{line-height:1.45}.reward-toast{animation:rewardPop .32s ease-out}.reward-toast::before{content:"🎁 ";}@keyframes rewardPop{from{opacity:0;transform:translate(-50%,18px) scale(.88)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@media(max-width:520px){.ingredient-summary{padding:10px}.ingredient-summary>span{font-size:24px}.ingredient-summary b{font-size:13px}.reward-history-row{grid-template-columns:28px 1fr}.reward-history-row small{grid-column:2}}

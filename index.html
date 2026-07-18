@@ -7,9 +7,9 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=4.0.0-b4">
-<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b4">
-<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b4">
+<link rel="stylesheet" href="./style.css?v=4.0.0-b5">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b5">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b5">
 </head>
 <body>
 <div class="app">
@@ -137,7 +137,12 @@
 
 <section class="screen" id="kitchenScreen">
   <header class="topbar"><div><small class="eyebrow">CUISINE FRANÇAISE</small><div class="brand smallbrand">프랑스 음식 만들기</div></div><div class="pill">완성 <span id="madeCountTop">0</span></div></header>
-  <div class="card ingredient-card"><div class="row"><b>보유 재료</b><small>오늘의 학습을 마치면 재료를 받아요.</small></div><div class="ingredient-grid" id="ingredientGrid"></div></div>
+  <div class="ingredient-overview">
+    <div class="ingredient-summary"><span>🧺</span><div><small>보유 재료</small><b><span id="ingredientTotal">0</span>개</b></div></div>
+    <div class="ingredient-summary"><span>🎯</span><div><small>다음 보상까지</small><b><span id="rewardStep">0</span>/2 정답</b></div></div>
+  </div>
+  <div class="card ingredient-card"><div class="row"><b>재료 보관함</b><small>정답 2회마다 1개, 5연속 정답에는 보너스를 받아요.</small></div><div class="ingredient-grid" id="ingredientGrid"></div></div>
+  <div class="card reward-history-card"><div class="row"><b>최근 획득</b><small>최대 5개 표시</small></div><div id="rewardHistory" class="reward-history"></div></div>
   <div class="section-title"><div><small>RECETTES</small><h2>프랑스 음식 컬렉션</h2></div></div>
   <div class="recipe-filters"><button class="filter active" onclick="filterRecipes('all',this)">전체</button><button class="filter" onclick="filterRecipes('쉬움',this)">쉬움</button><button class="filter" onclick="filterRecipes('보통',this)">보통</button><button class="filter" onclick="filterRecipes('어려움',this)">어려움</button></div>
   <div class="recipe-grid" id="recipeGrid"></div>
@@ -167,6 +172,6 @@
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.0.0-b4"></script>
+<script type="module" src="./app.js?v=4.0.0-b5"></script>
 </body>
 </html>
