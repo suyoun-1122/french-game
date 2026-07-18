@@ -84,7 +84,11 @@
     <div class="row"><span id="lessonProgressTitle">단원 진행도</span><b id="lessonProgressText">0%</b></div>
     <div class="progress lesson-progress"><div id="lessonProgressBar"></div></div>
   </div>
-  <div class="card study-card">
+  <div class="study-guide-panel" id="studyGuidePanel" data-guide="petit">
+    <img id="studyGuideCat" src="./assets/characters/petit-approved.png" alt="학습 도우미">
+    <div><b id="studyGuideName">쁘띠냥 · Petit</b><p id="studyGuideSpeech">단어를 소리 내어 읽고 뜻을 확인해 보자냥!</p></div>
+  </div>
+  <div class="card study-card" id="studyCard">
     <div class="study-emoji" id="studyEmoji"></div>
     <div class="study-word" id="studyWord"></div>
     <div class="study-meaning" id="studyMeaning"></div>
@@ -111,7 +115,7 @@
   </header>
   <main class="quiz-layout">
     <section class="quiz-guide-panel">
-      <img id="quizCat" src="./assets/characters/petit-approved.png" alt="학습 도우미 고양이" class="quiz-cat">
+      <div class="quiz-cat-wrap"><img id="quizCat" src="./assets/characters/petit-approved.png" alt="학습 도우미 고양이" class="quiz-cat"><span id="quizReaction" class="quiz-reaction hidden" aria-hidden="true">✨</span></div>
       <div class="quiz-guide-copy">
         <div class="cat-name" id="quizCatName">쁘띠냥 · Petit</div>
         <div class="quiz-speech" id="quizGuideLine">단어의 뜻을 차근차근 찾아보자냥!</div>
@@ -161,7 +165,7 @@
   <div class="cook-modal-card">
     <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCookModal()">×</button>
     <div class="cook-sparkles" aria-hidden="true">✦ ✨ ✦</div>
-    <div class="cook-result-emoji" id="cookResultEmoji">🥐</div>
+    <div class="cook-character-party" aria-hidden="true"><img src="./assets/characters/petit-approved.png" alt=""><img src="./assets/characters/fromage-approved.png" alt=""><img src="./assets/characters/lavande-approved.png" alt=""></div><div class="cook-result-emoji" id="cookResultEmoji">🥐</div>
     <small>RECETTE TERMINÉE!</small>
     <h2 id="cookModalTitle">음식 완성!</h2>
     <p class="cook-result-fr" id="cookResultFr"></p>
@@ -205,7 +209,11 @@
 
 <section class="screen" id="progressScreen">
   <header class="topbar"><div><small class="eyebrow">PROGRÈS</small><div class="brand smallbrand">학습 기록</div></div><div class="pill">CE1 → CE2</div></header>
-  <div class="card">
+  <div class="progress-hero">
+    <div><small>MON PROGRÈS</small><h2>오늘도 한 걸음 성장했어요!</h2><p>단어, 듣기, 문장 실력을 영역별로 확인해 보세요.</p></div>
+    <div class="progress-hero-medal">🏅</div>
+  </div>
+  <div class="card progress-main-card">
     <div class="row"><b>학습한 단어</b><b><span id="learnedWords">0</span>/<span id="totalWords">0</span></b></div>
     <div class="progress"><div id="learnedBar"></div></div>
     <div class="stats-grid">

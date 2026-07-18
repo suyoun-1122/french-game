@@ -260,8 +260,14 @@ function renderLessonTabs(){
   const box=$("lessonTabs");box.innerHTML="";
   LESSONS.forEach(l=>{const p=lessonProgress(l),b=document.createElement("button");b.className="lesson-tab"+(l.id===currentLesson?" active":"");b.innerHTML=`<span>${l.ce} · ${l.title}</span><small>${p.percent}%</small>`;b.onclick=()=>{currentLesson=l.id;currentWordIndex=0;renderLessonTabs();renderStudy()};box.appendChild(b)})
 }
+function studyGuideForWord(w){
+  if(w.type==="verb")return {name:"치즈냥 · Fromage",src:"./assets/characters/fromage-approved.png",line:"동사의 소리와 활용을 리듬처럼 익혀 보자냥!",theme:"fromage"};
+  if(w.example&&String(w.example).length>32)return {name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-approved.png",line:"예문 속에서 단어가 어떻게 쓰이는지 찾아보자냥!",theme:"lavande"};
+  return {name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"단어의 뜻과 성, 형태를 차근차근 확인해 보자냥!",theme:"petit"};
+}
 function renderStudy(){
   const list=lessonWords();if(!list.length)return;currentWordIndex=Math.max(0,Math.min(currentWordIndex,list.length-1));const w=list[currentWordIndex];
+  const studyGuide=studyGuideForWord(w);if($("studyGuideCat"))$("studyGuideCat").src=studyGuide.src;if($("studyGuideName"))$("studyGuideName").textContent=studyGuide.name;if($("studyGuideSpeech"))$("studyGuideSpeech").textContent=studyGuide.line;if($("studyGuidePanel"))$("studyGuidePanel").dataset.guide=studyGuide.theme;if($("studyCard"))$("studyCard").dataset.type=w.type;
   const lesson=LESSONS.find(x=>x.id===currentLesson),lp=lessonProgress(lesson);
   $("lessonProgressTitle").textContent=`${lesson.ce} · ${lesson.title} (${lp.learned}/${lp.total})`;
   $("lessonProgressText").textContent=`${lp.percent}%`;
@@ -296,7 +302,7 @@ function renderQuiz(){
   const question=makeQuestion(q,quiz.skill);quiz.currentQuestion=question;quiz.activeSkill=question.skill;
   const current=quiz.index+1,total=quiz.items.length;
   $("quizCount").textContent=`${current}/${total}`;$("quizProgressBar").style.width=`${(current/total)*100}%`;
-  $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";
+  $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";const reaction=$("quizReaction");if(reaction){reaction.className="quiz-reaction hidden";reaction.textContent="✨"}$("quizCat").classList.remove("react-correct","react-wrong");
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
   $("quizEmoji").textContent=SKILL_ICONS[question.skill]||"📘";$("quizEmoji").classList.remove("hidden");$("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
@@ -305,13 +311,26 @@ function renderQuiz(){
   question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
   if(question.skill==="listening")setTimeout(()=>speakFrench(wordLabel(q)),350)
 }
+function showCharacterReaction(ok,skill,combo=0){
+  const cat=$("quizCat"),reaction=$("quizReaction"),line=$("quizGuideLine");
+  if(!cat||!reaction)return;
+  cat.classList.remove("react-correct","react-wrong");
+  void cat.offsetWidth;
+  cat.classList.add(ok?"react-correct":"react-wrong");
+  reaction.textContent=ok?(combo>=5?"🏆":"✨"):(skill==="listening"?"👂":"💡");
+  reaction.className=`quiz-reaction ${ok?"is-correct":"is-wrong"}`;
+  const success={meaning:"Très bien! 단어 뜻을 정확히 찾았어냥!",article:"Bravo! 관사와 명사의 성을 잘 구별했어냥!",form:"Parfait! 단어 형태 변화를 잘 찾았어냥!",listening:"Super! 소리를 아주 잘 들었어냥!",example:"Excellent! 문장 속 단서를 잘 읽었어냥!"};
+  const retry={meaning:"괜찮아! 비슷한 뜻을 다시 비교해 보자냥.",article:"관사와 명사의 성을 한 번 더 확인해 보자냥.",form:"단수·복수와 주어를 다시 살펴보자냥.",listening:"한 번 더 들으면 분명히 찾을 수 있어냥!",example:"장소·시간·상태 단어를 차근차근 비교해 보자냥."};
+  if(line)line.textContent=(ok?success:retry)[skill]||(ok?"Bravo!":"다시 한번 살펴보자냥!");
+  setTimeout(()=>reaction.classList.add("fade"),1500);
+}
 function answerQuiz(ok,button,q){
   if(quiz.answered)return;quiz.answered=true;progress.totals.attempts++;progress.skillTotals[quiz.activeSkill].a++;
   const optionButtons=[...document.querySelectorAll("#quizOptions .quiz-option")];
   optionButtons.forEach(b=>{b.disabled=true;if(b.dataset.correct==="true")b.classList.add("correct-answer")});
   const feedback=$("quizFeedback");
-  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);feedback.classList.add("success");feedback.textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐";const earned=grantQuizIngredient(quiz.activeSkill,quiz.combo);if(earned.length){const text=rewardText(earned);feedback.textContent+=` · ${text}`;showRewardToast(`재료 획득! ${text}`)}}
-  else{button.classList.add("wrong");quiz.combo=0;feedback.classList.add("error");feedback.textContent=`정답은 “${quiz.currentQuestion?.answer||q.meaning}”`}
+  if(ok){button.classList.add("correct");progress.totals.correct++;progress.skillTotals[quiz.activeSkill].c++;quiz.combo++;progress.bestCombo=Math.max(progress.bestCombo||0,quiz.combo);progress.stars+=10+(quiz.combo>=3?2:0);feedback.classList.add("success");feedback.textContent=quiz.combo>=3?`정답! ${quiz.combo}연속 ⭐`:"정답! Bravo! ⭐";showCharacterReaction(true,quiz.activeSkill,quiz.combo);const earned=grantQuizIngredient(quiz.activeSkill,quiz.combo);if(earned.length){const text=rewardText(earned);feedback.textContent+=` · ${text}`;showRewardToast(`재료 획득! ${text}`)}}
+  else{button.classList.add("wrong");quiz.combo=0;feedback.classList.add("error");feedback.textContent=`정답은 “${quiz.currentQuestion?.answer||q.meaning}”`;showCharacterReaction(false,quiz.activeSkill,0)}
   const mastery=updateMastery(q.id,quiz.activeSkill,ok);
   if(!ok)scheduleRetry(q,quiz.activeSkill);
   else if(mastery.level>quiz.currentQuestion.difficulty)showRewardToast(`${DIFFICULTY_LABELS[mastery.level]} 난이도로 올라갔어요!`);
@@ -330,7 +349,7 @@ function renderWords(){
     return filterOk&&(!query||haystack.includes(query));
   });
   $("wordCountTop").textContent=list.length;const box=$("wordList");box.innerHTML="";$("wordEmpty").classList.toggle("hidden",list.length>0);
-  list.forEach(w=>{const entry=progress.words[String(w.id)],d=document.createElement("div");d.className="word-item";d.innerHTML=`<div class="row"><div><b>${w.emoji||"🐾"} ${wordLabel(w)}</b><div class="small">${w.meaning} · ${genderLabel(w)} · ${w.ce}</div></div><span class="badge">${entry?`복습 ${entry.stage}단계`:"새 단어"}</span></div>`;d.onclick=()=>{currentLesson=w.lesson;currentWordIndex=lessonWords(w.lesson).findIndex(x=>x.id===w.id);showScreen("studyScreen");renderLessonTabs();renderStudy()};box.appendChild(d)})
+  list.forEach(w=>{const entry=progress.words[String(w.id)],d=document.createElement("div");d.className="word-item";d.dataset.type=w.type;d.innerHTML=`<div class="word-icon">${w.emoji||"🐾"}</div><div class="word-copy"><b>${wordLabel(w)}</b><strong>${w.meaning}</strong><small>${genderLabel(w)} · ${w.ce}</small></div><span class="badge">${entry?`복습 ${entry.stage}단계`:"새 단어"}</span><i>→</i>`;d.onclick=()=>{currentLesson=w.lesson;currentWordIndex=lessonWords(w.lesson).findIndex(x=>x.id===w.id);showScreen("studyScreen");renderLessonTabs();renderStudy()};box.appendChild(d)})
 }
 window.filterWords=(f,btn)=>{wordFilter=f;document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderWords()};
 window.searchWords=value=>{wordSearch=value;renderWords()};
@@ -390,7 +409,7 @@ window.openCollectionModal=r=>{const count=progress.madeFoods?.[r.id]||0;$("coll
 window.closeCollectionModal=()=>{$("collectionModal").classList.add("hidden");document.body.classList.remove("modal-open")};
 
 function renderProgress(){
-  const learned=Object.keys(progress.words).length;$("learnedWords").textContent=learned;$("totalWords").textContent=WORDS.length;$("learnedBar").style.width=(WORDS.length?learned/WORDS.length*100:0)+"%";
+  const learned=Object.keys(progress.words).length;$("learnedWords").textContent=learned;$("totalWords").textContent=WORDS.length;$("learnedBar").style.width=(WORDS.length?learned/WORDS.length*100:0)+"%";const medal=document.querySelector(".progress-hero-medal");if(medal)medal.textContent=learned>=80?"🏆":learned>=40?"🥇":learned>=10?"🏅":"🌱";
   $("totalAttempts").textContent=progress.totals.attempts;$("totalAccuracy").textContent=progress.totals.attempts?Math.round(progress.totals.correct/progress.totals.attempts*100)+"%":"0%";$("bestCombo").textContent=progress.bestCombo||0;$("dessertCount").textContent=Object.keys(progress.madeFoods||{}).length;
   const box=$("skillStats");box.innerHTML="";Object.entries(progress.skillTotals).forEach(([k,v])=>{const d=document.createElement("div"),rate=v.a?Math.round(v.c/v.a*100):0;d.className="stat";d.innerHTML=`<span>${({meaning:"단어 뜻",article:"관사·품사",form:"형태 변화",listening:"듣기",example:"문장 이해"}[k])}</span><b>${rate}%</b><small>${v.c}/${v.a}</small>`;box.appendChild(d)})
 }
@@ -399,7 +418,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.2");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.4");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
