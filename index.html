@@ -7,9 +7,9 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=4.0.0-b2">
-<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b2">
-<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b2">
+<link rel="stylesheet" href="./style.css?v=4.0.0-b3">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.0.0-b3">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.0.0-b3">
 </head>
 <body>
 <div class="app">
@@ -27,7 +27,7 @@
       <div class="speech" id="homeSpeech">오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.</div>
       <button class="hero-start" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
     </div>
-    <img class="hero-cat" id="homeCat" src="./assets/characters/petit.svg" alt="학습 도우미 쁘띠냥">
+    <img class="hero-cat hero-trio" id="homeCat" src="./assets/characters/trio-approved.png" alt="쁘띠냥, 치즈냥, 라벤더냥">
     <div class="hero-progress">
       <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
       <div class="progress slim"><div id="xpBar"></div></div>
@@ -54,9 +54,9 @@
 
   <div class="section-title"><div><small>YOUR GUIDES</small><h2>선생님과 학습하기</h2></div></div>
   <div class="guide-strip">
-    <button class="guide-card petit-guide" onclick="startQuiz('meaning')"><img src="./assets/characters/petit.svg" alt="쁘띠냥"><span><b>쁘띠냥</b><small>단어 · 문법</small></span><i>→</i></button>
-    <button class="guide-card fromage-guide" onclick="startQuiz('listening')"><img src="./assets/characters/fromage.svg" alt="치즈냥"><span><b>치즈냥</b><small>듣기 · 발음</small></span><i>→</i></button>
-    <button class="guide-card lavande-guide" onclick="startQuiz('example')"><img src="./assets/characters/lavande.svg" alt="라벤더냥"><span><b>라벤더냥</b><small>문장 · 독해</small></span><i>→</i></button>
+    <button class="guide-card petit-guide" onclick="startQuiz('meaning')"><img src="./assets/characters/petit-approved.png" alt="쁘띠냥"><span><b>쁘띠냥</b><small>단어 · 문법</small></span><i>→</i></button>
+    <button class="guide-card fromage-guide" onclick="startQuiz('listening')"><img src="./assets/characters/fromage-approved.png" alt="치즈냥"><span><b>치즈냥</b><small>듣기 · 발음</small></span><i>→</i></button>
+    <button class="guide-card lavande-guide" onclick="startQuiz('example')"><img src="./assets/characters/lavande-approved.png" alt="라벤더냥"><span><b>라벤더냥</b><small>문장 · 독해</small></span><i>→</i></button>
   </div>
 
   <div class="section-title"><div><small>LEARN</small><h2>학습 선택</h2></div></div>
@@ -99,7 +99,7 @@
 <section class="screen" id="quizScreen">
   <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">× 종료</button><div class="pill" id="quizCount">1/10</div><div class="pill">⭐ <span id="quizStars">0</span></div></header>
   <div class="card study-card">
-    <img id="quizCat" src="./assets/characters/petit.svg" alt="학습 도우미 고양이" class="quiz-cat"><div class="cat-name" id="quizCatName">쁘띠냥 · Petit</div>
+    <img id="quizCat" src="./assets/characters/petit-approved.png" alt="학습 도우미 고양이" class="quiz-cat"><div class="cat-name" id="quizCatName">쁘띠냥 · Petit</div>
     <div class="small" id="quizLabel"></div>
     <div class="study-emoji" id="quizEmoji"></div>
     <div class="study-word quiz-word" id="quizWord"></div>
@@ -154,6 +154,6 @@
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.0.0-b2"></script>
+<script type="module" src="./app.js?v=4.0.0-b3"></script>
 </body>
 </html>

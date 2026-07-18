@@ -1,12 +1,12 @@
-const CACHE="yeonjae-french-v4-build2";
+const CACHE="yeonjae-french-v4-build3";
 const CORE=[
   "./","./index.html",
-  "./style.css?v=4.0.0-b2",
-  "./assets/styles/design-system.css?v=4.0.0-b2",
-  "./assets/styles/components.css?v=4.0.0-b2",
-  "./app.js?v=4.0.0-b2","./audio.js","./review.js",
-  "./data/words.json?v=4.0.0-b2","./data/lessons.json?v=4.0.0-b2","./data/recipes.json?v=4.0.0-b2",
-  "./assets/characters/petit.svg","./assets/characters/fromage.svg","./assets/characters/lavande.svg"
+  "./style.css?v=4.0.0-b3",
+  "./assets/styles/design-system.css?v=4.0.0-b3",
+  "./assets/styles/components.css?v=4.0.0-b3",
+  "./app.js?v=4.0.0-b3","./audio.js","./review.js",
+  "./data/words.json?v=4.0.0-b3","./data/lessons.json?v=4.0.0-b3","./data/recipes.json?v=4.0.0-b3",
+  "./assets/characters/petit-approved.png","./assets/characters/fromage-approved.png","./assets/characters/lavande-approved.png","./assets/characters/trio-approved.png"
 ];
 self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)))});
 self.addEventListener("activate",event=>event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))),self.clients.claim()])));

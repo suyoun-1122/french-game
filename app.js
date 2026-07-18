@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b2").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b2").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b2").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b3").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b3").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b3").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -107,11 +107,11 @@ function makeQuestion(q,requestedSkill){
 }
 
 const CAT_GUIDES={
-  meaning:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit.svg",line:"단어의 뜻을 차근차근 찾아보자냥!"},
-  article:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit.svg",line:"관사와 명사의 성을 함께 확인하자냥!"},
-  form:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit.svg",line:"형태가 어떻게 바뀌는지 살펴보자냥!"},
-  listening:{name:"치즈냥 · Fromage",src:"./assets/characters/fromage.svg",line:"귀를 쫑긋! 소리를 잘 들어보자냥!"},
-  example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande.svg",line:"문장 속 단서를 찾아 읽어보자냥!"}
+  meaning:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"단어의 뜻을 차근차근 찾아보자냥!"},
+  article:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"관사와 명사의 성을 함께 확인하자냥!"},
+  form:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-approved.png",line:"형태가 어떻게 바뀌는지 살펴보자냥!"},
+  listening:{name:"치즈냥 · Fromage",src:"./assets/characters/fromage-approved.png",line:"귀를 쫑긋! 소리를 잘 들어보자냥!"},
+  example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-approved.png",line:"문장 속 단서를 찾아 읽어보자냥!"}
 };
 function guideFor(skill){return CAT_GUIDES[skill]||CAT_GUIDES.meaning}
 function showRewardToast(text){const old=document.querySelector(".reward-toast");if(old)old.remove();const el=document.createElement("div");el.className="reward-toast";el.textContent=text;document.body.appendChild(el);setTimeout(()=>el.remove(),2800)}
@@ -139,17 +139,17 @@ function renderHome(){
     $("homeGreeting").innerHTML="Bravo!<br>오늘의 학습 완료!";
     $("homeSpeech").innerHTML="모은 재료로 프랑스 음식을<br>만들어 볼까?";
     $("dailyStatus").innerHTML="오늘의 미션을 완료했어요.<br>요리 화면에서 재료를 확인해요.";
-    $("homeCat").src="./assets/characters/fromage.svg";
+    $("homeCat").src="./assets/characters/fromage-approved.png";
   } else if(progress.todayDone>0){
     $("homeGreeting").innerHTML="Très bien!<br>조금만 더 힘내자!";
     $("homeSpeech").innerHTML=`오늘은 ${progress.todayDone}문제를 풀었어.<br>${10-progress.todayDone}문제만 더 풀어 보자.`;
     $("dailyStatus").innerHTML=`${10-progress.todayDone}문제를 더 풀면<br>오늘의 재료 상자가 열려요.`;
-    $("homeCat").src="./assets/characters/petit.svg";
+    $("homeCat").src="./assets/characters/petit-approved.png";
   } else {
     $("homeGreeting").innerHTML="오늘도 프랑스어를<br>재미있게 배워 보자!";
     $("homeSpeech").innerHTML="오늘의 학습을 완료하면<br>프랑스 요리 재료를 받을 수 있어.";
     $("dailyStatus").innerHTML="10문제를 완료하고<br>요리 재료를 모아 보세요.";
-    $("homeCat").src="./assets/characters/petit.svg";
+    $("homeCat").src="./assets/characters/petit-approved.png";
   }
 }
 function lessonProgress(lesson){
@@ -249,7 +249,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b2");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b3");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

@@ -79,3 +79,40 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 .guide-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.guide-card{position:relative;overflow:hidden;border:0;border-radius:20px;padding:10px 8px 9px;background:#fff;box-shadow:0 8px 20px rgba(83,57,108,.09);color:var(--ink);min-width:0}.guide-card img{width:72px;height:72px;object-fit:contain;display:block;margin:0 auto 2px}.guide-card span{display:block}.guide-card b{display:block;font-size:13px}.guide-card small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.guide-card i{position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.72);font-style:normal;font-size:11px}.petit-guide{background:linear-gradient(180deg,#f0e6fb,#fff)}.fromage-guide{background:linear-gradient(180deg,#fff0c9,#fff)}.lavande-guide{background:linear-gradient(180deg,#e9e3fb,#fff)}.compact-menu .menu-btn{min-height:112px;justify-content:center;transition:.15s transform,.15s box-shadow}.compact-menu .menu-btn:active,.guide-card:active,.hero-start:active{transform:scale(.97)}
 @media(max-width:520px){.home-hero{grid-template-columns:minmax(0,1fr) 130px;min-height:255px;padding:18px 15px 14px}.hero-copy h1{font-size:22px}.home-hero .hero-cat{width:132px;height:145px}.hero-start{font-size:13px}.daily-dashboard{grid-template-columns:1fr}.reward-preview{display:grid;grid-template-columns:1fr 1.7fr;gap:10px;align-items:center}.reward-ingredients{margin:0}.reward-link{grid-column:1/3}.guide-strip{gap:7px}.guide-card{padding-left:5px;padding-right:5px}.guide-card img{width:64px;height:64px}.guide-card b{font-size:12px}}
 @media(max-width:370px){.home-hero{grid-template-columns:minmax(0,1fr) 112px}.hero-copy h1{font-size:20px}.home-hero .speech{font-size:11px}.home-hero .hero-cat{width:112px;height:130px}.guide-card img{width:55px;height:55px}.guide-card small{font-size:8px}}
+
+
+/* V4 Build 3 — approved character artwork */
+.hero-trio{
+  width:205px!important;
+  height:175px!important;
+  border-radius:24px;
+  object-fit:cover!important;
+  object-position:center;
+  box-shadow:0 12px 28px rgba(91,63,119,.16);
+  border:3px solid rgba(255,255,255,.7);
+  animation:bob 2.8s infinite ease-in-out;
+}
+.guide-card img{
+  border-radius:22px;
+  object-fit:cover;
+  box-shadow:0 6px 16px rgba(88,61,111,.12);
+  border:2px solid rgba(255,255,255,.8);
+}
+#quizScreen .quiz-cat{
+  width:128px;
+  height:128px;
+  border-radius:28px;
+  object-fit:cover;
+  box-shadow:0 10px 24px rgba(86,56,111,.16);
+  border:3px solid rgba(255,255,255,.9);
+  margin-bottom:7px;
+}
+#quizScreen .cat-name{font-size:13px;margin:0 0 7px;color:#664c82}
+@media(max-width:520px){
+  .hero-trio{width:150px!important;height:135px!important;border-radius:20px}
+  #quizScreen .quiz-cat{width:102px;height:102px;border-radius:23px}
+}
+@media(max-width:370px){
+  .hero-trio{width:126px!important;height:118px!important}
+  #quizScreen .quiz-cat{width:88px;height:88px}
+}
