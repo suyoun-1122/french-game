@@ -145,6 +145,7 @@
   <div class="card ingredient-card"><div class="row"><b>재료 보관함</b><small>정답 2회마다 1개, 5연속 정답에는 보너스를 받아요.</small></div><div class="ingredient-grid" id="ingredientGrid"></div></div>
   <div class="card reward-history-card"><div class="row"><b>최근 획득</b><small>최대 5개 표시</small></div><div id="rewardHistory" class="reward-history"></div></div>
   <div class="section-title"><div><small>RECETTES</small><h2>프랑스 음식 컬렉션</h2></div><span class="ready-count">지금 만들 수 있는 음식 <b id="readyRecipeCount">0</b>개</span></div>
+  <div class="kitchen-subnav"><button class="kitchen-book-btn" onclick="showScreen('collectionScreen')">📖 음식 도감 보기</button></div>
   <div class="recipe-filters"><button class="filter active" onclick="filterRecipes('all',this)">전체</button><button class="filter" onclick="filterRecipes('쉬움',this)">쉬움</button><button class="filter" onclick="filterRecipes('보통',this)">보통</button><button class="filter" onclick="filterRecipes('어려움',this)">어려움</button></div>
   <div class="recipe-grid" id="recipeGrid"></div>
 </section>
@@ -159,6 +160,39 @@
     <p class="cook-result-fr" id="cookResultFr"></p>
     <p class="cook-result-info" id="cookResultInfo"></p>
     <button class="primary" type="button" onclick="closeCookModal()">컬렉션에 담기</button>
+  </div>
+</div>
+
+
+<section class="screen" id="collectionScreen">
+  <header class="topbar"><div><small class="eyebrow">MON LIVRE DE RECETTES</small><div class="brand smallbrand">프랑스 음식 도감</div></div><div class="pill"><span id="collectionCountTop">0</span>/15</div></header>
+  <div class="collection-hero">
+    <div><small>COLLECTION</small><h2>내가 완성한 프랑스 음식</h2><p>음식을 만들수록 프랑스의 지역과 음식 이름을 함께 배울 수 있어요.</p></div>
+    <div class="collection-medal"><span id="collectionMedal">🔒</span><b id="collectionRank">첫 요리를 완성해 보세요</b></div>
+  </div>
+  <div class="collection-progress-card">
+    <div class="row"><b>도감 완성도</b><b><span id="collectionPercent">0</span>%</b></div>
+    <div class="progress collection-progress"><div id="collectionBar"></div></div>
+    <div class="collection-summary"><span>발견 <b id="collectionFound">0</b></span><span>미발견 <b id="collectionLocked">15</b></span><span>총 완성 <b id="collectionMadeTotal">0</b>회</span></div>
+  </div>
+  <div class="collection-toolbar">
+    <div class="recipe-filters"><button class="filter active" onclick="filterCollection('all',this)">전체</button><button class="filter" onclick="filterCollection('found',this)">완성</button><button class="filter" onclick="filterCollection('locked',this)">미완성</button></div>
+    <button class="collection-kitchen-link" onclick="showScreen('kitchenScreen',document.querySelectorAll('.nav button')[3])">🍳 요리하러 가기</button>
+  </div>
+  <div class="collection-grid" id="collectionGrid"></div>
+</section>
+
+<div class="collection-modal hidden" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionModalTitle">
+  <div class="collection-modal-card">
+    <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCollectionModal()">×</button>
+    <div class="collection-detail-emoji" id="collectionDetailEmoji">🥐</div>
+    <small id="collectionDetailRegion">FRANCE</small>
+    <h2 id="collectionModalTitle"></h2>
+    <p class="collection-detail-ko" id="collectionDetailKo"></p>
+    <div class="collection-gender" id="collectionDetailGender"></div>
+    <p class="collection-detail-desc" id="collectionDetailDesc"></p>
+    <div class="collection-detail-count" id="collectionDetailCount"></div>
+    <button class="primary" type="button" onclick="closeCollectionModal()">도감으로 돌아가기</button>
   </div>
 </div>
 
@@ -186,6 +220,6 @@
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.0.0-b6"></script>
+<script type="module" src="./app.js?v=4.0.0-b7"></script>
 </body>
 </html>

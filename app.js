@@ -2,11 +2,11 @@ import { speakFrench } from "./audio.js";
 import { todayKey, recordResult, getDueWords } from "./review.js";
 
 const $=id=>document.getElementById(id);
-let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all";
+let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all",collectionFilter="all";
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b6",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b7",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b6").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b6").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b6").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b7").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b7").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b7").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -297,17 +297,42 @@ function openCookModal(r){if(!r)return;$("cookResultEmoji").textContent=r.emoji;
 window.closeCookModal=()=>{if($("cookModal"))$("cookModal").classList.add("hidden");document.body.classList.remove("modal-open")};
 window.addEventListener("keydown",e=>{if(e.key==="Escape")closeCookModal()});
 
+function collectionRank(found){
+  if(found===RECIPES.length&&found>0)return ["🏆","프랑스 요리 마스터"];
+  if(found>=10)return ["👑","그랑 셰프"];
+  if(found>=5)return ["🥇","꼬마 셰프"];
+  if(found>=1)return ["🥄","요리 견습생"];
+  return ["🔒","첫 요리를 완성해 보세요"];
+}
+function renderCollection(){
+  if(!RECIPES.length||!$("collectionGrid"))return;
+  const found=RECIPES.filter(r=>(progress.madeFoods?.[r.id]||0)>0).length;
+  const total=RECIPES.reduce((sum,r)=>sum+(progress.madeFoods?.[r.id]||0),0);
+  const percent=Math.round(found/RECIPES.length*100);
+  const [medal,rank]=collectionRank(found);
+  $("collectionCountTop").textContent=found;$("collectionFound").textContent=found;$("collectionLocked").textContent=RECIPES.length-found;$("collectionMadeTotal").textContent=total;
+  $("collectionPercent").textContent=percent;$("collectionBar").style.width=percent+"%";$("collectionMedal").textContent=medal;$("collectionRank").textContent=rank;
+  const list=RECIPES.filter(r=>collectionFilter==="all"||(collectionFilter==="found"&&(progress.madeFoods?.[r.id]||0)>0)||(collectionFilter==="locked"&&!(progress.madeFoods?.[r.id]||0)));
+  const box=$("collectionGrid");box.innerHTML="";
+  list.forEach((r,index)=>{const count=progress.madeFoods?.[r.id]||0,found=count>0,d=document.createElement("article");d.className="collection-card "+(found?"unlocked":"locked");
+    d.innerHTML=`<div class="collection-number">${String(RECIPES.indexOf(r)+1).padStart(2,"0")}</div><div class="collection-food-emoji">${r.emoji}</div><div class="collection-card-copy"><b>${found?r.fr:"???"}</b><small>${found?`${r.name} · ${r.gender}`:"아직 발견하지 못했어요"}</small>${found?`<span>${r.region} · 완성 ${count}회</span>`:"<span>재료를 모아 만들어 보세요</span>"}</div><div class="collection-status">${found?"✓":"🔒"}</div>`;
+    if(found)d.onclick=()=>openCollectionModal(r);box.appendChild(d)});
+}
+window.filterCollection=(f,btn)=>{collectionFilter=f;document.querySelectorAll("#collectionScreen .filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderCollection()};
+window.openCollectionModal=r=>{const count=progress.madeFoods?.[r.id]||0;$("collectionDetailEmoji").textContent=r.emoji;$("collectionDetailRegion").textContent=r.region.toUpperCase();$("collectionModalTitle").textContent=r.fr;$("collectionDetailKo").textContent=r.name;$("collectionDetailGender").textContent=r.gender;$("collectionDetailDesc").textContent=r.description;$("collectionDetailCount").textContent=`지금까지 ${count}회 완성했어요`;$("collectionModal").classList.remove("hidden");document.body.classList.add("modal-open")};
+window.closeCollectionModal=()=>{$("collectionModal").classList.add("hidden");document.body.classList.remove("modal-open")};
+
 function renderProgress(){
   const learned=Object.keys(progress.words).length;$("learnedWords").textContent=learned;$("totalWords").textContent=WORDS.length;$("learnedBar").style.width=(WORDS.length?learned/WORDS.length*100:0)+"%";
   $("totalAttempts").textContent=progress.totals.attempts;$("totalAccuracy").textContent=progress.totals.attempts?Math.round(progress.totals.correct/progress.totals.attempts*100)+"%":"0%";$("bestCombo").textContent=progress.bestCombo||0;$("dessertCount").textContent=Object.keys(progress.madeFoods||{}).length;
   const box=$("skillStats");box.innerHTML="";Object.entries(progress.skillTotals).forEach(([k,v])=>{const d=document.createElement("div"),rate=v.a?Math.round(v.c/v.a*100):0;d.className="stat";d.innerHTML=`<span>${({meaning:"단어 뜻",article:"관사·품사",form:"형태 변화",listening:"듣기",example:"문장 이해"}[k])}</span><b>${rate}%</b><small>${v.c}/${v.a}</small>`;box.appendChild(d)})
 }
 window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요?")){localStorage.removeItem("yeonjaeFrenchV3");localStorage.removeItem("yeonjaeFrenchV2");location.reload()}};
-function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderProgress()}
+function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b6");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b7");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
