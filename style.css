@@ -349,3 +349,10 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 
 /* V4.3.0 release polish */
 .release-info{display:flex;flex-direction:column;align-items:center;gap:3px;margin:18px auto 4px;padding:12px 16px;border-radius:18px;background:linear-gradient(135deg,#f3ecfa,#fff5e4);border:1px solid #e5d8ee;color:#644d78;text-align:center}.release-info b{font-size:14px}.release-info small{font-size:10px;color:#88798f}.loading-error{margin:18px 0;padding:16px;border-radius:18px;background:#fff2f4;border:1px solid #efc0c8;color:#9f5260;font-weight:800;line-height:1.5}
+
+
+/* V4.3.1 character image cleanup */
+.quiz-guide-panel,.study-guide-panel,.guide-card{overflow:hidden;}
+.quiz-cat,.study-guide-panel img,.guide-card img{object-fit:contain;object-position:center center;overflow:hidden;display:block;background:#fff;}
+.quiz-cat{padding:6px;border-radius:20px;}
+.quiz-guide-panel img, .study-guide-panel img{background:#fff;}
