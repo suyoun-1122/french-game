@@ -1,12 +1,12 @@
-const CACHE="yeonjae-french-v4-2-0";
+const CACHE="yeonjae-french-v4-2-2";
 const CORE=[
   "./","./index.html",
-  "./style.css?v=4.2.0",
-  "./assets/styles/design-system.css?v=4.2.0",
-  "./assets/styles/components.css?v=4.2.0",
-  "./app.js?v=4.2.0","./audio.js","./review.js",
-  "./data/words.json?v=4.2.0","./data/lessons.json?v=4.2.0","./data/recipes.json?v=4.2.0",
-  "./assets/characters/petit-approved.png","./assets/characters/fromage-approved.png","./assets/characters/lavande-approved.png","./assets/characters/trio-approved.png"
+  "./style.css?v=4.2.2",
+  "./assets/styles/design-system.css?v=4.2.2",
+  "./assets/styles/components.css?v=4.2.2",
+  "./app.js?v=4.2.2","./audio.js","./review.js",
+  "./data/words.json?v=4.2.2","./data/lessons.json?v=4.2.2","./data/recipes.json?v=4.2.2",
+  "./assets/characters/petit-approved.png","./assets/characters/fromage-approved.png","./assets/characters/lavande-approved.png","./assets/characters/trio-approved.png","./assets/foods/recipes/croissant.svg","./assets/foods/recipes/baguette.svg","./assets/foods/recipes/crepe.svg","./assets/foods/recipes/madeleine.svg","./assets/foods/recipes/macaron.svg","./assets/foods/recipes/quiche.svg","./assets/foods/recipes/croquemonsieur.svg","./assets/foods/recipes/ratatouille.svg","./assets/foods/recipes/gratin.svg","./assets/foods/recipes/soupe.svg","./assets/foods/recipes/boeuf.svg","./assets/foods/recipes/coq.svg","./assets/foods/recipes/cassoulet.svg","./assets/foods/recipes/bouillabaisse.svg","./assets/foods/recipes/tarte.svg"
 ];
 self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)))});
 self.addEventListener("activate",event=>event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))),self.clients.claim()])));

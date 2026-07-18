@@ -7,9 +7,9 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=4.2.0">
-<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.2.0">
-<link rel="stylesheet" href="./assets/styles/components.css?v=4.2.0">
+<link rel="stylesheet" href="./style.css?v=4.2.2">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.2.2">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.2.2">
 </head>
 <body>
 <div id="offlineBanner" class="offline-banner hidden" role="status">📡 오프라인 모드 · 저장된 학습은 계속할 수 있어요.</div>
@@ -123,7 +123,14 @@
     </section>
     <section class="card quiz-card">
       <div class="quiz-label" id="quizLabel"></div>
-      <button class="quiz-audio hidden" id="quizAudio" onclick="playQuizAudio()" aria-label="문제 음성 듣기">🔊 다시 듣기</button>
+      <div class="quiz-audio-panel hidden" id="quizAudioPanel" aria-label="프랑스어 듣기 도구">
+        <div class="quiz-audio-copy"><b>🎧 Écoute</b><small id="audioHint">처음에는 보통 속도로 들어 보세요</small></div>
+        <div class="quiz-audio-actions">
+          <button class="quiz-audio-btn" type="button" onclick="playQuizAudio(false)" aria-label="보통 속도로 다시 듣기">🔊 보통 속도</button>
+          <button class="quiz-audio-btn slow" type="button" onclick="playQuizAudio(true)" aria-label="천천히 다시 듣기">🐢 천천히</button>
+        </div>
+        <span class="audio-status" id="audioStatus" aria-live="polite">자동으로 한 번 재생돼요</span>
+      </div>
       <div class="study-word quiz-word" id="quizWord"></div>
       <div class="quiz-options" id="quizOptions"></div>
       <div class="feedback" id="quizFeedback" aria-live="polite"></div>
@@ -164,7 +171,7 @@
   <div class="cook-modal-card">
     <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCookModal()">×</button>
     <div class="cook-sparkles" aria-hidden="true">✦ ✨ ✦</div>
-    <div class="cook-character-party" aria-hidden="true"><img src="./assets/characters/petit-approved.png" alt=""><img src="./assets/characters/fromage-approved.png" alt=""><img src="./assets/characters/lavande-approved.png" alt=""></div><div class="cook-result-emoji" id="cookResultEmoji">🥐</div>
+    <div class="cook-character-party" aria-hidden="true"><img src="./assets/characters/petit-approved.png" alt=""><img src="./assets/characters/fromage-approved.png" alt=""><img src="./assets/characters/lavande-approved.png" alt=""></div><div class="cook-result-emoji" id="cookResultEmoji"><img src="./assets/foods/recipes/croissant.svg" alt="완성 음식"></div>
     <small>RECETTE TERMINÉE!</small>
     <h2 id="cookModalTitle">음식 완성!</h2>
     <p class="cook-result-fr" id="cookResultFr"></p>
@@ -195,7 +202,7 @@
 <div class="collection-modal hidden" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionModalTitle">
   <div class="collection-modal-card">
     <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCollectionModal()">×</button>
-    <div class="collection-detail-emoji" id="collectionDetailEmoji">🥐</div>
+    <div class="collection-detail-emoji" id="collectionDetailEmoji"><img src="./assets/foods/recipes/croissant.svg" alt="프랑스 음식"></div>
     <small id="collectionDetailRegion">FRANCE</small>
     <h2 id="collectionModalTitle"></h2>
     <p class="collection-detail-ko" id="collectionDetailKo"></p>
@@ -234,6 +241,6 @@
   <button aria-label="기록" onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=4.2.0"></script>
+<script type="module" src="./app.js?v=4.2.2"></script>
 </body>
 </html>

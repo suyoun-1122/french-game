@@ -111,11 +111,28 @@ function makeQuestion(q,requestedSkill){
   const skill=normalizedSkill(q,requestedSkill);
   const mastery=getMastery(q.id,skill),level=mastery.level;
   const nearby=difficultyPool(q,level);
-  if(skill==="meaning"||skill==="listening"){
+  if(skill==="meaning"){
     const correct=q.meaning;
     const fallback=nearby.slice(0,18).map(w=>w.meaning).filter(value=>!isWeakDistractor(value,correct));
     const distractors=curatedOptions(q,"meaningDistractors",fallback);
-    return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
+    return {skill,label:"가장 알맞은 뜻을 고르세요",display:wordLabel(q),options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
+  }
+  if(skill==="listening"){
+    if(level===1){
+      const correct=q.meaning;
+      const fallback=nearby.slice(0,18).map(w=>w.meaning).filter(value=>!isWeakDistractor(value,correct));
+      const distractors=curatedOptions(q,"meaningDistractors",fallback);
+      return {skill,label:"단어를 듣고 가장 알맞은 뜻을 고르세요",display:"소리를 잘 듣고 뜻을 골라 보세요",audioText:wordLabel(q),audioKind:"word",options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
+    }
+    if(level===2){
+      const correct=wordLabel(q);
+      const spellings=nearby.slice(0,20).map(wordLabel).filter(value=>!isWeakDistractor(value,correct));
+      return {skill,label:"들리는 프랑스어와 같은 철자를 고르세요",display:"발음과 철자를 연결해 보세요",audioText:wordLabel(q),audioKind:"word",options:uniqueOptions(spellings,correct),answer:correct,difficulty:level};
+    }
+    const correct=q.exampleKr;
+    const fallback=nearby.filter(w=>w.exampleKr).slice(0,20).map(w=>w.exampleKr).filter(value=>!isWeakDistractor(value,correct));
+    const distractors=curatedOptions(q,"sentenceDistractors",fallback);
+    return {skill,label:"문장을 듣고 정확한 뜻을 고르세요",display:"문장 전체를 듣고 핵심 정보를 찾아보세요",audioText:q.example,audioKind:"sentence",options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
   }
   if(skill==="article"){
     const wrongArticle=q.article==="un"?"une":"un";
@@ -316,10 +333,11 @@ function renderQuiz(){
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
   $("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
-  const audio=$("quizAudio");audio.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
+  const audioPanel=$("quizAudioPanel");audioPanel.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
+  if($("audioHint")) $("audioHint").textContent=question.skill==="listening"?(question.audioKind==="sentence"?"문장을 끝까지 듣고 골라 보세요":"처음에는 보통 속도로 들어 보세요"):"문장 발음을 확인해 보세요";
   const box=$("quizOptions");box.innerHTML="";
   question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
-  if(question.skill==="listening")setTimeout(()=>speakFrench(wordLabel(q)),350)
+  if(question.skill==="listening")setTimeout(()=>playCurrentQuizAudio(false,true),420)
 }
 function showCharacterReaction(ok,skill,combo=0){
   const cat=$("quizCat"),reaction=$("quizReaction"),line=$("quizGuideLine");
@@ -348,7 +366,15 @@ function answerQuiz(ok,button,q){
   $("quizExampleFr").textContent=q.example;$("quizExampleKr").textContent=q.exampleKr;$("quizExample").classList.remove("hidden");$("quizNext").classList.remove("hidden");saveProgress();renderHome();renderProgress()
 }
 window.nextQuiz=()=>{quiz.index++;if(quiz.index>=quiz.items.length){if(quiz.daily&&progress.todayDone>=10&&!progress.completedDesserts.includes(todayKey())){progress.completedDesserts.push(todayKey());grantDailyIngredients();saveProgress()}showScreen("homeScreen",document.querySelector(".nav button"));return}renderQuiz()};
-window.playQuizAudio=(slow=false)=>{const q=quiz.items[quiz.index];speakFrench(quiz.activeSkill==="example"?q.example:wordLabel(q),slow)};
+function playCurrentQuizAudio(slow=false,auto=false){
+  const q=quiz.items[quiz.index];if(!q)return;
+  const text=quiz.currentQuestion?.audioText||(quiz.activeSkill==="example"?q.example:wordLabel(q));
+  const status=$("audioStatus");
+  if(status)status.textContent=slow?"천천히 재생 중…":"재생 중…";
+  document.querySelectorAll(".quiz-audio-btn").forEach(b=>b.classList.add("is-playing"));
+  speakFrench(text,slow,()=>{document.querySelectorAll(".quiz-audio-btn").forEach(b=>b.classList.remove("is-playing"));if(status)status.textContent=auto?"한 번 더 들을 수 있어요":"다시 들을 수 있어요"});
+}
+window.playQuizAudio=(slow=false)=>playCurrentQuizAudio(slow,false);
 
 function normalizeSearch(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim()}
 function renderWords(){
@@ -381,15 +407,15 @@ function renderKitchen(){
   const list=RECIPES.filter(r=>recipeFilter==="all"||r.difficulty===recipeFilter),box=$("recipeGrid");box.innerHTML="";
   $("madeCountTop").textContent=Object.keys(progress.madeFoods||{}).length;
   const readyCount=RECIPES.filter(canCook).length;if($("readyRecipeCount"))$("readyRecipeCount").textContent=readyCount;
-  const latestMade=RECIPES.find(r=>(progress.madeFoods?.[r.id]||0)>0);if($("kitchenHeroPlate"))$("kitchenHeroPlate").textContent=latestMade?latestMade.emoji:"🍽️";
+  const latestMade=RECIPES.find(r=>(progress.madeFoods?.[r.id]||0)>0);if($("kitchenHeroPlate"))$("kitchenHeroPlate").innerHTML=latestMade?`<img src="${latestMade.image}" alt="${latestMade.name}">`:"🍽️";
   list.forEach(r=>{const made=progress.madeFoods[r.id]||0,ready=canCook(r),d=document.createElement("article");d.className="recipe-card"+(made?" made":"")+(ready?" ready":"")+(!ready?" unavailable":"");
     const costs=Object.entries(r.cost).map(([id,n])=>{const it=INGREDIENTS[id],lack=(progress.ingredients[id]||0)<n;return `<span class="cost${lack?" lack":""}">${it.emoji} ${it.name} ${progress.ingredients[id]||0}/${n}</span>`}).join("");
-    d.innerHTML=`<div class="recipe-head"><div class="recipe-emoji">${r.emoji}</div><span class="difficulty">${r.difficulty}</span></div><div class="recipe-title"><b>${r.fr}</b><small>${r.name} · ${r.gender}</small></div><div class="cost-list">${costs}</div><button class="cook-btn" ${ready?"":"disabled"}>${made?`다시 만들기 · 완성 ${made}회`:ready?"음식 만들기":"재료가 부족해요"}</button>`;
+    d.innerHTML=`<div class="recipe-visual"><img src="${r.image}" alt="${r.name}"><span class="difficulty">${r.difficulty}</span>${ready?'<span class="ready-ribbon">READY</span>':''}</div><div class="recipe-title"><b>${r.fr}</b><small>${r.name} · ${r.gender}</small></div><div class="cost-list">${costs}</div><button class="cook-btn" ${ready?"":"disabled"}>${made?`다시 만들기 · 완성 ${made}회`:ready?"음식 만들기":"재료가 부족해요"}</button>`;
     d.querySelector("button").onclick=()=>cookFood(r.id);box.appendChild(d)});
 }
 window.filterRecipes=(f,btn)=>{recipeFilter=f;document.querySelectorAll(".recipe-filters .filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderKitchen()};
 window.cookFood=id=>{const r=RECIPES.find(x=>x.id===id);if(!r||!canCook(r))return;Object.entries(r.cost).forEach(([k,n])=>progress.ingredients[k]-=n);progress.madeFoods[r.id]=(progress.madeFoods[r.id]||0)+1;saveProgress();renderKitchen();renderCollection();renderProgress();openCookModal(r);celebrate([r.emoji,"✨","⭐","🎉"])};
-function openCookModal(r){if(!r)return;$("cookResultEmoji").textContent=r.emoji;$("cookModalTitle").textContent=`${r.name} 완성!`;$("cookResultFr").textContent=r.fr;$("cookResultInfo").textContent=`${r.gender} · ${r.difficulty} 레시피 · 총 ${progress.madeFoods[r.id]}회 완성`;$("cookModal").classList.remove("hidden");document.body.classList.add("modal-open")}
+function openCookModal(r){if(!r)return;$("cookResultEmoji").innerHTML=`<img src="${r.image}" alt="${r.name}">`;$("cookModalTitle").textContent=`${r.name} 완성!`;$("cookResultFr").textContent=r.fr;$("cookResultInfo").textContent=`${r.gender} · ${r.difficulty} 레시피 · 총 ${progress.madeFoods[r.id]}회 완성`;$("cookModal").classList.remove("hidden");document.body.classList.add("modal-open")}
 window.closeCookModal=()=>{if($("cookModal"))$("cookModal").classList.add("hidden");document.body.classList.remove("modal-open")};
 window.addEventListener("keydown",e=>{if(e.key==="Escape")closeCookModal()});
 
@@ -411,11 +437,11 @@ function renderCollection(){
   const list=RECIPES.filter(r=>collectionFilter==="all"||(collectionFilter==="found"&&(progress.madeFoods?.[r.id]||0)>0)||(collectionFilter==="locked"&&!(progress.madeFoods?.[r.id]||0)));
   const box=$("collectionGrid");box.innerHTML="";
   list.forEach((r,index)=>{const count=progress.madeFoods?.[r.id]||0,found=count>0,d=document.createElement("article");d.className="collection-card "+(found?"unlocked":"locked");
-    d.innerHTML=`<div class="collection-number">${String(RECIPES.indexOf(r)+1).padStart(2,"0")}</div><div class="collection-food-emoji">${r.emoji}</div><div class="collection-card-copy"><b>${found?r.fr:"???"}</b><small>${found?`${r.name} · ${r.gender}`:"아직 발견하지 못했어요"}</small>${found?`<span>${r.region} · 완성 ${count}회</span>`:"<span>재료를 모아 만들어 보세요</span>"}</div><div class="collection-status">${found?"✓":"🔒"}</div>`;
+    d.innerHTML=`<div class="collection-number">${String(RECIPES.indexOf(r)+1).padStart(2,"0")}</div><div class="collection-food-emoji"><img src="${r.image}" alt="${found?r.name:"잠긴 음식"}"></div><div class="collection-card-copy"><b>${found?r.fr:"???"}</b><small>${found?`${r.name} · ${r.gender}`:"아직 발견하지 못했어요"}</small>${found?`<span>${r.region} · 완성 ${count}회</span>`:"<span>재료를 모아 만들어 보세요</span>"}</div><div class="collection-status">${found?"✓":"🔒"}</div>`;
     if(found)d.onclick=()=>openCollectionModal(r);box.appendChild(d)});
 }
 window.filterCollection=(f,btn)=>{collectionFilter=f;document.querySelectorAll("#collectionScreen .filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderCollection()};
-window.openCollectionModal=r=>{const count=progress.madeFoods?.[r.id]||0;$("collectionDetailEmoji").textContent=r.emoji;$("collectionDetailRegion").textContent=r.region.toUpperCase();$("collectionModalTitle").textContent=r.fr;$("collectionDetailKo").textContent=r.name;$("collectionDetailGender").textContent=r.gender;$("collectionDetailDesc").textContent=r.description;$("collectionDetailCount").textContent=`지금까지 ${count}회 완성했어요`;$("collectionModal").classList.remove("hidden");document.body.classList.add("modal-open")};
+window.openCollectionModal=r=>{const count=progress.madeFoods?.[r.id]||0;$("collectionDetailEmoji").innerHTML=`<img src="${r.image}" alt="${r.name}">`;$("collectionDetailRegion").textContent=r.region.toUpperCase();$("collectionModalTitle").textContent=r.fr;$("collectionDetailKo").textContent=r.name;$("collectionDetailGender").textContent=r.gender;$("collectionDetailDesc").textContent=r.description;$("collectionDetailCount").textContent=`지금까지 ${count}회 완성했어요`;$("collectionModal").classList.remove("hidden");document.body.classList.add("modal-open")};
 window.closeCollectionModal=()=>{$("collectionModal").classList.add("hidden");document.body.classList.remove("modal-open")};
 
 function renderProgress(){
@@ -428,7 +454,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.2.0");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.2.2");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
