@@ -1,5 +1,5 @@
 const CACHE="yeonjae-french-v3-4.4";
-const CORE=["./","./index.html","./style.css?v=3.4.1","./app.js?v=3.4.1","./audio.js","./review.js","./data/words.json?v=3.4.1","./data/lessons.json?v=3.4.1"];
+const CORE=["./","./index.html","./style.css?v=3.4.2","./app.js?v=3.4.2","./audio.js","./review.js","./data/words.json?v=3.4.2","./data/lessons.json?v=3.4.2"];
 self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)))});
 self.addEventListener("activate",event=>event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))),self.clients.claim()])));
 self.addEventListener("fetch",event=>{

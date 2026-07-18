@@ -38,3 +38,35 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 /* V3.4 character guides and French food reward system */
 .cat-name{margin:-6px 0 12px;text-align:center;font-size:.82rem;font-weight:800;color:#6d5a85}.ingredient-card{margin-bottom:16px}.ingredient-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.ingredient-chip{background:#fff8ed;border:1px solid #eadfcd;border-radius:14px;padding:10px 6px;text-align:center}.ingredient-chip span{display:block;font-size:1.45rem}.ingredient-chip b{display:block;font-size:.88rem}.ingredient-chip small{display:block;color:#85756a}.recipe-filters{display:flex;gap:8px;overflow:auto;margin:0 0 14px}.recipe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:12px}.recipe-card{background:#fff;border:1px solid #e6def0;border-radius:20px;padding:15px;box-shadow:0 6px 16px rgba(83,63,105,.08)}.recipe-card.made{border-color:#d2b8f0;background:#faf6ff}.recipe-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.recipe-emoji{font-size:2.4rem}.recipe-title b{display:block;font-size:1rem}.recipe-title small{display:block;color:#766b80;line-height:1.35}.difficulty{font-size:.72rem;padding:4px 8px;border-radius:999px;background:#f2ecf8;color:#6e5687;font-weight:800}.cost-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.cost{font-size:.78rem;padding:5px 8px;border-radius:10px;background:#f7f4f1}.cost.lack{background:#fff0f0;color:#a04848}.cook-btn{width:100%;border:0;border-radius:12px;padding:10px;font-weight:800;background:#8b6caf;color:#fff}.cook-btn:disabled{background:#cfc7d8}.reward-toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:20;background:#4f4168;color:white;border-radius:16px;padding:12px 18px;box-shadow:0 8px 28px rgba(0,0,0,.2);max-width:90%;text-align:center}.quiz-cat{object-fit:contain}.hero-cat{object-fit:contain}
 @media(max-width:680px){.ingredient-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.recipe-grid{grid-template-columns:1fr}.nav{overflow-x:auto}.nav button{min-width:64px}.quiz-cat{width:116px;height:116px}.hero-cat{width:120px;height:120px}}
+
+/* V3.4.2 compact mobile layout */
+.nav{grid-template-columns:repeat(5,1fr)}
+
+/* 퀴즈에서는 하단 메뉴를 숨기고 한 화면에 문제와 보기가 들어오도록 압축 */
+.app:has(#quizScreen.active) .nav{display:none}
+#quizScreen{padding:12px 14px 18px;min-height:100dvh}
+#quizScreen .topbar{margin-bottom:8px}
+#quizScreen .pill{padding:7px 10px;border-radius:14px}
+#quizScreen .card{margin-top:6px;padding:12px 14px;border-radius:22px;box-shadow:0 10px 26px rgba(83,57,108,.10)}
+#quizScreen .quiz-cat{width:72px;height:72px}
+#quizScreen .cat-name{margin:-5px 0 5px;font-size:12px}
+#quizScreen #quizLabel{margin-bottom:2px;font-size:12px}
+#quizScreen .study-emoji{font-size:38px;line-height:1.1;margin:3px 0}
+#quizScreen .quiz-word{font-size:25px;line-height:1.2;margin:4px 0 7px}
+#quizScreen .quiz-options{gap:7px;margin-top:8px}
+#quizScreen .quiz-option{min-height:44px;padding:10px 13px;border-radius:14px;font-size:15px}
+#quizScreen .feedback{min-height:24px;font-size:16px;margin:7px 0}
+#quizScreen .example{padding:10px 12px;margin-top:8px;font-size:13px}
+#quizScreen .primary{padding:11px 14px;margin-top:9px}
+
+/* 홈 화면의 오늘 보상 영역도 불필요하게 길지 않게 조정 */
+#homeScreen .daily{padding-bottom:15px}
+#homeScreen .food-stage img{width:150px;height:78px}
+#homeScreen .daily .primary{margin-top:10px}
+
+@media(max-height:760px){
+  #quizScreen .quiz-cat{width:60px;height:60px}
+  #quizScreen .study-emoji{font-size:32px}
+  #quizScreen .quiz-word{font-size:22px}
+  #quizScreen .quiz-option{min-height:40px;padding:8px 12px}
+}
