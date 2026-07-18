@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b5",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.0-b6",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b5").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b5").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b5").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b6").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b6").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b6").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -284,13 +284,18 @@ function renderKitchen(){
   Object.entries(INGREDIENTS).forEach(([id,it])=>{const d=document.createElement("div");d.className="ingredient-chip";d.innerHTML=`<span>${it.emoji}</span><b>${it.name} × ${progress.ingredients[id]||0}</b><small>${it.fr}</small>`;ingredientBox.appendChild(d)});
   const list=RECIPES.filter(r=>recipeFilter==="all"||r.difficulty===recipeFilter),box=$("recipeGrid");box.innerHTML="";
   $("madeCountTop").textContent=Object.keys(progress.madeFoods||{}).length;
+  const readyCount=RECIPES.filter(canCook).length;if($("readyRecipeCount"))$("readyRecipeCount").textContent=readyCount;
+  const latestMade=RECIPES.find(r=>(progress.madeFoods?.[r.id]||0)>0);if($("kitchenHeroPlate"))$("kitchenHeroPlate").textContent=latestMade?latestMade.emoji:"🍽️";
   list.forEach(r=>{const made=progress.madeFoods[r.id]||0,ready=canCook(r),d=document.createElement("article");d.className="recipe-card"+(made?" made":"");
     const costs=Object.entries(r.cost).map(([id,n])=>{const it=INGREDIENTS[id],lack=(progress.ingredients[id]||0)<n;return `<span class="cost${lack?" lack":""}">${it.emoji} ${it.name} ${progress.ingredients[id]||0}/${n}</span>`}).join("");
     d.innerHTML=`<div class="recipe-head"><div class="recipe-emoji">${r.emoji}</div><span class="difficulty">${r.difficulty}</span></div><div class="recipe-title"><b>${r.fr}</b><small>${r.name} · ${r.gender}</small></div><div class="cost-list">${costs}</div><button class="cook-btn" ${ready?"":"disabled"}>${made?`다시 만들기 · 완성 ${made}회`:ready?"음식 만들기":"재료가 부족해요"}</button>`;
     d.querySelector("button").onclick=()=>cookFood(r.id);box.appendChild(d)});
 }
 window.filterRecipes=(f,btn)=>{recipeFilter=f;document.querySelectorAll(".recipe-filters .filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderKitchen()};
-window.cookFood=id=>{const r=RECIPES.find(x=>x.id===id);if(!r||!canCook(r))return;Object.entries(r.cost).forEach(([k,n])=>progress.ingredients[k]-=n);progress.madeFoods[r.id]=(progress.madeFoods[r.id]||0)+1;saveProgress();showRewardToast(`${r.emoji} ${r.fr} 완성!`);renderKitchen();renderProgress()};
+window.cookFood=id=>{const r=RECIPES.find(x=>x.id===id);if(!r||!canCook(r))return;Object.entries(r.cost).forEach(([k,n])=>progress.ingredients[k]-=n);progress.madeFoods[r.id]=(progress.madeFoods[r.id]||0)+1;saveProgress();renderKitchen();renderProgress();openCookModal(r)};
+function openCookModal(r){if(!r)return;$("cookResultEmoji").textContent=r.emoji;$("cookModalTitle").textContent=`${r.name} 완성!`;$("cookResultFr").textContent=r.fr;$("cookResultInfo").textContent=`${r.gender} · ${r.difficulty} 레시피 · 총 ${progress.madeFoods[r.id]}회 완성`;$("cookModal").classList.remove("hidden");document.body.classList.add("modal-open")}
+window.closeCookModal=()=>{if($("cookModal"))$("cookModal").classList.add("hidden");document.body.classList.remove("modal-open")};
+window.addEventListener("keydown",e=>{if(e.key==="Escape")closeCookModal()});
 
 function renderProgress(){
   const learned=Object.keys(progress.words).length;$("learnedWords").textContent=learned;$("totalWords").textContent=WORDS.length;$("learnedBar").style.width=(WORDS.length?learned/WORDS.length*100:0)+"%";
@@ -302,7 +307,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b5");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.0.0-b6");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
