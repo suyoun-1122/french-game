@@ -18,3 +18,23 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 @media(min-width:700px){.app{margin:20px auto;min-height:calc(100vh - 40px);border-radius:30px;box-shadow:0 25px 75px rgba(70,45,90,.18)}.screen{min-height:calc(100vh - 40px)}}@media(max-width:370px){.screen{padding-left:13px;padding-right:13px}.hero{grid-template-columns:105px 1fr}.hero-cat{width:105px}.brand{font-size:26px}}
 
 .quiz-word{white-space:pre-line}.quiz-option{line-height:1.35}
+
+
+/* V3.3 usability update */
+.lesson-tab{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:max-content}
+.lesson-tab small{font-size:10px;opacity:.75}.lesson-tab.active small{color:#fff;opacity:.9}
+.lesson-progress-card{margin:3px 2px 0;padding:10px 12px;background:rgba(255,255,255,.78);border:1px solid var(--pale);border-radius:16px;font-size:12px;font-weight:800}
+.lesson-progress{height:8px;margin:7px 0 0}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--pale);border-radius:17px;padding:9px 11px;margin:2px 0 10px;box-shadow:0 6px 18px rgba(83,57,108,.07)}
+.search-box:focus-within{border-color:#b79ccc}.search-box input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:15px}.search-box button{width:28px;height:28px;border:0;border-radius:50%;background:var(--pale);color:var(--deep);font-size:18px;line-height:1}
+.empty-state{text-align:center;background:#fff;border-radius:18px;padding:28px 16px;color:var(--muted);font-weight:800}
+.quiz-option{min-height:50px;text-align:left;padding:13px 15px}.quiz-word{word-break:keep-all}.meta b{word-break:keep-all}
+@media(max-width:420px){
+  .screen{padding:16px 13px 98px}.topbar{margin-bottom:12px}.card{padding:15px;border-radius:22px}.hero{grid-template-columns:108px 1fr;gap:9px}.hero-cat{width:108px}.speech{padding:11px;font-size:13px}.menu-grid{gap:9px}.menu-btn{padding:14px 7px;min-height:100px}.menu-btn>span{font-size:28px}.study-word{font-size:34px}.quiz-word{font-size:25px}.quiz-cat{width:78px}.quiz-options{gap:8px;margin-top:12px}.quiz-option{padding:12px 13px;font-size:15px}.audio-row{gap:6px}.audio-btn{padding:9px;font-size:13px}.filter-row{margin-bottom:3px}
+}
+@media(max-width:350px){.hero{grid-template-columns:92px 1fr}.hero-cat{width:92px}.speech{font-size:12px}.meta-grid{grid-template-columns:1fr}.stats-grid{gap:7px}}
+
+
+/* V3.4 character guides and French food reward system */
+.cat-name{margin:-6px 0 12px;text-align:center;font-size:.82rem;font-weight:800;color:#6d5a85}.ingredient-card{margin-bottom:16px}.ingredient-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.ingredient-chip{background:#fff8ed;border:1px solid #eadfcd;border-radius:14px;padding:10px 6px;text-align:center}.ingredient-chip span{display:block;font-size:1.45rem}.ingredient-chip b{display:block;font-size:.88rem}.ingredient-chip small{display:block;color:#85756a}.recipe-filters{display:flex;gap:8px;overflow:auto;margin:0 0 14px}.recipe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:12px}.recipe-card{background:#fff;border:1px solid #e6def0;border-radius:20px;padding:15px;box-shadow:0 6px 16px rgba(83,63,105,.08)}.recipe-card.made{border-color:#d2b8f0;background:#faf6ff}.recipe-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.recipe-emoji{font-size:2.4rem}.recipe-title b{display:block;font-size:1rem}.recipe-title small{display:block;color:#766b80;line-height:1.35}.difficulty{font-size:.72rem;padding:4px 8px;border-radius:999px;background:#f2ecf8;color:#6e5687;font-weight:800}.cost-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.cost{font-size:.78rem;padding:5px 8px;border-radius:10px;background:#f7f4f1}.cost.lack{background:#fff0f0;color:#a04848}.cook-btn{width:100%;border:0;border-radius:12px;padding:10px;font-weight:800;background:#8b6caf;color:#fff}.cook-btn:disabled{background:#cfc7d8}.reward-toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:20;background:#4f4168;color:white;border-radius:16px;padding:12px 18px;box-shadow:0 8px 28px rgba(0,0,0,.2);max-width:90%;text-align:center}.quiz-cat{object-fit:contain}.hero-cat{object-fit:contain}
+@media(max-width:680px){.ingredient-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.recipe-grid{grid-template-columns:1fr}.nav{overflow-x:auto}.nav button{min-width:64px}.quiz-cat{width:116px;height:116px}.hero-cat{width:120px;height:120px}}

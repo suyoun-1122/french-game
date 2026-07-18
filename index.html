@@ -7,7 +7,7 @@
 <meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Yeonjae French</title>
-<link rel="stylesheet" href="./style.css?v=3.2">
+<link rel="stylesheet" href="./style.css?v=3.4">
 </head>
 <body>
 <div class="app">
@@ -17,7 +17,7 @@
     <div class="pill">⭐ <span id="starsTop">0</span></div>
   </header>
   <div class="card hero">
-    <img class="hero-cat" id="homeCat" src="./assets/cat/cat-default.svg" alt="고양이">
+    <img class="hero-cat" id="homeCat" src="./assets/characters/petit.svg" alt="학습 도우미 쁘띠냥">
     <div class="speech" id="homeSpeech">Bonjour, Yeonjae!<br>오늘의 프랑스어를 시작해 보자.</div>
     <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
     <div class="progress slim"><div id="xpBar"></div></div>
@@ -46,6 +46,10 @@
 <section class="screen" id="studyScreen">
   <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="brand smallbrand">학습</div><div class="pill" id="studyCount">1/8</div></header>
   <div class="lesson-tabs" id="lessonTabs"></div>
+  <div class="lesson-progress-card">
+    <div class="row"><span id="lessonProgressTitle">단원 진행도</span><b id="lessonProgressText">0%</b></div>
+    <div class="progress lesson-progress"><div id="lessonProgressBar"></div></div>
+  </div>
   <div class="card study-card">
     <div class="study-emoji" id="studyEmoji"></div>
     <div class="study-word" id="studyWord"></div>
@@ -68,7 +72,7 @@
 <section class="screen" id="quizScreen">
   <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">× 종료</button><div class="pill" id="quizCount">1/10</div><div class="pill">⭐ <span id="quizStars">0</span></div></header>
   <div class="card study-card">
-    <img id="quizCat" src="./assets/cat/cat-think.svg" alt="고양이" class="quiz-cat">
+    <img id="quizCat" src="./assets/characters/petit.svg" alt="학습 도우미 고양이" class="quiz-cat"><div class="cat-name" id="quizCatName">쁘띠냥 · Petit</div>
     <div class="small" id="quizLabel"></div>
     <div class="study-emoji" id="quizEmoji"></div>
     <div class="study-word quiz-word" id="quizWord"></div>
@@ -81,8 +85,22 @@
 
 <section class="screen" id="wordsScreen">
   <header class="topbar"><div><small class="eyebrow">VOCABULAIRE</small><div class="brand smallbrand">단어장</div></div><div class="pill"><span id="wordCountTop">0</span>개</div></header>
+  <label class="search-box" for="wordSearch">
+    <span aria-hidden="true">🔎</span>
+    <input id="wordSearch" type="search" placeholder="프랑스어 또는 한국어로 검색" autocomplete="off" oninput="searchWords(this.value)">
+    <button type="button" aria-label="검색어 지우기" onclick="clearWordSearch()">×</button>
+  </label>
   <div class="filter-row"><button class="filter active" onclick="filterWords('all',this)">전체</button><button class="filter" onclick="filterWords('CE1',this)">CE1</button><button class="filter" onclick="filterWords('CE2',this)">CE2</button><button class="filter" onclick="filterWords('due',this)">복습</button></div>
   <div class="word-list" id="wordList"></div>
+  <div class="empty-state hidden" id="wordEmpty">검색 결과가 없어요.</div>
+</section>
+
+<section class="screen" id="kitchenScreen">
+  <header class="topbar"><div><small class="eyebrow">CUISINE FRANÇAISE</small><div class="brand smallbrand">프랑스 음식 만들기</div></div><div class="pill">완성 <span id="madeCountTop">0</span></div></header>
+  <div class="card ingredient-card"><div class="row"><b>보유 재료</b><small>오늘의 학습을 마치면 재료를 받아요.</small></div><div class="ingredient-grid" id="ingredientGrid"></div></div>
+  <div class="section-title"><div><small>RECETTES</small><h2>프랑스 음식 컬렉션</h2></div></div>
+  <div class="recipe-filters"><button class="filter active" onclick="filterRecipes('all',this)">전체</button><button class="filter" onclick="filterRecipes('쉬움',this)">쉬움</button><button class="filter" onclick="filterRecipes('보통',this)">보통</button><button class="filter" onclick="filterRecipes('어려움',this)">어려움</button></div>
+  <div class="recipe-grid" id="recipeGrid"></div>
 </section>
 
 <section class="screen" id="progressScreen">
@@ -94,7 +112,7 @@
       <div class="stat"><span>푼 문제</span><b id="totalAttempts">0</b></div>
       <div class="stat"><span>정답률</span><b id="totalAccuracy">0%</b></div>
       <div class="stat"><span>연속 정답 최고</span><b id="bestCombo">0</b></div>
-      <div class="stat"><span>완료한 하루</span><b id="dessertCount">0</b></div>
+      <div class="stat"><span>완성한 프랑스 음식</span><b id="dessertCount">0</b></div>
     </div>
   </div>
   <div class="card"><b>영역별 성취도</b><div class="stats-grid" id="skillStats"></div></div>
@@ -105,9 +123,10 @@
   <button class="active" onclick="showScreen('homeScreen',this)"><span>🏠</span>홈</button>
   <button onclick="showScreen('studyScreen',this)"><span>📖</span>학습</button>
   <button onclick="showScreen('wordsScreen',this)"><span>📚</span>단어장</button>
+  <button onclick="showScreen('kitchenScreen',this)"><span>🍳</span>요리</button>
   <button onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
 </nav>
 </div>
-<script type="module" src="./app.js?v=3.2"></script>
+<script type="module" src="./app.js?v=3.4"></script>
 </body>
 </html>

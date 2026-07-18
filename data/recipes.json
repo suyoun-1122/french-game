@@ -1,0 +1,31 @@
+{
+  "ingredients": {
+    "flour":{"name":"밀가루","fr":"la farine","emoji":"🌾"},
+    "butter":{"name":"버터","fr":"le beurre","emoji":"🧈"},
+    "egg":{"name":"달걀","fr":"un œuf","emoji":"🥚"},
+    "milk":{"name":"우유","fr":"le lait","emoji":"🥛"},
+    "sugar":{"name":"설탕","fr":"le sucre","emoji":"🍬"},
+    "cheese":{"name":"치즈","fr":"le fromage","emoji":"🧀"},
+    "vegetable":{"name":"채소","fr":"les légumes","emoji":"🥕"},
+    "meat":{"name":"고기","fr":"la viande","emoji":"🥩"},
+    "fish":{"name":"생선","fr":"le poisson","emoji":"🐟"},
+    "fruit":{"name":"과일","fr":"les fruits","emoji":"🍎"}
+  },
+  "recipes":[
+    {"id":"croissant","name":"크루아상","fr":"un croissant","gender":"nom masculin","emoji":"🥐","difficulty":"쉬움","cost":{"flour":2,"butter":2,"milk":1}},
+    {"id":"baguette","name":"바게트","fr":"une baguette","gender":"nom féminin","emoji":"🥖","difficulty":"쉬움","cost":{"flour":3,"milk":1}},
+    {"id":"crepe","name":"크레프","fr":"une crêpe","gender":"nom féminin","emoji":"🥞","difficulty":"쉬움","cost":{"flour":1,"egg":1,"milk":1}},
+    {"id":"madeleine","name":"마들렌","fr":"une madeleine","gender":"nom féminin","emoji":"🧁","difficulty":"쉬움","cost":{"flour":1,"butter":1,"egg":1,"sugar":1}},
+    {"id":"macaron","name":"마카롱","fr":"un macaron","gender":"nom masculin","emoji":"🍪","difficulty":"쉬움","cost":{"egg":2,"sugar":2}},
+    {"id":"quiche","name":"키슈 로렌","fr":"une quiche lorraine","gender":"nom féminin","emoji":"🥧","difficulty":"보통","cost":{"flour":2,"egg":2,"milk":1,"cheese":2}},
+    {"id":"croquemonsieur","name":"크로크무슈","fr":"un croque-monsieur","gender":"nom masculin","emoji":"🥪","difficulty":"보통","cost":{"flour":2,"butter":1,"cheese":2,"meat":1}},
+    {"id":"ratatouille","name":"라따뚜이","fr":"une ratatouille","gender":"nom féminin","emoji":"🍲","difficulty":"보통","cost":{"vegetable":5}},
+    {"id":"gratin","name":"그라탱 도피누아","fr":"un gratin dauphinois","gender":"nom masculin","emoji":"🥔","difficulty":"보통","cost":{"milk":2,"cheese":2,"vegetable":3}},
+    {"id":"soupe","name":"프랑스식 양파수프","fr":"une soupe à l’oignon","gender":"nom féminin","emoji":"🧅","difficulty":"보통","cost":{"vegetable":3,"butter":1,"cheese":1}},
+    {"id":"boeuf","name":"뵈프 부르기뇽","fr":"un bœuf bourguignon","gender":"nom masculin","emoji":"🍛","difficulty":"어려움","cost":{"meat":5,"vegetable":3,"butter":1}},
+    {"id":"coq","name":"코코뱅","fr":"un coq au vin","gender":"nom masculin","emoji":"🍗","difficulty":"어려움","cost":{"meat":4,"vegetable":3,"butter":1}},
+    {"id":"cassoulet","name":"카술레","fr":"un cassoulet","gender":"nom masculin","emoji":"🫘","difficulty":"어려움","cost":{"meat":3,"vegetable":5}},
+    {"id":"bouillabaisse","name":"부야베스","fr":"une bouillabaisse","gender":"nom féminin","emoji":"🐟","difficulty":"어려움","cost":{"fish":5,"vegetable":4}},
+    {"id":"tarte","name":"타르트 타탱","fr":"une tarte Tatin","gender":"nom féminin","emoji":"🍎","difficulty":"어려움","cost":{"flour":2,"butter":2,"sugar":2,"fruit":4}}
+  ]
+}
