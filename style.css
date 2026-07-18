@@ -233,3 +233,6 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
   .feedback{min-height:22px;margin-top:5px}.quiz-card .example{margin-top:6px;padding:7px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* V4.0.1 difficulty patch: answer-revealing quiz emoji removed */
+#quizEmoji.hidden{display:none!important;}

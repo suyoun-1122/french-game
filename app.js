@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.0.0-b7",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.0.1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.0-b7").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.0-b7").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.0-b7").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.1").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.1").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.1").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -49,12 +49,49 @@ const uniqueOptions=(items,correct)=>{
   selected.push({label:cleanCorrect,ok:true});
   return shuffled(selected);
 };
+const MEANING_GROUPS={
+  "책":["공책","이야기","질문","대답"],"공책":["책","필통","연필","칠판"],"필통":["공책","연필","지우개","가방"],
+  "어머니":["아버지","할머니","여자 형제","아내"],"아버지":["어머니","할아버지","남자 형제","남편"],"할머니":["어머니","할아버지","여자 형제","이모"],"할아버지":["아버지","할머니","남자 형제","삼촌"],
+  "집":["방","부엌","정원","건물"],"방":["집","부엌","정원","교실"],"창문":["문","벽","지붕","정원"],"문":["창문","벽","지붕","대문"],
+  "숲":["강","정원","공원","들판"],"강":["숲","바다","호수","다리"],"새":["나비","다람쥐","여우","고양이"],"다람쥐":["새","나비","토끼","여우"],"나비":["새","다람쥐","벌","꽃"],
+  "아침":["정오","저녁","밤","주"],"정오":["아침","저녁","밤","시각, 시간"],"저녁":["아침","정오","밤","주"],"주":["하루","달","시간","주말"],
+  "이야기":["등장인물","질문","대답","책"],"질문":["대답","이야기","문장","문제"],"대답":["질문","이야기","정답","설명"],
+  "빵":["케이크","치즈","수프","사과"],"우유":["물","수프","주스","치즈"],"사과":["당근","빵","케이크","과일"],"치즈":["빵","우유","케이크","버터"],"수프":["물","우유","빵","케이크"],"케이크":["빵","치즈","수프","사과"],
+  "머리":["손","발","눈","얼굴"],"손":["발","머리","눈","팔"],"발":["손","머리","눈","다리"],"눈":["머리","손","발","귀"],
+  "외투":["신발","원피스","바지","모자"],"신발":["외투","원피스","바지","양말"],"원피스":["외투","신발","바지","치마"],"바지":["외투","원피스","신발","치마"],
+  "거리":["광장, 자리","가게","도서관","교차로"],"광장, 자리":["거리","공원","교차로","다리"],"가게":["도서관","박물관","거리","시장"],"도서관":["박물관","가게","학교","서점"],"박물관":["도서관","가게","학교","극장"],"다리":["거리","교차로","광장, 자리","터널"],
+  "해, 햇빛":["비","구름","바람","눈"],"비":["구름","바람","해, 햇빛","눈"],"구름":["비","바람","해, 햇빛","안개"],"바람":["비","구름","해, 햇빛","폭풍"],
+  "기쁨":["두려움","슬픔","놀람","행복"],"두려움":["기쁨","슬픔","놀람","걱정"],
+  "재미있는":["신나는","웃긴","지루한","흥미로운"],"용감한":["겁이 많은","친절한","강한","조심스러운"],"친절한":["다정한","예의 바른","무례한","용감한"],
+  "큰":["작은","긴","넓은","높은"],"빠른":["느린","민첩한","급한","조용한"],"야생의":["집에서 기르는","위험한","자연의","길들여진"],
+  "다음의":["이전의","이번의","마지막의","첫 번째의"],"뜨거운":["차가운","따뜻한","미지근한","달콤한"],"단":["쓴","짠","신","맛있는"],"맛있는":["맛없는","달콤한","뜨거운","신선한"],
+  "긴":["짧은","큰","넓은","높은"],"짧은":["긴","작은","낮은","좁은"],"깨끗한":["더러운","새로운","밝은","정돈된"],
+  "가까운":["먼","옆의","맞은편의","근처의"],"먼":["가까운","옆의","맞은편의","외딴"],"활기찬":["한산한","조용한","붐비는","즐거운"],
+  "행복한":["슬픈","기쁜","신나는","걱정스러운"],"슬픈":["행복한","외로운","화난","피곤한"],"흐린":["맑은","비 오는","바람 부는","어두운"],"시끄러운":["조용한","활기찬","붐비는","평화로운"]
+};
 const semanticPool=q=>{
-  const category=WORDS.filter(w=>w.id!==q.id&&w.category===q.category);
-  const lesson=WORDS.filter(w=>w.id!==q.id&&w.lesson===q.lesson);
-  const type=WORDS.filter(w=>w.id!==q.id&&w.type===q.type);
-  return [...shuffled(category),...shuffled(lesson),...shuffled(type),...shuffled(WORDS.filter(w=>w.id!==q.id))]
-    .filter((w,i,a)=>a.findIndex(x=>x.id===w.id)===i);
+  const score=w=>{
+    let n=0;
+    if(w.type===q.type)n+=8;
+    if(w.category===q.category)n+=7;
+    if(w.lesson===q.lesson)n+=4;
+    if(Math.abs(String(w.meaning||"").length-String(q.meaning||"").length)<=2)n+=1;
+    return n;
+  };
+  return WORDS.filter(w=>w.id!==q.id).sort((a,b)=>score(b)-score(a)||Math.random()-.5);
+};
+const sentenceMutations=text=>{
+  const pairs=[
+    ["토요일","일요일"],["일요일","토요일"],["목요일","금요일"],["아침","저녁"],["저녁","아침"],["정오","저녁"],
+    ["광장","공원"],["공원","광장"],["학교","도서관"],["도서관","박물관"],["박물관","도서관"],["거리","교차로"],["집","학교"],["정원","공원"],
+    ["활기차요","한산해요"],["행복해요","슬퍼요"],["슬퍼요","행복해요"],["시끄러워요","조용해요"],["빨라요","느려요"],["커요","작아요"],["길어요","짧아요"],["깨끗해요","더러워요"],["가까이에","멀리"],["멀어요","가까워요"],
+    ["읽어요","써요"],["써요","읽어요"],["먹어요","마셔요"],["마셔요","먹어요"],["열어요","닫아요"],["닫아","열어"],["시작해요","끝나요"],["끝내요","시작해요"],["오른쪽","왼쪽"],["왼쪽","오른쪽"],
+    ["나는","그는"],["그는","그녀는"],["그녀는","그는"],["우리는","그들은"],["그들은","우리는"],["아이들이","어른들이"]
+  ];
+  const out=[];
+  for(const [a,b] of pairs){if(text.includes(a))out.push(text.replace(a,b));}
+  if(text.endsWith("요."))out.push(text.replace(/요\.$/,"지 않아요."));
+  return [...new Set(out)].filter(x=>x!==text);
 };
 function normalizedSkill(q,skill){
   if(skill==="article"&&q.type!=="noun") return "form";
@@ -64,7 +101,9 @@ function makeQuestion(q,requestedSkill){
   const skill=normalizedSkill(q,requestedSkill),nearby=semanticPool(q);
   if(skill==="meaning"||skill==="listening"){
     const correct=q.meaning;
-    return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"🔊 소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(nearby.slice(0,12).map(w=>w.meaning),correct),answer:correct};
+    const curated=MEANING_GROUPS[correct]||[];
+    const candidates=[...curated,...nearby.filter(w=>w.type===q.type).map(w=>w.meaning),...nearby.map(w=>w.meaning)];
+    return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(candidates,correct),answer:correct};
   }
   if(skill==="article"){
     const correct=wordLabel(q);
@@ -102,7 +141,7 @@ function makeQuestion(q,requestedSkill){
   }
   const sameContext=nearby.filter(w=>w.exampleKr&&w.category===q.category);
   const lessonContext=nearby.filter(w=>w.exampleKr&&w.lesson===q.lesson);
-  const distractors=[...sameContext,...lessonContext,...nearby].map(w=>w.exampleKr).filter(Boolean);
+  const distractors=[...sentenceMutations(q.exampleKr),...sameContext.map(w=>w.exampleKr),...lessonContext.map(w=>w.exampleKr),...nearby.map(w=>w.exampleKr)].filter(Boolean);
   return {skill,label:"문장의 뜻을 정확하게 고르세요",display:q.example,options:uniqueOptions(distractors,q.exampleKr),answer:q.exampleKr};
 }
 
@@ -248,7 +287,7 @@ function renderQuiz(){
   $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;
-  $("quizEmoji").textContent=q.emoji||"🐾";$("quizWord").textContent=question.display;$("quizLabel").textContent=question.label;
+  const emojiEl=$("quizEmoji");emojiEl.textContent="";emojiEl.classList.add("hidden");$("quizWord").textContent=question.display;$("quizLabel").textContent=question.label;
   const audio=$("quizAudio");audio.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
   const box=$("quizOptions");box.innerHTML="";
   question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
