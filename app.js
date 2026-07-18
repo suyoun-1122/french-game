@@ -17,7 +17,7 @@ function loadProgress(){
 }
 function saveProgress(){localStorage.setItem("yeonjaeFrenchV3",JSON.stringify(progress))}
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.0.2").then(r=>r.json()),fetch("./data/lessons.json?v=4.0.2").then(r=>r.json()),fetch("./data/recipes.json?v=4.0.2").then(r=>r.json())]);
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.2.0").then(r=>r.json()),fetch("./data/lessons.json?v=4.2.0").then(r=>r.json()),fetch("./data/recipes.json?v=4.2.0").then(r=>r.json())]);
   WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;renderAll();
 }
 function showScreen(id,navButton){
@@ -98,13 +98,24 @@ function normalizedSkill(q,skill){
   if(skill==="article"&&q.type!=="noun") return "form";
   return skill;
 }
+function curatedOptions(q,field,fallback){
+  const explicit=Array.isArray(q?.[field])?q[field].filter(Boolean):[];
+  const combined=[...explicit,...fallback];
+  return combined.filter((value,index,array)=>value&&array.indexOf(value)===index);
+}
+function isWeakDistractor(value,correct){
+  const a=String(value||"").trim(),b=String(correct||"").trim();
+  return !a||a===b||a.length<1;
+}
 function makeQuestion(q,requestedSkill){
   const skill=normalizedSkill(q,requestedSkill);
   const mastery=getMastery(q.id,skill),level=mastery.level;
   const nearby=difficultyPool(q,level);
   if(skill==="meaning"||skill==="listening"){
     const correct=q.meaning;
-    return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"🔊 소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(nearby.slice(0,12).map(w=>w.meaning),correct),answer:correct,difficulty:level};
+    const fallback=nearby.slice(0,18).map(w=>w.meaning).filter(value=>!isWeakDistractor(value,correct));
+    const distractors=curatedOptions(q,"meaningDistractors",fallback);
+    return {skill,label:skill==="listening"?"프랑스어 발음을 듣고 가장 알맞은 뜻을 고르세요":"가장 알맞은 뜻을 고르세요",display:skill==="listening"?"소리를 듣고 고르세요":wordLabel(q),options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
   }
   if(skill==="article"){
     const wrongArticle=q.article==="un"?"une":"un";
@@ -151,7 +162,8 @@ function makeQuestion(q,requestedSkill){
   }
   const sameContext=nearby.filter(w=>w.exampleKr&&w.category===q.category);
   const lessonContext=nearby.filter(w=>w.exampleKr&&w.lesson===q.lesson);
-  const distractors=[...sameContext,...lessonContext,...nearby].map(w=>w.exampleKr).filter(Boolean);
+  const fallback=[...sameContext,...lessonContext,...nearby].map(w=>w.exampleKr).filter(value=>!isWeakDistractor(value,q.exampleKr));
+  const distractors=curatedOptions(q,"exampleDistractors",fallback);
   return {skill,label:"문장의 뜻을 정확하게 고르세요",display:q.example,options:uniqueOptions(distractors,q.exampleKr),answer:q.exampleKr,difficulty:level};
 }
 
@@ -273,7 +285,7 @@ function renderStudy(){
   $("studyCount").textContent=`${currentWordIndex+1}/${list.length}`;$("studyEmoji").textContent=w.emoji||"🐾";$("studyWord").textContent=wordLabel(w);$("studyMeaning").textContent=w.meaning;$("studyType").textContent=genderLabel(w);
   $("studyFormLabel").textContent=w.type==="noun"?"복수형":w.type==="verb"?"현재형 활용":"여성형 / 복수형";
   $("studyForm").textContent=w.type==="noun"?pluralLabel(w):w.type==="verb"?"아래 활용표":`${w.feminine||w.word} / ${w.plural||"—"}`;
-  $("studyExampleFr").textContent=w.example;$("studyExampleKr").textContent=w.exampleKr;$("conjugationBox").innerHTML="";
+  $("studyExampleFr").textContent=w.example;$("studyExampleKr").textContent=w.note?`${w.exampleKr} · 💡 ${w.note}`:w.exampleKr;$("conjugationBox").innerHTML="";
   if(w.type==="verb"&&w.conjugation){$("conjugationBox").classList.remove("hidden");Object.entries(w.conjugation).forEach(([p,v])=>{const d=document.createElement("div");d.innerHTML=`<small>${({je:"je",tu:"tu",ilElle:"il/elle",nous:"nous",vous:"vous",ilsElles:"ils/elles"}[p]||p)}</small><b>${v}</b>`;$("conjugationBox").appendChild(d)})}else $("conjugationBox").classList.add("hidden")
 }
 window.studyPrev=()=>{currentWordIndex=Math.max(0,currentWordIndex-1);renderStudy()};
@@ -416,7 +428,7 @@ function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();ren
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.1.6");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.2.0");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

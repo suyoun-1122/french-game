@@ -12,7 +12,14 @@
     "meaning": "책",
     "emoji": "📘",
     "example": "Je lis un livre.",
-    "exampleKr": "나는 책을 읽어요."
+    "exampleKr": "나는 책을 읽어요.",
+    "meaningDistractors": [
+      "공책",
+      "필통",
+      "연필",
+      "지우개",
+      "자"
+    ]
   },
   {
     "id": 2,
@@ -27,7 +34,14 @@
     "meaning": "공책",
     "emoji": "📓",
     "example": "J'écris dans mon cahier.",
-    "exampleKr": "나는 공책에 써요."
+    "exampleKr": "나는 공책에 써요.",
+    "meaningDistractors": [
+      "책",
+      "필통",
+      "연필",
+      "지우개",
+      "자"
+    ]
   },
   {
     "id": 3,
@@ -42,7 +56,14 @@
     "meaning": "필통",
     "emoji": "👝",
     "example": "Ma trousse est dans le cartable.",
-    "exampleKr": "내 필통은 가방 안에 있어요."
+    "exampleKr": "내 필통은 가방 안에 있어요.",
+    "meaningDistractors": [
+      "책",
+      "공책",
+      "연필",
+      "지우개",
+      "자"
+    ]
   },
   {
     "id": 4,
@@ -57,7 +78,14 @@
     "meaning": "연필",
     "emoji": "✏️",
     "example": "Le crayon est jaune.",
-    "exampleKr": "연필은 노란색이에요."
+    "exampleKr": "연필은 노란색이에요.",
+    "meaningDistractors": [
+      "책",
+      "공책",
+      "필통",
+      "지우개",
+      "자"
+    ]
   },
   {
     "id": 5,
@@ -72,7 +100,14 @@
     "meaning": "지우개",
     "emoji": "🧽",
     "example": "J'efface avec une gomme.",
-    "exampleKr": "나는 지우개로 지워요."
+    "exampleKr": "나는 지우개로 지워요.",
+    "meaningDistractors": [
+      "책",
+      "공책",
+      "필통",
+      "연필",
+      "자"
+    ]
   },
   {
     "id": 6,
@@ -87,7 +122,14 @@
     "meaning": "자",
     "emoji": "📏",
     "example": "La règle mesure trente centimètres.",
-    "exampleKr": "그 자는 30센티미터예요."
+    "exampleKr": "그 자는 30센티미터예요.",
+    "meaningDistractors": [
+      "책",
+      "공책",
+      "필통",
+      "연필",
+      "지우개"
+    ]
   },
   {
     "id": 7,
@@ -102,7 +144,14 @@
     "meaning": "칠판",
     "emoji": "🟩",
     "example": "La maîtresse écrit au tableau.",
-    "exampleKr": "선생님이 칠판에 써요."
+    "exampleKr": "선생님이 칠판에 써요.",
+    "meaningDistractors": [
+      "책",
+      "공책",
+      "필통",
+      "연필",
+      "지우개"
+    ]
   },
   {
     "id": 8,
@@ -122,7 +171,12 @@
       "nous": "nous écrivons",
       "vous": "vous écrivez",
       "ilsElles": "ils/elles écrivent"
-    }
+    },
+    "meaningDistractors": [
+      "읽다",
+      "그리다",
+      "말하다"
+    ]
   },
   {
     "id": 9,
@@ -137,7 +191,14 @@
     "meaning": "어머니",
     "emoji": "👩",
     "example": "Ma mère prépare le dîner.",
-    "exampleKr": "엄마가 저녁을 준비해요."
+    "exampleKr": "엄마가 저녁을 준비해요.",
+    "meaningDistractors": [
+      "아버지",
+      "형제(남자)",
+      "자매(여자)",
+      "할머니",
+      "할아버지"
+    ]
   },
   {
     "id": 10,
@@ -152,7 +213,14 @@
     "meaning": "아버지",
     "emoji": "👨",
     "example": "Mon père rentre à six heures.",
-    "exampleKr": "아빠는 여섯 시에 돌아와요."
+    "exampleKr": "아빠는 여섯 시에 돌아와요.",
+    "meaningDistractors": [
+      "어머니",
+      "형제(남자)",
+      "자매(여자)",
+      "할머니",
+      "할아버지"
+    ]
   },
   {
     "id": 11,
@@ -164,10 +232,17 @@
     "article": "un",
     "gender": "masculine",
     "plural": "frères",
-    "meaning": "남자 형제",
+    "meaning": "형제(남자)",
     "emoji": "👦",
     "example": "Mon frère joue au ballon.",
-    "exampleKr": "내 남자 형제는 공놀이를 해요."
+    "exampleKr": "내 남자 형제는 공놀이를 해요.",
+    "meaningDistractors": [
+      "어머니",
+      "아버지",
+      "자매(여자)",
+      "할머니",
+      "할아버지"
+    ]
   },
   {
     "id": 12,
@@ -179,10 +254,17 @@
     "article": "une",
     "gender": "feminine",
     "plural": "sœurs",
-    "meaning": "여자 형제",
+    "meaning": "자매(여자)",
     "emoji": "👧",
     "example": "Ma sœur aime dessiner.",
-    "exampleKr": "내 여자 형제는 그림 그리기를 좋아해요."
+    "exampleKr": "내 여자 형제는 그림 그리기를 좋아해요.",
+    "meaningDistractors": [
+      "어머니",
+      "아버지",
+      "형제(남자)",
+      "할머니",
+      "할아버지"
+    ]
   },
   {
     "id": 13,
@@ -197,7 +279,14 @@
     "meaning": "할머니",
     "emoji": "👵",
     "example": "Ma grand-mère raconte une histoire.",
-    "exampleKr": "할머니가 이야기를 들려줘요."
+    "exampleKr": "할머니가 이야기를 들려줘요.",
+    "meaningDistractors": [
+      "어머니",
+      "아버지",
+      "형제(남자)",
+      "자매(여자)",
+      "할아버지"
+    ]
   },
   {
     "id": 14,
@@ -212,7 +301,14 @@
     "meaning": "할아버지",
     "emoji": "👴",
     "example": "Mon grand-père lit le journal.",
-    "exampleKr": "할아버지는 신문을 읽어요."
+    "exampleKr": "할아버지는 신문을 읽어요.",
+    "meaningDistractors": [
+      "어머니",
+      "아버지",
+      "형제(남자)",
+      "자매(여자)",
+      "할머니"
+    ]
   },
   {
     "id": 15,
@@ -221,7 +317,7 @@
     "category": "famille",
     "type": "verb",
     "word": "aimer",
-    "meaning": "좋아하다",
+    "meaning": "좋아하다, 사랑하다",
     "emoji": "❤️",
     "example": "J'aime ma famille.",
     "exampleKr": "나는 우리 가족을 사랑해요.",
@@ -232,7 +328,12 @@
       "nous": "nous aimons",
       "vous": "vous aimez",
       "ilsElles": "ils/elles aiment"
-    }
+    },
+    "meaningDistractors": [
+      "싫어하다",
+      "찾다",
+      "기다리다"
+    ]
   },
   {
     "id": 16,
@@ -246,7 +347,12 @@
     "feminine": "gentille",
     "plural": "gentils / gentilles",
     "example": "Ma sœur est gentille.",
-    "exampleKr": "내 여자 형제는 친절해요."
+    "exampleKr": "내 여자 형제는 친절해요.",
+    "meaningDistractors": [
+      "엄격한",
+      "수줍은",
+      "무례한"
+    ]
   },
   {
     "id": 17,
@@ -261,7 +367,19 @@
     "meaning": "집",
     "emoji": "🏠",
     "example": "Notre maison a un jardin.",
-    "exampleKr": "우리 집에는 정원이 있어요."
+    "exampleKr": "우리 집에는 정원이 있어요.",
+    "meaningDistractors": [
+      "방",
+      "부엌",
+      "창문",
+      "문",
+      "정원"
+    ],
+    "exampleDistractors": [
+      "우리 집에는 차고가 있어요.",
+      "우리 학교에는 정원이 있어요.",
+      "우리 집에는 정원이 없어요."
+    ]
   },
   {
     "id": 18,
@@ -276,7 +394,14 @@
     "meaning": "방",
     "emoji": "🛏️",
     "example": "Je range ma chambre.",
-    "exampleKr": "나는 내 방을 정리해요."
+    "exampleKr": "나는 내 방을 정리해요.",
+    "meaningDistractors": [
+      "집",
+      "부엌",
+      "창문",
+      "문",
+      "정원"
+    ]
   },
   {
     "id": 19,
@@ -291,7 +416,14 @@
     "meaning": "부엌",
     "emoji": "🍳",
     "example": "Nous mangeons dans la cuisine.",
-    "exampleKr": "우리는 부엌에서 먹어요."
+    "exampleKr": "우리는 부엌에서 먹어요.",
+    "meaningDistractors": [
+      "집",
+      "방",
+      "창문",
+      "문",
+      "정원"
+    ]
   },
   {
     "id": 20,
@@ -306,7 +438,14 @@
     "meaning": "창문",
     "emoji": "🪟",
     "example": "J'ouvre la fenêtre.",
-    "exampleKr": "나는 창문을 열어요."
+    "exampleKr": "나는 창문을 열어요.",
+    "meaningDistractors": [
+      "집",
+      "방",
+      "부엌",
+      "문",
+      "정원"
+    ]
   },
   {
     "id": 21,
@@ -321,7 +460,14 @@
     "meaning": "문",
     "emoji": "🚪",
     "example": "Ferme la porte, s'il te plaît.",
-    "exampleKr": "문을 닫아 주세요."
+    "exampleKr": "문을 닫아 주세요.",
+    "meaningDistractors": [
+      "집",
+      "방",
+      "부엌",
+      "창문",
+      "정원"
+    ]
   },
   {
     "id": 22,
@@ -336,7 +482,14 @@
     "meaning": "정원",
     "emoji": "🌳",
     "example": "Le chat court dans le jardin.",
-    "exampleKr": "고양이가 정원에서 달려요."
+    "exampleKr": "고양이가 정원에서 달려요.",
+    "meaningDistractors": [
+      "집",
+      "방",
+      "부엌",
+      "창문",
+      "문"
+    ]
   },
   {
     "id": 23,
@@ -356,7 +509,12 @@
       "nous": "nous habitons",
       "vous": "vous habitez",
       "ilsElles": "ils/elles habitent"
-    }
+    },
+    "meaningDistractors": [
+      "방문하다",
+      "떠나다",
+      "일하다"
+    ]
   },
   {
     "id": 24,
@@ -370,7 +528,12 @@
     "feminine": "grande",
     "plural": "grands / grandes",
     "example": "La maison est grande.",
-    "exampleKr": "그 집은 커요."
+    "exampleKr": "그 집은 커요.",
+    "meaningDistractors": [
+      "작은",
+      "긴",
+      "넓은"
+    ]
   },
   {
     "id": 25,
@@ -385,7 +548,18 @@
     "meaning": "숲",
     "emoji": "🌲",
     "example": "Nous marchons dans la forêt.",
-    "exampleKr": "우리는 숲속을 걸어요."
+    "exampleKr": "우리는 숲속을 걸어요.",
+    "meaningDistractors": [
+      "강",
+      "새",
+      "다람쥐",
+      "나비"
+    ],
+    "exampleDistractors": [
+      "우리는 숲 근처를 걸어요.",
+      "우리는 공원 속을 걸어요.",
+      "우리는 숲속을 달려요."
+    ]
   },
   {
     "id": 26,
@@ -400,7 +574,13 @@
     "meaning": "강",
     "emoji": "🏞️",
     "example": "La rivière traverse le village.",
-    "exampleKr": "강이 마을을 가로질러요."
+    "exampleKr": "강이 마을을 가로질러요.",
+    "meaningDistractors": [
+      "숲",
+      "새",
+      "다람쥐",
+      "나비"
+    ]
   },
   {
     "id": 27,
@@ -415,7 +595,13 @@
     "meaning": "새",
     "emoji": "🐦",
     "example": "Un oiseau chante dans l'arbre.",
-    "exampleKr": "새 한 마리가 나무에서 노래해요."
+    "exampleKr": "새 한 마리가 나무에서 노래해요.",
+    "meaningDistractors": [
+      "숲",
+      "강",
+      "다람쥐",
+      "나비"
+    ]
   },
   {
     "id": 28,
@@ -430,7 +616,13 @@
     "meaning": "다람쥐",
     "emoji": "🐿️",
     "example": "L'écureuil cache une noisette.",
-    "exampleKr": "다람쥐가 헤이즐넛을 숨겨요."
+    "exampleKr": "다람쥐가 헤이즐넛을 숨겨요.",
+    "meaningDistractors": [
+      "숲",
+      "강",
+      "새",
+      "나비"
+    ]
   },
   {
     "id": 29,
@@ -445,7 +637,13 @@
     "meaning": "나비",
     "emoji": "🦋",
     "example": "Le papillon se pose sur une fleur.",
-    "exampleKr": "나비가 꽃 위에 앉아요."
+    "exampleKr": "나비가 꽃 위에 앉아요.",
+    "meaningDistractors": [
+      "숲",
+      "강",
+      "새",
+      "다람쥐"
+    ]
   },
   {
     "id": 30,
@@ -465,7 +663,12 @@
       "nous": "nous courons",
       "vous": "vous courez",
       "ilsElles": "ils/elles courent"
-    }
+    },
+    "meaningDistractors": [
+      "걷다",
+      "뛰어오르다",
+      "멈추다"
+    ]
   },
   {
     "id": 31,
@@ -479,7 +682,12 @@
     "feminine": "rapide",
     "plural": "rapides",
     "example": "L'écureuil est rapide.",
-    "exampleKr": "다람쥐는 빨라요."
+    "exampleKr": "다람쥐는 빨라요.",
+    "meaningDistractors": [
+      "느린",
+      "가벼운",
+      "조용한"
+    ]
   },
   {
     "id": 32,
@@ -493,7 +701,12 @@
     "feminine": "sauvage",
     "plural": "sauvages",
     "example": "Le renard est un animal sauvage.",
-    "exampleKr": "여우는 야생 동물이에요."
+    "exampleKr": "여우는 야생 동물이에요.",
+    "meaningDistractors": [
+      "길들여진",
+      "친절한",
+      "위험한"
+    ]
   },
   {
     "id": 33,
@@ -508,7 +721,18 @@
     "meaning": "아침",
     "emoji": "🌅",
     "example": "Le matin, je me lève à sept heures.",
-    "exampleKr": "아침에 나는 일곱 시에 일어나요."
+    "exampleKr": "아침에 나는 일곱 시에 일어나요.",
+    "meaningDistractors": [
+      "정오",
+      "저녁",
+      "주",
+      "시간, 시각"
+    ],
+    "exampleDistractors": [
+      "저녁에 나는 일곱 시에 일어나요.",
+      "아침에 나는 여덟 시에 일어나요.",
+      "아침에 나는 일곱 시에 잠들어요."
+    ]
   },
   {
     "id": 34,
@@ -523,7 +747,13 @@
     "meaning": "정오",
     "emoji": "☀️",
     "example": "À midi, nous déjeunons.",
-    "exampleKr": "정오에 우리는 점심을 먹어요."
+    "exampleKr": "정오에 우리는 점심을 먹어요.",
+    "meaningDistractors": [
+      "아침",
+      "저녁",
+      "주",
+      "시간, 시각"
+    ]
   },
   {
     "id": 35,
@@ -538,7 +768,13 @@
     "meaning": "저녁",
     "emoji": "🌆",
     "example": "Le soir, je lis avant de dormir.",
-    "exampleKr": "저녁에 나는 자기 전에 책을 읽어요."
+    "exampleKr": "저녁에 나는 자기 전에 책을 읽어요.",
+    "meaningDistractors": [
+      "아침",
+      "정오",
+      "주",
+      "시간, 시각"
+    ]
   },
   {
     "id": 36,
@@ -553,7 +789,13 @@
     "meaning": "주",
     "emoji": "🗓️",
     "example": "Une semaine compte sept jours.",
-    "exampleKr": "한 주는 7일이에요."
+    "exampleKr": "한 주는 7일이에요.",
+    "meaningDistractors": [
+      "아침",
+      "정오",
+      "저녁",
+      "시간, 시각"
+    ]
   },
   {
     "id": 37,
@@ -565,10 +807,17 @@
     "article": "une",
     "gender": "feminine",
     "plural": "heures",
-    "meaning": "시각, 시간",
+    "meaning": "시간, 시각",
     "emoji": "🕒",
     "example": "Il est trois heures.",
-    "exampleKr": "세 시예요."
+    "exampleKr": "세 시예요.",
+    "meaningDistractors": [
+      "아침",
+      "정오",
+      "저녁",
+      "주"
+    ],
+    "note": "heure는 시각과 시간 단위를 모두 나타낼 수 있어요."
   },
   {
     "id": 38,
@@ -588,7 +837,17 @@
       "nous": "nous commençons",
       "vous": "vous commencez",
       "ilsElles": "ils/elles commencent"
-    }
+    },
+    "meaningDistractors": [
+      "계속하다",
+      "끝내다",
+      "기다리다"
+    ],
+    "exampleDistractors": [
+      "수업은 아홉 시에 시작해요.",
+      "수업은 여덟 시에 끝나요.",
+      "회의는 여덟 시에 시작해요."
+    ]
   },
   {
     "id": 39,
@@ -608,7 +867,12 @@
       "nous": "nous finissons",
       "vous": "vous finissez",
       "ilsElles": "ils/elles finissent"
-    }
+    },
+    "meaningDistractors": [
+      "시작하다",
+      "계속하다",
+      "준비하다"
+    ]
   },
   {
     "id": 40,
@@ -622,7 +886,17 @@
     "feminine": "prochaine",
     "plural": "prochains / prochaines",
     "example": "La semaine prochaine, nous irons au musée.",
-    "exampleKr": "다음 주에 우리는 박물관에 갈 거예요."
+    "exampleKr": "다음 주에 우리는 박물관에 갈 거예요.",
+    "meaningDistractors": [
+      "지난",
+      "이번의",
+      "먼저의"
+    ],
+    "exampleDistractors": [
+      "지난주에 우리는 박물관에 갔어요.",
+      "다음 주에 우리는 도서관에 갈 거예요.",
+      "다음 주에 그들은 박물관에 갈 거예요."
+    ]
   },
   {
     "id": 41,
@@ -637,7 +911,17 @@
     "meaning": "이야기",
     "emoji": "📖",
     "example": "Cette histoire est amusante.",
-    "exampleKr": "이 이야기는 재미있어요."
+    "exampleKr": "이 이야기는 재미있어요.",
+    "meaningDistractors": [
+      "등장인물",
+      "질문",
+      "대답"
+    ],
+    "exampleDistractors": [
+      "이 이야기는 지루해요.",
+      "그 책은 재미있어요.",
+      "이 이야기는 아주 짧아요."
+    ]
   },
   {
     "id": 42,
@@ -652,7 +936,17 @@
     "meaning": "등장인물",
     "emoji": "🧑",
     "example": "Le personnage principal est courageux.",
-    "exampleKr": "주인공은 용감해요."
+    "exampleKr": "주인공은 용감해요.",
+    "meaningDistractors": [
+      "이야기",
+      "질문",
+      "대답"
+    ],
+    "exampleDistractors": [
+      "주인공은 겁이 많아요.",
+      "조연은 용감해요.",
+      "주인공은 친절해요."
+    ]
   },
   {
     "id": 43,
@@ -667,7 +961,12 @@
     "meaning": "질문",
     "emoji": "❓",
     "example": "Je réponds à la question.",
-    "exampleKr": "나는 질문에 답해요."
+    "exampleKr": "나는 질문에 답해요.",
+    "meaningDistractors": [
+      "이야기",
+      "등장인물",
+      "대답"
+    ]
   },
   {
     "id": 44,
@@ -682,7 +981,12 @@
     "meaning": "대답",
     "emoji": "💡",
     "example": "Elle connaît la bonne réponse.",
-    "exampleKr": "그녀는 정답을 알아요."
+    "exampleKr": "그녀는 정답을 알아요.",
+    "meaningDistractors": [
+      "이야기",
+      "등장인물",
+      "질문"
+    ]
   },
   {
     "id": 45,
@@ -702,7 +1006,17 @@
       "nous": "nous comprenons",
       "vous": "vous comprenez",
       "ilsElles": "ils/elles comprennent"
-    }
+    },
+    "meaningDistractors": [
+      "외우다",
+      "설명하다",
+      "질문하다"
+    ],
+    "exampleDistractors": [
+      "나는 질문을 이해해요.",
+      "나는 글을 읽어요.",
+      "그는 글을 이해해요."
+    ]
   },
   {
     "id": 46,
@@ -722,7 +1036,12 @@
       "nous": "nous répondons",
       "vous": "vous répondez",
       "ilsElles": "ils/elles répondent"
-    }
+    },
+    "meaningDistractors": [
+      "묻다",
+      "설명하다",
+      "반복하다"
+    ]
   },
   {
     "id": 47,
@@ -736,7 +1055,17 @@
     "feminine": "courageuse",
     "plural": "courageux / courageuses",
     "example": "La petite fille est courageuse.",
-    "exampleKr": "그 여자아이는 용감해요."
+    "exampleKr": "그 여자아이는 용감해요.",
+    "meaningDistractors": [
+      "겁이 많은",
+      "조심스러운",
+      "강한"
+    ],
+    "exampleDistractors": [
+      "그 여자아이는 겁이 많아요.",
+      "그 남자아이는 용감해요.",
+      "그 여자아이는 친절해요."
+    ]
   },
   {
     "id": 48,
@@ -745,12 +1074,23 @@
     "category": "lecture",
     "type": "adjective",
     "word": "amusant",
-    "meaning": "재미있는",
+    "meaning": "재미있는, 즐거운",
     "emoji": "😄",
     "feminine": "amusante",
     "plural": "amusants / amusantes",
     "example": "Le livre est amusant.",
-    "exampleKr": "그 책은 재미있어요."
+    "exampleKr": "그 책은 재미있어요.",
+    "meaningDistractors": [
+      "지루한",
+      "슬픈",
+      "시끄러운"
+    ],
+    "exampleDistractors": [
+      "그 책은 지루해요.",
+      "그 영화는 재미있어요.",
+      "그 책은 시끄러워요."
+    ],
+    "note": "amusant는 문맥에 따라 재미있는 또는 즐거운이라는 뜻이에요."
   },
   {
     "id": 49,
@@ -765,7 +1105,14 @@
     "meaning": "빵",
     "emoji": "🥖",
     "example": "Je mange du pain au petit déjeuner.",
-    "exampleKr": "나는 아침 식사로 빵을 먹어요."
+    "exampleKr": "나는 아침 식사로 빵을 먹어요.",
+    "meaningDistractors": [
+      "우유",
+      "사과",
+      "치즈",
+      "수프",
+      "케이크"
+    ]
   },
   {
     "id": 50,
@@ -780,7 +1127,14 @@
     "meaning": "우유",
     "emoji": "🥛",
     "example": "Elle boit un verre de lait.",
-    "exampleKr": "그녀는 우유 한 잔을 마셔요."
+    "exampleKr": "그녀는 우유 한 잔을 마셔요.",
+    "meaningDistractors": [
+      "빵",
+      "사과",
+      "치즈",
+      "수프",
+      "케이크"
+    ]
   },
   {
     "id": 51,
@@ -795,7 +1149,14 @@
     "meaning": "사과",
     "emoji": "🍎",
     "example": "La pomme est rouge et sucrée.",
-    "exampleKr": "사과는 빨갛고 달아요."
+    "exampleKr": "사과는 빨갛고 달아요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "치즈",
+      "수프",
+      "케이크"
+    ]
   },
   {
     "id": 52,
@@ -810,7 +1171,14 @@
     "meaning": "치즈",
     "emoji": "🧀",
     "example": "Nous partageons un morceau de fromage.",
-    "exampleKr": "우리는 치즈 한 조각을 나누어 먹어요."
+    "exampleKr": "우리는 치즈 한 조각을 나누어 먹어요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "사과",
+      "수프",
+      "케이크"
+    ]
   },
   {
     "id": 53,
@@ -825,7 +1193,14 @@
     "meaning": "수프",
     "emoji": "🥣",
     "example": "La soupe est encore chaude.",
-    "exampleKr": "수프는 아직 뜨거워요."
+    "exampleKr": "수프는 아직 뜨거워요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "사과",
+      "치즈",
+      "케이크"
+    ]
   },
   {
     "id": 54,
@@ -840,7 +1215,14 @@
     "meaning": "케이크",
     "emoji": "🍰",
     "example": "Le gâteau au chocolat est délicieux.",
-    "exampleKr": "초콜릿 케이크는 맛있어요."
+    "exampleKr": "초콜릿 케이크는 맛있어요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "사과",
+      "치즈",
+      "수프"
+    ]
   },
   {
     "id": 55,
@@ -855,7 +1237,14 @@
     "meaning": "당근",
     "emoji": "🥕",
     "example": "Le lapin mange une carotte.",
-    "exampleKr": "토끼가 당근을 먹어요."
+    "exampleKr": "토끼가 당근을 먹어요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "사과",
+      "치즈",
+      "수프"
+    ]
   },
   {
     "id": 56,
@@ -870,7 +1259,14 @@
     "meaning": "물",
     "emoji": "💧",
     "example": "Après le sport, je bois de l'eau.",
-    "exampleKr": "운동 후에 나는 물을 마셔요."
+    "exampleKr": "운동 후에 나는 물을 마셔요.",
+    "meaningDistractors": [
+      "빵",
+      "우유",
+      "사과",
+      "치즈",
+      "수프"
+    ]
   },
   {
     "id": 57,
@@ -890,7 +1286,12 @@
       "nous": "nous mangeons",
       "vous": "vous mangez",
       "ilsElles": "ils/elles mangent"
-    }
+    },
+    "meaningDistractors": [
+      "요리하다",
+      "마시다",
+      "나누다"
+    ]
   },
   {
     "id": 58,
@@ -910,7 +1311,12 @@
       "nous": "nous buvons",
       "vous": "vous buvez",
       "ilsElles": "ils/elles boivent"
-    }
+    },
+    "meaningDistractors": [
+      "먹다",
+      "붓다",
+      "씹다"
+    ]
   },
   {
     "id": 59,
@@ -924,7 +1330,12 @@
     "feminine": "chaude",
     "plural": "chauds / chaudes",
     "example": "La soupe est chaude.",
-    "exampleKr": "수프는 뜨거워요."
+    "exampleKr": "수프는 뜨거워요.",
+    "meaningDistractors": [
+      "차가운",
+      "미지근한",
+      "달콤한"
+    ]
   },
   {
     "id": 60,
@@ -938,7 +1349,12 @@
     "feminine": "sucrée",
     "plural": "sucrés / sucrées",
     "example": "Cette tarte est très sucrée.",
-    "exampleKr": "이 타르트는 아주 달아요."
+    "exampleKr": "이 타르트는 아주 달아요.",
+    "meaningDistractors": [
+      "짠",
+      "쓴",
+      "신"
+    ]
   },
   {
     "id": 61,
@@ -952,7 +1368,12 @@
     "feminine": "délicieuse",
     "plural": "délicieux / délicieuses",
     "example": "Les crêpes sont délicieuses.",
-    "exampleKr": "크레프는 맛있어요."
+    "exampleKr": "크레프는 맛있어요.",
+    "meaningDistractors": [
+      "평범한",
+      "매운",
+      "맛없는"
+    ]
   },
   {
     "id": 62,
@@ -967,7 +1388,12 @@
     "meaning": "머리",
     "emoji": "🙂",
     "example": "Il met un chapeau sur sa tête.",
-    "exampleKr": "그는 머리에 모자를 써요."
+    "exampleKr": "그는 머리에 모자를 써요.",
+    "meaningDistractors": [
+      "손",
+      "발",
+      "눈"
+    ]
   },
   {
     "id": 63,
@@ -982,7 +1408,12 @@
     "meaning": "손",
     "emoji": "✋",
     "example": "Lève la main pour répondre.",
-    "exampleKr": "대답하려면 손을 들어요."
+    "exampleKr": "대답하려면 손을 들어요.",
+    "meaningDistractors": [
+      "머리",
+      "발",
+      "눈"
+    ]
   },
   {
     "id": 64,
@@ -997,7 +1428,12 @@
     "meaning": "발",
     "emoji": "🦶",
     "example": "J'ai mal au pied droit.",
-    "exampleKr": "나는 오른발이 아파요."
+    "exampleKr": "나는 오른발이 아파요.",
+    "meaningDistractors": [
+      "머리",
+      "손",
+      "눈"
+    ]
   },
   {
     "id": 65,
@@ -1012,7 +1448,12 @@
     "meaning": "눈",
     "emoji": "👀",
     "example": "Elle a les yeux bleus.",
-    "exampleKr": "그녀는 파란 눈을 가졌어요."
+    "exampleKr": "그녀는 파란 눈을 가졌어요.",
+    "meaningDistractors": [
+      "머리",
+      "손",
+      "발"
+    ]
   },
   {
     "id": 66,
@@ -1027,7 +1468,12 @@
     "meaning": "외투",
     "emoji": "🧥",
     "example": "Je porte un manteau en hiver.",
-    "exampleKr": "나는 겨울에 외투를 입어요."
+    "exampleKr": "나는 겨울에 외투를 입어요.",
+    "meaningDistractors": [
+      "신발",
+      "원피스",
+      "바지"
+    ]
   },
   {
     "id": 67,
@@ -1042,7 +1488,12 @@
     "meaning": "신발",
     "emoji": "👟",
     "example": "Mes chaussures sont sous le lit.",
-    "exampleKr": "내 신발은 침대 아래에 있어요."
+    "exampleKr": "내 신발은 침대 아래에 있어요.",
+    "meaningDistractors": [
+      "외투",
+      "원피스",
+      "바지"
+    ]
   },
   {
     "id": 68,
@@ -1057,7 +1508,12 @@
     "meaning": "원피스",
     "emoji": "👗",
     "example": "Elle choisit une robe verte.",
-    "exampleKr": "그녀는 초록색 원피스를 골라요."
+    "exampleKr": "그녀는 초록색 원피스를 골라요.",
+    "meaningDistractors": [
+      "외투",
+      "신발",
+      "바지"
+    ]
   },
   {
     "id": 69,
@@ -1072,7 +1528,12 @@
     "meaning": "바지",
     "emoji": "👖",
     "example": "Ce pantalon est trop long.",
-    "exampleKr": "이 바지는 너무 길어요."
+    "exampleKr": "이 바지는 너무 길어요.",
+    "meaningDistractors": [
+      "외투",
+      "신발",
+      "원피스"
+    ]
   },
   {
     "id": 70,
@@ -1081,7 +1542,7 @@
     "category": "corps",
     "type": "verb",
     "word": "porter",
-    "meaning": "입다, 들다",
+    "meaning": "입다, 착용하다",
     "emoji": "🧥",
     "example": "Vous portez des vêtements chauds.",
     "exampleKr": "여러분은 따뜻한 옷을 입어요.",
@@ -1092,7 +1553,13 @@
       "nous": "nous portons",
       "vous": "vous portez",
       "ilsElles": "ils/elles portent"
-    }
+    },
+    "meaningDistractors": [
+      "벗다",
+      "고르다",
+      "씻다"
+    ],
+    "note": "porter는 옷을 입다와 물건을 들고 다니다라는 뜻이 있어요."
   },
   {
     "id": 71,
@@ -1112,7 +1579,12 @@
       "nous": "nous voyons",
       "vous": "vous voyez",
       "ilsElles": "ils/elles voient"
-    }
+    },
+    "meaningDistractors": [
+      "듣다",
+      "바라보다",
+      "찾다"
+    ]
   },
   {
     "id": 72,
@@ -1126,7 +1598,12 @@
     "feminine": "longue",
     "plural": "longs / longues",
     "example": "La robe rouge est longue.",
-    "exampleKr": "빨간 원피스는 길어요."
+    "exampleKr": "빨간 원피스는 길어요.",
+    "meaningDistractors": [
+      "짧은",
+      "넓은",
+      "높은"
+    ]
   },
   {
     "id": 73,
@@ -1140,7 +1617,12 @@
     "feminine": "courte",
     "plural": "courts / courtes",
     "example": "Ses cheveux sont courts.",
-    "exampleKr": "그 아이의 머리카락은 짧아요."
+    "exampleKr": "그 아이의 머리카락은 짧아요.",
+    "meaningDistractors": [
+      "긴",
+      "좁은",
+      "낮은"
+    ]
   },
   {
     "id": 74,
@@ -1154,7 +1636,12 @@
     "feminine": "propre",
     "plural": "propres",
     "example": "Tes mains sont propres.",
-    "exampleKr": "네 손은 깨끗해요."
+    "exampleKr": "네 손은 깨끗해요.",
+    "meaningDistractors": [
+      "더러운",
+      "젖은",
+      "마른"
+    ]
   },
   {
     "id": 75,
@@ -1169,7 +1656,19 @@
     "meaning": "거리",
     "emoji": "🛣️",
     "example": "La boulangerie est au bout de la rue.",
-    "exampleKr": "빵집은 거리 끝에 있어요."
+    "exampleKr": "빵집은 거리 끝에 있어요.",
+    "meaningDistractors": [
+      "광장, 자리",
+      "가게",
+      "도서관",
+      "박물관",
+      "다리"
+    ],
+    "exampleDistractors": [
+      "빵집은 거리 중간에 있어요.",
+      "도서관은 거리 끝에 있어요.",
+      "빵집은 광장 끝에 있어요."
+    ]
   },
   {
     "id": 76,
@@ -1184,7 +1683,20 @@
     "meaning": "광장, 자리",
     "emoji": "🏙️",
     "example": "Les enfants jouent sur la place.",
-    "exampleKr": "아이들이 광장에서 놀아요."
+    "exampleKr": "아이들이 광장에서 놀아요.",
+    "meaningDistractors": [
+      "거리",
+      "가게",
+      "도서관",
+      "박물관",
+      "다리"
+    ],
+    "exampleDistractors": [
+      "아이들이 공원에서 놀아요.",
+      "어른들이 광장에서 놀아요.",
+      "아이들이 광장에서 공부해요."
+    ],
+    "note": "place는 광장과 자리라는 뜻이 있어요."
   },
   {
     "id": 77,
@@ -1199,7 +1711,14 @@
     "meaning": "가게",
     "emoji": "🏪",
     "example": "Le magasin ferme à dix-neuf heures.",
-    "exampleKr": "가게는 19시에 문을 닫아요."
+    "exampleKr": "가게는 19시에 문을 닫아요.",
+    "meaningDistractors": [
+      "거리",
+      "광장, 자리",
+      "도서관",
+      "박물관",
+      "다리"
+    ]
   },
   {
     "id": 78,
@@ -1214,7 +1733,19 @@
     "meaning": "도서관",
     "emoji": "📚",
     "example": "J'emprunte un livre à la bibliothèque.",
-    "exampleKr": "나는 도서관에서 책을 빌려요."
+    "exampleKr": "나는 도서관에서 책을 빌려요.",
+    "meaningDistractors": [
+      "거리",
+      "광장, 자리",
+      "가게",
+      "박물관",
+      "다리"
+    ],
+    "exampleDistractors": [
+      "나는 도서관에서 책을 읽어요.",
+      "나는 서점에서 책을 빌려요.",
+      "그녀는 도서관에서 책을 빌려요."
+    ]
   },
   {
     "id": 79,
@@ -1229,7 +1760,19 @@
     "meaning": "박물관",
     "emoji": "🏛️",
     "example": "La classe visite le musée jeudi.",
-    "exampleKr": "학급은 목요일에 박물관을 방문해요."
+    "exampleKr": "학급은 목요일에 박물관을 방문해요.",
+    "meaningDistractors": [
+      "거리",
+      "광장, 자리",
+      "가게",
+      "도서관",
+      "다리"
+    ],
+    "exampleDistractors": [
+      "학급은 금요일에 박물관을 방문해요.",
+      "가족은 목요일에 박물관을 방문해요.",
+      "학급은 목요일에 도서관을 방문해요."
+    ]
   },
   {
     "id": 80,
@@ -1244,7 +1787,14 @@
     "meaning": "다리",
     "emoji": "🌉",
     "example": "Le bus traverse le pont.",
-    "exampleKr": "버스가 다리를 건너요."
+    "exampleKr": "버스가 다리를 건너요.",
+    "meaningDistractors": [
+      "거리",
+      "광장, 자리",
+      "가게",
+      "도서관",
+      "박물관"
+    ]
   },
   {
     "id": 81,
@@ -1259,7 +1809,14 @@
     "meaning": "교차로",
     "emoji": "🚦",
     "example": "Tournez à gauche au carrefour.",
-    "exampleKr": "교차로에서 왼쪽으로 도세요."
+    "exampleKr": "교차로에서 왼쪽으로 도세요.",
+    "meaningDistractors": [
+      "거리",
+      "광장, 자리",
+      "가게",
+      "도서관",
+      "박물관"
+    ]
   },
   {
     "id": 82,
@@ -1279,7 +1836,17 @@
       "nous": "nous traversons",
       "vous": "vous traversez",
       "ilsElles": "ils/elles traversent"
-    }
+    },
+    "meaningDistractors": [
+      "따라가다",
+      "돌아가다",
+      "멈추다"
+    ],
+    "exampleDistractors": [
+      "우리는 횡단보도 옆에서 길을 건너요.",
+      "우리는 횡단보도에서 다리를 건너요.",
+      "그들은 횡단보도에서 길을 건너요."
+    ]
   },
   {
     "id": 83,
@@ -1299,7 +1866,12 @@
       "nous": "nous tournons",
       "vous": "vous tournez",
       "ilsElles": "ils/elles tournent"
-    }
+    },
+    "meaningDistractors": [
+      "건너다",
+      "곧장 가다",
+      "되돌아가다"
+    ]
   },
   {
     "id": 84,
@@ -1319,7 +1891,12 @@
       "nous": "nous cherchons",
       "vous": "vous cherchez",
       "ilsElles": "ils/elles cherchent"
-    }
+    },
+    "meaningDistractors": [
+      "찾아내다",
+      "기다리다",
+      "잃어버리다"
+    ]
   },
   {
     "id": 85,
@@ -1328,12 +1905,23 @@
     "category": "ville",
     "type": "adjective",
     "word": "près",
-    "meaning": "가까운",
+    "meaning": "가까운 곳에",
     "emoji": "📍",
     "feminine": "près",
     "plural": "près",
     "example": "L'école est près de la mairie.",
-    "exampleKr": "학교는 시청 가까이에 있어요."
+    "exampleKr": "학교는 시청 가까이에 있어요.",
+    "meaningDistractors": [
+      "멀리 있는",
+      "옆에 있는",
+      "맞은편에 있는"
+    ],
+    "exampleDistractors": [
+      "학교는 시청에서 멀어요.",
+      "도서관은 시청 가까이에 있어요.",
+      "학교는 역 가까이에 있어요."
+    ],
+    "note": "près는 보통 de와 함께 près de(~ 가까이에)로 써요."
   },
   {
     "id": 86,
@@ -1342,12 +1930,18 @@
     "category": "ville",
     "type": "adjective",
     "word": "loin",
-    "meaning": "먼",
+    "meaning": "먼 곳에",
     "emoji": "🗺️",
     "feminine": "loin",
     "plural": "loin",
     "example": "La gare est loin d'ici.",
-    "exampleKr": "기차역은 여기서 멀어요."
+    "exampleKr": "기차역은 여기서 멀어요.",
+    "meaningDistractors": [
+      "가까이 있는",
+      "옆에 있는",
+      "안쪽에 있는"
+    ],
+    "note": "loin은 보통 de와 함께 loin de(~에서 멀리)로 써요."
   },
   {
     "id": 87,
@@ -1356,12 +1950,23 @@
     "category": "ville",
     "type": "adjective",
     "word": "animé",
-    "meaning": "활기찬",
+    "meaning": "활기찬, 붐비는",
     "emoji": "🎉",
     "feminine": "animée",
     "plural": "animés / animées",
     "example": "La place est animée le samedi.",
-    "exampleKr": "광장은 토요일에 활기차요."
+    "exampleKr": "광장은 토요일에 활기차요.",
+    "meaningDistractors": [
+      "조용한",
+      "한산한",
+      "어두운"
+    ],
+    "exampleDistractors": [
+      "광장은 토요일에 한산해요.",
+      "공원은 토요일에 활기차요.",
+      "광장은 일요일에 활기차요."
+    ],
+    "note": "animé는 장소가 활기차거나 붐빈다는 뜻으로 자주 써요."
   },
   {
     "id": 88,
@@ -1376,7 +1981,17 @@
     "meaning": "해, 햇빛",
     "emoji": "☀️",
     "example": "Le soleil brille derrière les nuages.",
-    "exampleKr": "구름 뒤에서 해가 빛나요."
+    "exampleKr": "구름 뒤에서 해가 빛나요.",
+    "meaningDistractors": [
+      "비",
+      "구름",
+      "바람"
+    ],
+    "exampleDistractors": [
+      "구름 앞에서 해가 빛나요.",
+      "구름 뒤에서 달이 빛나요.",
+      "구름 뒤에서 해가 사라져요."
+    ]
   },
   {
     "id": 89,
@@ -1391,7 +2006,17 @@
     "meaning": "비",
     "emoji": "🌧️",
     "example": "La pluie tombe depuis ce matin.",
-    "exampleKr": "오늘 아침부터 비가 내려요."
+    "exampleKr": "오늘 아침부터 비가 내려요.",
+    "meaningDistractors": [
+      "해, 햇빛",
+      "구름",
+      "바람"
+    ],
+    "exampleDistractors": [
+      "오늘 저녁부터 비가 내려요.",
+      "오늘 아침부터 눈이 내려요.",
+      "오늘 아침에 비가 그쳤어요."
+    ]
   },
   {
     "id": 90,
@@ -1406,7 +2031,12 @@
     "meaning": "구름",
     "emoji": "☁️",
     "example": "Un gros nuage cache le soleil.",
-    "exampleKr": "큰 구름 하나가 해를 가려요."
+    "exampleKr": "큰 구름 하나가 해를 가려요.",
+    "meaningDistractors": [
+      "해, 햇빛",
+      "비",
+      "바람"
+    ]
   },
   {
     "id": 91,
@@ -1421,7 +2051,12 @@
     "meaning": "바람",
     "emoji": "💨",
     "example": "Le vent fait bouger les branches.",
-    "exampleKr": "바람이 나뭇가지를 흔들어요."
+    "exampleKr": "바람이 나뭇가지를 흔들어요.",
+    "meaningDistractors": [
+      "해, 햇빛",
+      "비",
+      "구름"
+    ]
   },
   {
     "id": 92,
@@ -1436,7 +2071,14 @@
     "meaning": "기쁨",
     "emoji": "😊",
     "example": "Elle saute de joie.",
-    "exampleKr": "그녀는 기뻐서 뛰어요."
+    "exampleKr": "그녀는 기뻐서 뛰어요.",
+    "meaningDistractors": [
+      "두려움, 무서움",
+      "해, 햇빛",
+      "비",
+      "구름",
+      "바람"
+    ]
   },
   {
     "id": 93,
@@ -1448,10 +2090,17 @@
     "article": "une",
     "gender": "feminine",
     "plural": "peurs",
-    "meaning": "두려움",
+    "meaning": "두려움, 무서움",
     "emoji": "😨",
     "example": "Le petit garçon a peur du noir.",
-    "exampleKr": "그 남자아이는 어둠을 무서워해요."
+    "exampleKr": "그 남자아이는 어둠을 무서워해요.",
+    "meaningDistractors": [
+      "기쁨",
+      "해, 햇빛",
+      "비",
+      "구름",
+      "바람"
+    ]
   },
   {
     "id": 94,
@@ -1471,7 +2120,17 @@
       "nous": "—",
       "vous": "—",
       "ilsElles": "—"
-    }
+    },
+    "meaningDistractors": [
+      "눈이 오다",
+      "바람이 불다",
+      "맑다"
+    ],
+    "exampleDistractors": [
+      "눈이 와서 나는 우산을 가져가요.",
+      "비가 와서 나는 모자를 가져가요.",
+      "비가 그쳐서 나는 우산을 놓고 가요."
+    ]
   },
   {
     "id": 95,
@@ -1491,7 +2150,12 @@
       "nous": "nous sourions",
       "vous": "vous souriez",
       "ilsElles": "ils/elles sourient"
-    }
+    },
+    "meaningDistractors": [
+      "울다",
+      "웃다",
+      "찡그리다"
+    ]
   },
   {
     "id": 96,
@@ -1511,7 +2175,12 @@
       "nous": "nous espérons",
       "vous": "vous espérez",
       "ilsElles": "ils/elles espèrent"
-    }
+    },
+    "meaningDistractors": [
+      "걱정하다",
+      "약속하다",
+      "기억하다"
+    ]
   },
   {
     "id": 97,
@@ -1525,7 +2194,17 @@
     "feminine": "heureuse",
     "plural": "heureux / heureuses",
     "example": "Les filles sont heureuses de se retrouver.",
-    "exampleKr": "여자아이들은 다시 만나서 행복해요."
+    "exampleKr": "여자아이들은 다시 만나서 행복해요.",
+    "meaningDistractors": [
+      "슬픈",
+      "걱정스러운",
+      "화난"
+    ],
+    "exampleDistractors": [
+      "여자아이들은 헤어져서 슬퍼요.",
+      "남자아이들은 다시 만나서 행복해요.",
+      "여자아이들은 다시 만나서 놀라워요."
+    ]
   },
   {
     "id": 98,
@@ -1539,7 +2218,12 @@
     "feminine": "triste",
     "plural": "tristes",
     "example": "Il est triste parce que son ami part.",
-    "exampleKr": "친구가 떠나서 그는 슬퍼요."
+    "exampleKr": "친구가 떠나서 그는 슬퍼요.",
+    "meaningDistractors": [
+      "행복한",
+      "신나는",
+      "평온한"
+    ]
   },
   {
     "id": 99,
@@ -1548,12 +2232,22 @@
     "category": "meteo",
     "type": "adjective",
     "word": "nuageux",
-    "meaning": "흐린",
+    "meaning": "구름 낀, 흐린",
     "emoji": "🌥️",
     "feminine": "nuageuse",
     "plural": "nuageux / nuageuses",
     "example": "La journée sera nuageuse.",
-    "exampleKr": "오늘은 흐린 날이 될 거예요."
+    "exampleKr": "오늘은 흐린 날이 될 거예요.",
+    "meaningDistractors": [
+      "맑은",
+      "바람 부는",
+      "비 오는"
+    ],
+    "exampleDistractors": [
+      "오늘은 맑은 날이 될 거예요.",
+      "내일은 흐린 날이 될 거예요.",
+      "오늘은 비 오는 날이 될 거예요."
+    ]
   },
   {
     "id": 100,
@@ -1567,6 +2261,16 @@
     "feminine": "bruyante",
     "plural": "bruyants / bruyantes",
     "example": "La cour est bruyante pendant la récréation.",
-    "exampleKr": "쉬는 시간에 운동장은 시끄러워요."
+    "exampleKr": "쉬는 시간에 운동장은 시끄러워요.",
+    "meaningDistractors": [
+      "조용한",
+      "한산한",
+      "평온한"
+    ],
+    "exampleDistractors": [
+      "쉬는 시간에 운동장은 조용해요.",
+      "수업 시간에 운동장은 시끄러워요.",
+      "쉬는 시간에 교실은 시끄러워요."
+    ]
   }
 ]
