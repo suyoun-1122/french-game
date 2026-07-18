@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620" role="img" aria-label="쁘띠냥, 회색 고양이 단어와 문법 선생님"><defs><filter id="s" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#5d4771" flood-opacity=".18"/></filter><style>
+.char{transform-box:fill-box;transform-origin:center bottom;animation:float 3.2s ease-in-out infinite}.paw{transform-box:fill-box;transform-origin:55% 85%;animation:wave 2.8s ease-in-out infinite}.eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}.spark{animation:twinkle 2.2s ease-in-out infinite;transform-origin:center}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes wave{0%,68%,100%{transform:rotate(0)}76%{transform:rotate(-12deg)}84%{transform:rotate(8deg)}}@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.08)}}@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1.15)}}@media(prefers-reduced-motion:reduce){.char,.paw,.eye,.spark{animation:none}}
+</style></defs><g class="char" filter="url(#s)">
+<ellipse cx="250" cy="570" rx="150" ry="24" fill="#d9cbea" opacity=".45"/>
+<path d="M132 212L95 108l95 58c37-18 83-18 120 0l95-58-37 104c35 30 56 76 56 126 0 103-78 184-174 184S76 441 76 338c0-50 21-96 56-126z" fill="#aeb1b6" stroke="#5b5860" stroke-width="9" stroke-linejoin="round"/>
+<path d="M119 148l55 41-41 17zM381 148l-55 41 41 17z" fill="#f49a9a"/>
+<path d="M194 168l18 58M235 160l8 64M278 160l-8 64M319 168l-18 58" stroke="#777b82" stroke-width="13" stroke-linecap="round"/>
+<path d="M116 274l65 18M107 313l72 6M384 274l-65 18M393 313l-72 6" stroke="#777b82" stroke-width="12" stroke-linecap="round"/>
+<ellipse class="eye" cx="183" cy="300" rx="38" ry="48" fill="#fff" stroke="#343038" stroke-width="8"/><ellipse class="eye" cx="317" cy="300" rx="38" ry="48" fill="#fff" stroke="#343038" stroke-width="8"/>
+<ellipse cx="184" cy="307" rx="21" ry="28" fill="#50743b"/><ellipse cx="316" cy="307" rx="21" ry="28" fill="#50743b"/><circle cx="176" cy="296" r="7" fill="#fff"/><circle cx="308" cy="296" r="7" fill="#fff"/>
+<ellipse cx="250" cy="364" rx="72" ry="60" fill="#f5f0ec"/><path d="M237 351q13-15 26 0-13 16-26 0z" fill="#e96e74" stroke="#7b454c" stroke-width="5"/><path d="M250 366v14m0 0q-24 28-48 0m48 0q24 28 48 0" fill="none" stroke="#4d3842" stroke-width="6" stroke-linecap="round"/>
+<path d="M102 452q148-65 296 0v92q-148 55-296 0z" fill="#d92c39" stroke="#8d1d28" stroke-width="8"/><path d="M244 459h78v122l-39-18-39 18z" fill="#e43b46" stroke="#8d1d28" stroke-width="7"/>
+<g class="paw"><path d="M107 427q-65 20-57 92 9 61 69 46 48-12 49-77 0-51-61-61z" fill="#aeb1b6" stroke="#5b5860" stroke-width="9"/><ellipse cx="94" cy="499" rx="36" ry="43" fill="#f5f0ec"/><circle cx="80" cy="486" r="7" fill="#ef8589"/><circle cx="98" cy="478" r="7" fill="#ef8589"/><circle cx="114" cy="489" r="7" fill="#ef8589"/><ellipse cx="98" cy="510" rx="15" ry="13" fill="#ef8589"/></g>
+<path d="M145 100q105-66 218 0-18 54-112 58-87 4-106-58z" fill="#e32636" stroke="#9e1622" stroke-width="9"/><ellipse cx="253" cy="76" rx="98" ry="26" fill="#f13a48" stroke="#9e1622" stroke-width="8"/><path d="M250 48q5-35 35-37 20 2 13 19-23 12-29 31z" fill="#e32636" stroke="#9e1622" stroke-width="7"/>
+</g><g class="spark" fill="#e33c45"><path d="M74 90l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><circle cx="429" cy="194" r="7"/></g><g aria-label="기쁜 표정" class="expression expression-happy">
+<ellipse cx="183" cy="301" rx="45" ry="54" fill="#fff" opacity=".96"/><ellipse cx="317" cy="301" rx="45" ry="54" fill="#fff" opacity=".96"/>
+<path d="M151 306q32 35 64 0M285 306q32 35 64 0" fill="none" stroke="#403542" stroke-width="10" stroke-linecap="round"/>
+<ellipse cx="139" cy="355" rx="25" ry="13" fill="#f39ba5" opacity=".72"/><ellipse cx="361" cy="355" rx="25" ry="13" fill="#f39ba5" opacity=".72"/>
+<path d="M218 382q32 46 64 0q-32 72-64 0z" fill="#d94d60" stroke="#4d3842" stroke-width="6"/><path d="M234 417q16-13 32 0" fill="none" stroke="#ff9fad" stroke-width="8" stroke-linecap="round"/>
+<g class="spark" fill="#ffd45c"><path d="M84 180l7 16 16 7-16 7-7 16-7-16-16-7 16-7z"/><path d="M420 238l6 14 14 6-14 6-6 14-6-14-14-6 14-6z"/></g>
+</g></svg>

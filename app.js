@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.4.1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.4.2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -213,6 +213,18 @@ const CAT_GUIDES={
   example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-vector.svg",line:"문장 속 단서를 찾아 읽어보자냥!",theme:"lavande"}
 };
 function guideFor(skill){return CAT_GUIDES[skill]||CAT_GUIDES.meaning}
+const CHARACTER_STATES={
+  petit:{idle:"./assets/characters/petit-vector.svg",happy:"./assets/characters/petit-happy.svg",think:"./assets/characters/petit-think.svg"},
+  fromage:{idle:"./assets/characters/fromage-vector.svg",happy:"./assets/characters/fromage-happy.svg",think:"./assets/characters/fromage-think.svg"},
+  lavande:{idle:"./assets/characters/lavande-vector.svg",happy:"./assets/characters/lavande-happy.svg",think:"./assets/characters/lavande-think.svg"}
+};
+function setQuizCharacterState(state="idle"){
+  const cat=$("quizCat"),guide=guideFor(quiz.activeSkill||quiz.skill||"meaning");
+  if(!cat)return;
+  const theme=guide.theme||"petit";
+  cat.src=(CHARACTER_STATES[theme]||CHARACTER_STATES.petit)[state]||(CHARACTER_STATES[theme]||CHARACTER_STATES.petit).idle;
+  cat.dataset.state=state;
+}
 
 const SKILL_REWARD_POOLS={
   meaning:["flour","sugar","fruit"],
@@ -352,7 +364,7 @@ function renderQuiz(){
   $("quizCount").textContent=`${current}/${total}`;$("quizProgressBar").style.width=`${(current/total)*100}%`;
   $("quizStars").textContent=progress.stars;$("quizFeedback").textContent="";$("quizFeedback").className="feedback";const reaction=$("quizReaction");if(reaction){reaction.className="quiz-reaction hidden";reaction.textContent="✨"}$("quizCat").classList.remove("react-correct","react-wrong","motion-wave","motion-look","motion-hop");
   $("quizNext").classList.add("hidden");$("quizExample").classList.add("hidden");
-  const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
+  const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCat").dataset.state="idle";$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
   $("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
   const audioPanel=$("quizAudioPanel");audioPanel.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
   if($("audioHint")) $("audioHint").textContent=question.skill==="listening"?(question.audioKind==="sentence"?"문장을 끝까지 듣고 골라 보세요":"처음에는 보통 속도로 들어 보세요"):"문장 발음을 확인해 보세요";
@@ -366,6 +378,7 @@ function showCharacterReaction(ok,skill,combo=0){
   cat.classList.remove("react-correct","react-wrong");
   void cat.offsetWidth;
   cat.classList.add(ok?"react-correct":"react-wrong");
+  setQuizCharacterState(ok?"happy":"think");
   reaction.textContent=ok?(combo>=5?"🏆":"✨"):(skill==="listening"?"👂":"💡");
   reaction.className=`quiz-reaction ${ok?"is-correct":"is-wrong"}`;
   const success={meaning:"Très bien! 단어 뜻을 정확히 찾았어냥!",article:"Bravo! 관사와 명사의 성을 잘 구별했어냥!",form:"Parfait! 단어 형태 변화를 잘 찾았어냥!",listening:"Super! 소리를 아주 잘 들었어냥!",example:"Excellent! 문장 속 단서를 잘 읽었어냥!"};
@@ -474,7 +487,7 @@ window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요
 function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
 
 
-/* V4.4.1 character motion controller */
+/* V4.4.2 character motion controller */
 function restartCharacterMotion(el,kind="wave"){
   if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   el.classList.remove("motion-wave","motion-look","motion-hop");
@@ -504,7 +517,7 @@ window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.4.1");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.4.2");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

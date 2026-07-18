@@ -389,3 +389,8 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 /* V4.4.0 SVG character integration */
 .hero-cat,.quiz-cat,.guide-card img,.study-guide-panel img,.cook-party img{object-fit:contain!important;background:transparent!important;}
 .hero-cat{filter:none!important}.quiz-cat{padding:0!important;border:none!important;box-shadow:none!important}.guide-card img{filter:none!important}.character-trio{max-height:300px}.quiz-guide-panel{overflow:visible}.quiz-cat{overflow:visible}
+
+
+/* V4.4.2 — expressive SVG character states */
+.quiz-cat[data-state="happy"]{filter:drop-shadow(0 12px 15px rgba(87,153,104,.22));}
+.quiz-cat[data-state="think"]{filter:drop-shadow(0 12px 15px rgba(118,86,154,.22));}
