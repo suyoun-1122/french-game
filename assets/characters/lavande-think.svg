@@ -1,20 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620" role="img" aria-label="라벤더냥, 검정과 흰색 고양이 문장과 독해 선생님"><defs><filter id="s" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#5d4771" flood-opacity=".18"/></filter><style>
-.char{transform-box:fill-box;transform-origin:center bottom;animation:float 3.2s ease-in-out infinite}.paw{transform-box:fill-box;transform-origin:55% 85%;animation:wave 2.8s ease-in-out infinite}.eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}.spark{animation:twinkle 2.2s ease-in-out infinite;transform-origin:center}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes wave{0%,68%,100%{transform:rotate(0)}76%{transform:rotate(-12deg)}84%{transform:rotate(8deg)}}@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.08)}}@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1.15)}}@media(prefers-reduced-motion:reduce){.char,.paw,.eye,.spark{animation:none}}
-</style></defs><g class="char" filter="url(#s)"><ellipse cx="250" cy="570" rx="150" ry="24" fill="#d7c7ec" opacity=".45"/>
-<path d="M132 212L95 108l95 58c37-18 83-18 120 0l95-58-37 104c35 30 56 76 56 126 0 103-78 184-174 184S76 441 76 338c0-50 21-96 56-126z" fill="#f9f6ef" stroke="#414047" stroke-width="9" stroke-linejoin="round"/>
-<path d="M95 108l95 58-41 77-73-31zM405 108l-95 58 41 77 73-31z" fill="#28272c"/><path d="M119 148l55 41-41 17zM381 148l-55 41 41 17z" fill="#f49a9a"/>
-<path d="M80 264q70-25 112 20l-42 88-74-34zM420 264q-70-25-112 20l42 88 74-34z" fill="#2d2c31" opacity=".95"/>
-<ellipse class="eye" cx="183" cy="300" rx="38" ry="48" fill="#fff" stroke="#343038" stroke-width="8"/><ellipse class="eye" cx="317" cy="300" rx="38" ry="48" fill="#fff" stroke="#343038" stroke-width="8"/><ellipse cx="184" cy="307" rx="21" ry="28" fill="#7b55b7"/><ellipse cx="316" cy="307" rx="21" ry="28" fill="#7b55b7"/><circle cx="176" cy="296" r="7" fill="#fff"/><circle cx="308" cy="296" r="7" fill="#fff"/>
-<ellipse cx="250" cy="364" rx="72" ry="60" fill="#fff"/><path d="M237 351q13-15 26 0-13 16-26 0z" fill="#e96e74" stroke="#7b454c" stroke-width="5"/><path d="M250 366v14m0 0q-24 28-48 0m48 0q24 28 48 0" fill="none" stroke="#4d3842" stroke-width="6" stroke-linecap="round"/>
-<path d="M178 452h144l-15 125H193z" fill="#8c5bc3" stroke="#5d378a" stroke-width="8"/><path d="M194 451q56-35 112 0" fill="#a875dc" stroke="#5d378a" stroke-width="8"/>
-<g stroke="#4d8a50" stroke-width="6" stroke-linecap="round"><path d="M205 455l-20-83M225 453l-6-100M248 451l2-112M275 453l9-104M298 456l24-87"/></g>
-<g fill="#8f62cc"><circle cx="184" cy="372" r="9"/><circle cx="198" cy="390" r="8"/><circle cx="217" cy="353" r="9"/><circle cx="224" cy="381" r="8"/><circle cx="249" cy="340" r="9"/><circle cx="256" cy="372" r="8"/><circle cx="284" cy="350" r="9"/><circle cx="292" cy="383" r="8"/><circle cx="321" cy="370" r="9"/></g>
-<path d="M286 99q31-47 74-7 29 28-4 61-35 24-71-8zM284 100q-31-47-74-7-29 28 4 61 35 24 71-8z" fill="#9a66d1" stroke="#60378e" stroke-width="8"/><circle cx="285" cy="124" r="20" fill="#7c49b3" stroke="#60378e" stroke-width="7"/>
-</g><g class="spark" fill="#8d62c9"><path d="M73 95l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><circle cx="430" cy="205" r="7"/></g><g aria-label="생각하는 표정" class="expression expression-think">
-<ellipse cx="183" cy="301" rx="45" ry="54" fill="#fff" opacity=".96"/><ellipse cx="317" cy="301" rx="45" ry="54" fill="#fff" opacity=".96"/>
-<ellipse cx="183" cy="306" rx="20" ry="27" fill="#4f3c62"/><circle cx="176" cy="296" r="7" fill="#fff"/>
-<path d="M286 305q31 31 62 0" fill="none" stroke="#403542" stroke-width="10" stroke-linecap="round"/>
-<path d="M218 389q32-18 64 0" fill="none" stroke="#4d3842" stroke-width="7" stroke-linecap="round"/>
-<g transform="translate(370 80)"><circle cx="48" cy="48" r="42" fill="#fff" stroke="#d7c5ea" stroke-width="6"/><circle cx="19" cy="91" r="9" fill="#fff" stroke="#d7c5ea" stroke-width="5"/><text x="48" y="67" text-anchor="middle" font-size="54" font-family="Arial,sans-serif" font-weight="900" fill="#77569a">?</text></g>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="라벤더냥">
+<defs>
+  <linearGradient id="blackfur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3c3c4e"/><stop offset="1" stop-color="#222430"/></linearGradient>
+  <linearGradient id="whitefur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f3f4fb"/></linearGradient>
+  <linearGradient id="lavbow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c79bff"/><stop offset="1" stop-color="#8b6be3"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#51446b" flood-opacity=".18"/></filter>
+<style>
+        svg{overflow:visible} .idle-body{transform-box:fill-box;transform-origin:center bottom;animation:float 3.4s ease-in-out infinite} .sparkle{transform-box:fill-box;transform-origin:center;animation:twinkle 2.2s ease-in-out infinite} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}} @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.12)}} @media(prefers-reduced-motion:reduce){.idle-body,.sparkle{animation:none}}
+        </style></defs>
+<g class="idle-body" filter="url(#shadow)">
+  <g transform="translate(120 118)">
+    <path d="M-57 53c5 19 26 32 57 32s52-13 57-32c-3-15-13-27-29-34H-28c-16 7-26 19-29 34z" fill="#fcf9ff" opacity=".95"/>
+    <path d="M-49 42c-8 18-4 34 8 45-14 4-25 1-34-8-8-8-10-21-4-32 6-11 19-16 30-5z" fill="url(#blackfur)" stroke="#4e4b61" stroke-width="4"/>
+    <path d="M49 42c8 18 4 34-8 45 14 4 25 1 34-8 8-8 10-21 4-32-6-11-19-16-30-5z" fill="url(#blackfur)" stroke="#4e4b61" stroke-width="4"/>
+    <ellipse cx="0" cy="0" rx="60" ry="55" fill="url(#blackfur)" stroke="#4e4b61" stroke-width="4"/>
+    <path d="M-46-26c-16-13-23-30-19-48l30 20" fill="#313243" stroke="#4e4b61" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M46-26c16-13 23-30 19-48L35-54" fill="#313243" stroke="#4e4b61" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M-29-56-17-48-34-35" fill="#f7bdd4"/><path d="M29-56 17-48 34-35" fill="#f7bdd4"/>
+    <path d="M-30-4c0-18 12-32 30-32s30 14 30 32v20c0 20-13 38-30 38S-30 36-30 16z" fill="url(#whitefur)"/>
+    <path d="M-6-16c-5 8-10 12-17 14-4 1-7 5-7 10v17c0 17 12 30 30 30s30-15 30-33V4c0-6-3-11-7-14-10-6-19-7-29-6z" fill="url(#whitefur)" opacity=".98"/>
+    <ellipse cx="-18" cy="2" rx="6" ry="8" fill="#24242d"/><ellipse cx="18" cy="2" rx="6" ry="8" fill="#24242d"/><circle cx="-20" cy="0" r="2" fill="#fff"/><circle cx="16" cy="0" r="2" fill="#fff"/><path d="M8-14c6-5 13-7 20-4" fill="none" stroke="#4e4b61" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-8 16 0 21 8 16" fill="#ee9db2" stroke="#4e4b61" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M0 21v6" stroke="#4e4b61" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-8 35c7-3 18-3 25 0" fill="none" stroke="#4e4b61" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-39 0h-18M-39 14h-22M39 0h18M39 14h22" stroke="#4e4b61" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-29" cy="18" r="4" fill="#f6bfd1" opacity=".8"/><circle cx="29" cy="18" r="4" fill="#f6bfd1" opacity=".8"/>
+    <g transform="translate(34 -44)">
+      <path d="M-16 8c6-12 14-18 24-18 10 0 18 5 24 14-5 4-13 6-19 7-10 2-20 1-29-3z" fill="url(#lavbow)" stroke="#7759c8" stroke-width="4" stroke-linejoin="round"/>
+      <circle cx="12" cy="-10" r="9" fill="#a980f4" stroke="#7759c8" stroke-width="4"/>
+    </g>
+    <path d="M-30 54c-6 12-6 24 0 36h15c0-13 2-25 5-36z" fill="#fffdfd" stroke="#4e4b61" stroke-width="4"/>
+    <path d="M30 54c6 12 6 24 0 36H15c0-13-2-25-5-36z" fill="#fffdfd" stroke="#4e4b61" stroke-width="4"/>
+    <g transform="translate(12 87)">
+      <path d="M-20 0c5 8 9 22 8 40" stroke="#61a35d" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-3-5c5 8 10 23 8 41" stroke="#61a35d" stroke-width="4" stroke-linecap="round"/>
+      <path d="M15-4c4 8 8 21 6 39" stroke="#61a35d" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#9a79e8" stroke="#7b5bc8" stroke-width="2.5"><ellipse cx="-26" cy="-10" rx="5" ry="8"/><ellipse cx="-20" cy="-18" rx="5" ry="8"/><ellipse cx="-14" cy="-8" rx="5" ry="8"/><ellipse cx="-7" cy="-20" rx="5" ry="8"/><ellipse cx="0" cy="-12" rx="5" ry="8"/><ellipse cx="5" cy="-20" rx="5" ry="8"/><ellipse cx="12" cy="-9" rx="5" ry="8"/><ellipse cx="17" cy="-18" rx="5" ry="8"/></g>
+      <path d="M-38 8q15 9 25 29M21 3q-6 15-8 32" stroke="#4e4b61" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="-34" cy="9" r="5" fill="#fff" stroke="#4e4b61" stroke-width="3"/><circle cx="20" cy="3" r="5" fill="#fff" stroke="#4e4b61" stroke-width="3"/>
+    </g>
+    <g fill="#d8c4ff" opacity=".65"><circle cx="62" cy="-63" r="4"/><circle cx="73" cy="-52" r="3"/><circle cx="-60" cy="-68" r="3.4"/></g>
+  </g>
+</g>
+<g class="sparkle"><circle cx="202" cy="46" r="22" fill="#fff" stroke="#d9cbea" stroke-width="3"/><text x="202" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#755a96">?</text><circle cx="181" cy="72" r="5" fill="#fff" stroke="#d9cbea" stroke-width="2"/></g></svg>
