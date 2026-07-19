@@ -398,3 +398,10 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 
 /* V4.4.3 upgraded vector artwork */
 .quiz-cat,.study-guide-panel img,.guide-card img,.character-party,.hero-cat{image-rendering:auto;}
+
+
+/* V4.4.4 premium SVG expressions */
+.quiz-cat,.study-guide-panel img,.character-party{transition:filter .22s ease,transform .22s ease;filter:drop-shadow(0 8px 10px rgba(78,58,98,.14));}
+.quiz-cat.reaction-happy{filter:drop-shadow(0 10px 14px rgba(255,190,70,.28));}
+.quiz-cat.reaction-think{filter:drop-shadow(0 10px 14px rgba(126,93,166,.24));}
+.quiz-guide-panel{isolation:isolate}.quiz-guide-panel::after{content:"";position:absolute;inset:auto 18px 12px 18px;height:26px;border-radius:50%;background:radial-gradient(ellipse,rgba(116,84,148,.12),transparent 70%);z-index:-1;pointer-events:none}
