@@ -1,0 +1,6 @@
+Yeonjae French V4.4.5 — 말풍선 다이아몬드 제거
+
+- quiz-speech의 ::before / ::after 꼬리 요소를 최종 CSS에서 강제로 제거
+- 캐릭터와 말풍선 간격 재조정
+- index / app / service worker 버전 4.4.5 통일
+- 서비스워커 캐시 키를 yeonjae-french-v4-4-5로 변경
